@@ -1,0 +1,32 @@
+{%- comment -%}
+  Creator reels per language (05.11.2026): the reels speak one language, so a page
+  shows only the reels set to the page's language (request.locale, served by Shopify
+  itself: /nl-nl/ and /nl-be/ = nl, /fr-be/ = fr). One check for every reel spot:
+  homepage row (ugc-home-row), Bundle & Save carousel (pm-bs-ugc-grid), collection
+  grid tiles (main-collection-product-grid) and the product page row (ugc-video-count).
+
+  Accepts:
+  - lang: {String} the block's "language" setting: nl, fr, en or all (blank = nl,
+    the setting's default, so reels placed before 05.11.2026 count as Dutch)
+
+  Prints:
+  - 1       show the reel
+  - editor  not this page's language, but the theme editor is open: show it with a
+            tag (snippets/ugc-lang-tag) so it can still be edited
+  - 0       leave the reel out of the page
+
+  Usage:
+  {%- capture ugc_ok -%}{% render 'ugc-lang-match', lang: block.settings.language %}{%- endcapture -%}
+  {%- assign ugc_ok = ugc_ok | strip -%}
+{%- endcomment -%}
+{%- liquid
+  assign reel_lang = lang | default: 'nl' | downcase
+  assign page_lang = request.locale.iso_code | slice: 0, 2 | downcase
+  if reel_lang == 'all' or reel_lang == page_lang
+    echo '1'
+  elsif request.design_mode
+    echo 'editor'
+  else
+    echo '0'
+  endif
+-%}

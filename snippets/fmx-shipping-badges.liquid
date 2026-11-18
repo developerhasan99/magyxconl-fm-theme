@@ -1,0 +1,88 @@
+{%- comment -%}
+  fmx-shipping-badges (aaroma.co): badge row under the payment icons on the FM product pages (scent pages,
+  quantity-breaker pages, bundle pages) and the Bundle & Save box. Structure, CSS and tile layout = magicperfume.co
+  snippets/fmx-shipping-badges.liquid (= tryscent.co premium-redesign): three tiles with hairline dividers, a 28px
+  media slot over a 12/13px semibold line.
+  Content = aaroma's own claims:
+  - delivery: solid truck (assets/fmx-icon-truck.svg = magicperfume's), "Shipped within 48 hours, with tracking"
+    (aaroma's shipping line);
+  - carrier: PostNL logo (assets/fmx-postnl-logo.svg, Wikimedia Commons "PostNL logo fullcolor.svg", public domain),
+    "Delivered by PostNL" (Adrian 04.11.2026: replaces "Made in the EU" + EU flag);
+  - guarantee: magicperfume's seal recoloured to aaroma green (assets/fmx-guarantee-badge.png), "60-day money-back
+    guarantee".
+  Texts = locale keys (premium.pdp.badge_shipping, premium.pdp.badge_postnl, aaroma.common.guarantee_60).
+  Renders nothing for a product that ships nothing.
+
+  Accepts (optional):
+  - delivery_text: replaces the delivery tile's text
+  - guarantee_text: replaces the guarantee tile's text
+
+  Usage:
+  {% render 'fmx-shipping-badges', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign badge_delivery = 'premium.pdp.badge_shipping' | t
+  assign badge_carrier = 'premium.pdp.badge_postnl' | t
+  assign badge_guarantee = 'aaroma.common.guarantee_60' | t
+
+  if delivery_text != blank
+    assign badge_delivery = delivery_text
+  endif
+  if guarantee_text != blank
+    assign badge_guarantee = guarantee_text
+  endif
+
+  assign badge_ships = true
+  if product != blank and product.selected_or_first_available_variant.requires_shipping == false
+    assign badge_ships = false
+  endif
+-%}
+{%- if badge_ships -%}
+  <style>
+    .fmx-shipping-badges { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); margin: 24px 0; color: var(--pm-ink, #121212); }
+    .fmx-shipping-badges__item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 4px 6px; text-align: center; }
+    .fmx-shipping-badges__item + .fmx-shipping-badges__item { border-left: 1px solid var(--pm-line, #e7e7e7); }
+    .fmx-shipping-badges__media { display: flex; align-items: center; justify-content: center; width: 100%; height: 28px; }
+    .fmx-shipping-badges__icon { display: block; width: 28px; height: 28px; }
+    .fmx-shipping-badges__icon svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+    .fmx-shipping-badges__logo { display: block; width: auto; height: 28px; }
+    .fmx-shipping-badges__flag { display: block; width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+    .fmx-shipping-badges__text { font-size: 12px; line-height: 1.3; font-weight: 600; letter-spacing: 0; overflow-wrap: anywhere; }
+    @media (min-width: 750px) {
+      .fmx-shipping-badges__item { padding: 4px 10px; }
+      .fmx-shipping-badges__text { font-size: 13px; }
+    }
+  </style>
+  <div class="fmx-shipping-badges">
+    <div class="fmx-shipping-badges__item">
+      <span class="fmx-shipping-badges__media">
+        <span class="fmx-shipping-badges__icon" aria-hidden="true">{{ 'fmx-icon-truck.svg' | inline_asset_content }}</span>
+      </span>
+      <span class="fmx-shipping-badges__text">{{ badge_delivery }}</span>
+    </div>
+    <div class="fmx-shipping-badges__item">
+      <span class="fmx-shipping-badges__media">
+        <img
+          class="fmx-shipping-badges__flag"
+          src="{{ 'fmx-postnl-logo.svg' | asset_url }}"
+          alt=""
+          width="28"
+          height="28"
+          loading="lazy">
+      </span>
+      <span class="fmx-shipping-badges__text">{{ badge_carrier }}</span>
+    </div>
+    <div class="fmx-shipping-badges__item">
+      <span class="fmx-shipping-badges__media">
+        <img
+          class="fmx-shipping-badges__logo"
+          src="{{ 'fmx-guarantee-badge.png' | asset_url }}"
+          alt=""
+          width="28"
+          height="28"
+          loading="lazy">
+      </span>
+      <span class="fmx-shipping-badges__text">{{ badge_guarantee }}</span>
+    </div>
+  </div>
+{%- endif -%}

@@ -1,0 +1,518 @@
+/* MAGYX search overlay (sections/mgx-search.liquid, assets/mgx-search.js), after
+   qcollectionparfums.nl in MAGYX tokens; only the scent pills keep qc's pastel gradients.
+   Sizes in px (the theme's root font-size is 10px). Visibility is toggled with [hidden]
+   (rule at the end of this file).
+
+   z-index 99999: above everything the theme paints (sticky header 3, filter bar 2 with panels and
+   drawer up to 1000, cart drawer 1000, Dawn modals) and above the floating app layers that sit
+   over page content (quiz pill 9998, Klaviyo teaser 90000). Only the PDP finder dialog
+   (assets/fuel06-finder.css, 99999/100000 while open) is level with it, and the two are never
+   open together. */
+
+.mgx-search {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  background: var(--mgx-white, #FFFFFF);
+  color: var(--mgx-black, #100F0D);
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.mgx-search.is-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mgx-search {
+    transition: none;
+  }
+}
+
+/* ---------- head: field + close ---------- */
+.mgx-search__head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 16px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  background: var(--mgx-white, #FFFFFF);
+  border-bottom: 1px solid rgba(16, 15, 13, 0.07);
+}
+
+/* Same 728px column as the body content below (760px minus its 16px side padding), so the field
+   and the close button line up with the pills and rows. */
+.mgx-search__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 728px;
+  margin: 0 auto;
+}
+
+.mgx-search__field {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  max-width: 760px;
+  height: 46px;
+  padding: 0 3px 0 18px;
+  border-radius: 999px;
+  background: #F4F4F3;
+  cursor: text;
+}
+
+.mgx-search__field:focus-within {
+  box-shadow: inset 0 0 0 1px rgba(16, 15, 13, 0.18);
+}
+
+.mgx-search__glass {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--mgx-black, #100F0D);
+}
+
+.mgx-search .mgx-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--mgx-black, #100F0D);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mgx-search .mgx-search__input::placeholder {
+  color: #8a8a8a;
+  opacity: 1;
+}
+
+.mgx-search .mgx-search__input:focus,
+.mgx-search .mgx-search__input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.mgx-search .mgx-search__input::-webkit-search-cancel-button,
+.mgx-search .mgx-search__input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mgx-search__clear,
+.mgx-search__close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  font: inherit;
+  cursor: pointer;
+}
+
+.mgx-search__clear {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: var(--mgx-graphite, #3A3A3C);
+}
+
+.mgx-search__clear:hover {
+  color: var(--mgx-black, #100F0D);
+}
+
+.mgx-search__close {
+  width: 44px;
+  height: 44px;
+  background: rgba(16, 15, 13, 0.05);
+  color: var(--mgx-black, #100F0D);
+}
+
+.mgx-search__close:hover {
+  background: rgba(16, 15, 13, 0.09);
+}
+
+.mgx-search__clear svg,
+.mgx-search__close svg {
+  display: block;
+}
+
+.mgx-search__clear:focus-visible,
+.mgx-search__close:focus-visible {
+  outline: 2px solid var(--mgx-black, #100F0D);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* ---------- body ---------- */
+.mgx-search__body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+.mgx-search .mgx-search__label {
+  margin: 22px 0 12px;
+  color: #6b6b6b;
+  font-family: inherit;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.mgx-search .mgx-search__start > .mgx-search__label:first-child {
+  margin-top: 4px;
+}
+
+.mgx-search__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+/* Category pills: links. */
+.mgx-search__cat {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid rgba(16, 15, 13, 0.12);
+  border-radius: 999px;
+  background: var(--mgx-white, #FFFFFF);
+  color: var(--mgx-black, #100F0D);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.mgx-search__cat:hover,
+.mgx-search__cat:focus-visible {
+  border-color: var(--mgx-black, #100F0D);
+  background: var(--mgx-black, #100F0D);
+  color: var(--mgx-white, #FFFFFF);
+}
+
+.mgx-search__cat--nolink {
+  opacity: 0.45;
+}
+
+/* Scent pills: buttons in qc's pastel gradient, one pair of colours per block (inline custom
+   properties from the block settings). */
+.mgx-search__term {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  margin: 0;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #F4F4F3;
+  background: linear-gradient(
+    135deg,
+    var(--mgx-term-1, #F4F4F3),
+    var(--mgx-term-2, var(--mgx-term-1, #F4F4F3))
+  );
+  color: var(--mgx-black, #100F0D);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: box-shadow 120ms ease;
+}
+
+.mgx-search__term:hover {
+  box-shadow: inset 0 0 0 1px rgba(16, 15, 13, 0.14);
+}
+
+.mgx-search__term:focus-visible {
+  outline: 2px solid var(--mgx-black, #100F0D);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+.mgx-search__emoji {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Set cards: stacked on phones, side by side from 600px. */
+.mgx-search__cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+@media screen and (min-width: 600px) {
+  .mgx-search__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.mgx-search__card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 84px;
+  padding: 12px;
+  border: 1px solid rgba(16, 15, 13, 0.08);
+  border-radius: 16px;
+  background: var(--mgx-white, #FFFFFF);
+  box-shadow: 0 2px 10px rgba(16, 15, 13, 0.05);
+  color: var(--mgx-black, #100F0D);
+  text-decoration: none;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.mgx-search a.mgx-search__card:hover {
+  border-color: rgba(16, 15, 13, 0.2);
+  box-shadow: 0 4px 16px rgba(16, 15, 13, 0.08);
+}
+
+.mgx-search__card-media {
+  display: block;
+  flex: none;
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #F4F4F3;
+}
+
+.mgx-search__card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mgx-search__card-text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.mgx-search__card-title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.mgx-search__card-sub {
+  color: var(--mgx-accent, #184031);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.mgx-search__card-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.mgx-search__card-now {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.mgx-search__card-was {
+  color: #8a8a8a;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.mgx-search__card--empty {
+  border-style: dashed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.mgx-search__hint {
+  margin: 26px 0 0;
+  color: #8a8a8a;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ---------- results ---------- */
+.mgx-search__msg {
+  margin: 0;
+  padding: 10px 0 4px;
+  color: var(--mgx-graphite, #3A3A3C);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.mgx-search__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The sticky head is about 79px tall; keep a highlighted row clear of it when arrow keys scroll. */
+.mgx-search__row {
+  margin: 0;
+  scroll-margin-top: 90px;
+  scroll-margin-bottom: 16px;
+}
+
+.mgx-search__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 6px;
+  border-bottom: 1px solid rgba(16, 15, 13, 0.06);
+  color: var(--mgx-black, #100F0D);
+  text-decoration: none;
+}
+
+/* One highlighted row: arrow keys and the mouse (mousemove in assets/mgx-search.js) both move
+   .is-active, so there is no separate :hover colour that could light up a second row. */
+.mgx-search__row.is-active > .mgx-search__link {
+  background: #F7F7F5;
+}
+
+.mgx-search__thumb {
+  display: block;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #F4F4F3;
+}
+
+.mgx-search__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mgx-search__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mgx-search__title {
+  color: var(--mgx-black, #100F0D);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: break-word;
+}
+
+.mgx-search__insp {
+  color: #6b6b6b;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
+.mgx-search__price {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.mgx-search__now {
+  color: var(--mgx-black, #100F0D);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.mgx-search__was {
+  color: #8a8a8a;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.mgx-search mark {
+  padding: 0;
+  background: none;
+  color: inherit;
+  font-weight: 700;
+}
+
+.mgx-search__all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-top: 18px;
+  padding: 10px 20px;
+  border: 1px solid var(--mgx-black, #100F0D);
+  border-radius: 999px;
+  color: var(--mgx-black, #100F0D);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.mgx-search__all:hover,
+.mgx-search__all:focus-visible {
+  background: var(--mgx-black, #100F0D);
+  color: var(--mgx-white, #FFFFFF);
+}
+
+.mgx-search__pills--empty {
+  margin-top: 16px;
+}
+
+/* Dawn hides empty <p>; the live region must stay in the accessibility tree while it is empty,
+   or the first count is not announced. It is visually hidden by .visually-hidden. */
+.mgx-search .mgx-search__status:empty {
+  display: block;
+}
+
+/* Last, so [hidden] beats every display value above. */
+.mgx-search[hidden],
+.mgx-search [hidden][hidden] {
+  display: none;
+}

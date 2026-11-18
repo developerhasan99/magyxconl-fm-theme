@@ -1,0 +1,103 @@
+/* pm-s-offer-timebar.css (WP-B): minimal announcement bar, loaded by sections/offer-timebar.liquid when style = minimal.
+   {prepend} · ENDS IN hh:mm:ss (timer optional, section setting show_timer) + {append} as a solid button.
+   One line where it fits (44px), two centred lines on phones. */
+
+.premium .pm-timebar {
+  display: block;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+/* Info (prepend · ENDS IN hh:mm:ss) and the solid CTA button; they wrap onto two centred lines when narrow */
+.premium .pm-timebar__link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 16px;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 6px var(--pm-gutter);
+  color: inherit;
+  text-decoration: none;
+  font-size: calc(var(--pm-fs-announce) * 1.3);
+  line-height: var(--pm-lh-announce);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.premium .pm-timebar__link:hover,
+.premium .pm-timebar__link:focus-visible {
+  color: inherit;
+  text-decoration: none;
+}
+
+.premium .pm-timebar__link:focus-visible {
+  outline: 2px solid rgb(var(--color-foreground));
+  outline-offset: -2px;
+}
+
+.premium .pm-timebar__info {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.premium .pm-timebar__clock {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Phones: long market offers (e.g. Estonia's payday line) wrap instead of pushing the page sideways */
+@media screen and (max-width: 749px) {
+  .premium .pm-timebar__link {
+    white-space: normal;
+  }
+
+  .premium .pm-timebar__info {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 2px;
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+.premium .pm-timebar__sep {
+  opacity: 0.6;
+}
+
+/* Solid CTA: inverted colours of the bar */
+.premium .pm-timebar__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  min-height: 28px;
+  padding: 4px 14px;
+  border-radius: var(--pm-radius-sm);
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: opacity var(--pm-dur) var(--pm-ease);
+}
+
+.premium .pm-timebar__arrow {
+  display: inline-block;
+  flex: none;
+  transition: transform var(--pm-dur) var(--pm-ease);
+}
+
+.premium .pm-timebar__link:hover .pm-timebar__cta {
+  opacity: 0.88;
+}
+
+.premium .pm-timebar__link:hover .pm-timebar__arrow {
+  transform: translateX(2px);
+}

@@ -1,0 +1,275 @@
+{% comment %}
+  fmx-media-gallery (aaroma.co): the FM product gallery (port of magicperfume.co snippets/fmx-media-gallery.liquid =
+  tryscent.co premium-redesign) for sections/fmx-main-product.liquid. Below 990px a Swiper slider with a 52px
+  thumbnail column on the right; from 990px one square image, a counter + arrows bar under it and a 98px thumbnail
+  row (Thomson Carter pattern). Styles: assets/fmx-pdp.css (.fmx-scope .pm-pdp .pm-gallery...).
+
+  Which images show is aaroma's live logic (snippets/product-media-gallery.liquid):
+  - tag 'local_image': the packshot for the storefront language (snippets/pm-local-image.liquid: alt bundle_<language>,
+    then the language name in the file name, then bundle_<country>, then bundle_usd), then the marketing images;
+  - otherwise: the first product image, then the marketing images;
+  - tag 'own_gallery': no marketing images;
+  - marketing images = metaobject marketing_images/<language>: picked on the server from the storefront language
+    (en for-english, fr for-french, nl for-netherland, de for-german, et for-eesti, lt for-lithuania, lv for-lativan;
+    anything else for-netherland as live). No Weglot listener (Weglot is off; Shopify serves the languages).
+  - images whose alt is a bundle_<country> marker get the product title as alt (as live).
+  No side tiles ("Same scent, better price" ...): the FM gallery has none. Scent pages (expressive-notes,
+  quantity-breaker and e-notes templates) carry the "≈95% scent match" tag on the image (aaroma's live claim).
+
+  Usage: {% render 'fmx-media-gallery' %}
+{% endcomment %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{% if product == blank %}
+  {% assign product = product_param %}
+{% endif %}
+
+{% liquid
+  # Products tagged 'own_gallery' show only their own images, no marketing images
+  unless product.tags contains 'own_gallery'
+    assign marketing_images = shop.metaobjects['marketing_images']['for-netherland'].images.value
+    assign lithuania_marketing_images = shop.metaobjects['marketing_images']['for-lithuania'].images.value
+    assign latvian_marketing_images = shop.metaobjects['marketing_images']['for-lativan'].images.value
+    assign german_marketing_images = shop.metaobjects['marketing_images']['for-german'].images.value
+    assign french_marketing_images = shop.metaobjects['marketing_images']['for-french'].images.value
+    assign estonia_marketing_images = shop.metaobjects['marketing_images']['for-eesti'].images.value
+    assign english_marketing_images = shop.metaobjects['marketing_images']['for-english'].images.value
+    # Server-side pick by storefront language (falls back to the live default for-netherland)
+    case request.locale.iso_code
+      when 'en'
+        if english_marketing_images != blank
+          assign marketing_images = english_marketing_images
+        endif
+      when 'fr'
+        if french_marketing_images != blank
+          assign marketing_images = french_marketing_images
+        endif
+      when 'de'
+        if german_marketing_images != blank
+          assign marketing_images = german_marketing_images
+        endif
+      when 'et'
+        if estonia_marketing_images != blank
+          assign marketing_images = estonia_marketing_images
+        endif
+      when 'lt'
+        if lithuania_marketing_images != blank
+          assign marketing_images = lithuania_marketing_images
+        endif
+      when 'lv'
+        if latvian_marketing_images != blank
+          assign marketing_images = latvian_marketing_images
+        endif
+    endcase
+  endunless
+
+  assign gid = section.id | default: product.id
+
+  assign fm_images = nil
+
+  # Which product image starts the gallery: the first image, or (tag local_image) the packshot for the storefront
+  # language (snippets/pm-local-image.liquid)
+  assign image_mode = 'first'
+  assign pm_local_id = ''
+  if product.tags contains 'local_image'
+    assign image_mode = 'local'
+    capture pm_local_id
+      render 'pm-local-image', product: product
+    endcapture
+    assign pm_local_id = pm_local_id | strip
+  endif
+
+  assign slide_class = 'productSwiperImage swiper-slide'
+  assign thumb_class = 'productThumbnail swiper-slide'
+  assign slide_sizes = '(min-width: 990px) 50vw, 100vw'
+  assign slide_index = 0
+%}
+
+<div id="pm-gallery-{{ gid }}" class="pm-gallery">
+  <div class="pm-gallery__row">
+    {%- if product.template_suffix contains 'expressive-notes' or product.template_suffix contains 'quantity-breaker' or product.template_suffix contains 'e-notes' -%}
+      <div class="pm-badge pm-gallery__tag">{{ 'premium.pdp.scent_match' | t }}</div>
+    {%- endif -%}
+    <div id="productSwiper-{{ gid }}" class="swiper">
+      <div class="swiper-wrapper">
+        {%- for fm_media in fm_images -%}
+          {%- assign image = fm_media.preview_image -%}
+          {%- assign slide_index = slide_index | plus: 1 -%}
+          <img
+            src="{{ image | image_url: width: 1500 }}"
+            srcset="{{ image | image_url: width: 750 }} 750w, {{ image | image_url: width: 1100 }} 1100w, {{ image | image_url: width: 1500 }} 1500w"
+            sizes="{{ slide_sizes }}"
+            alt="{{ fm_media.alt | default: product.title | escape }}"
+            height="{{ image.height }}"
+            width="{{ image.width }}"
+            {% if slide_index == 1 %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+            class="{{ slide_class }}">
+        {%- endfor -%}
+        {%- for image in product.images -%}
+          {%- liquid
+            assign show_image = false
+            assign img_alt = image.alt | downcase
+            if image_mode == 'first' and forloop.first
+              assign show_image = true
+            elsif image_mode == 'local'
+              assign img_id = image.id | append: ''
+              if img_id == pm_local_id
+                assign show_image = true
+              endif
+            endif
+          -%}
+          {%- if show_image -%}
+            {%- assign slide_index = slide_index | plus: 1 -%}
+            <img
+              src="{{ image | image_url: width: 1500 }}"
+              srcset="{{ image | image_url: width: 750 }} 750w, {{ image | image_url: width: 1100 }} 1100w, {{ image | image_url: width: 1500 }} 1500w"
+              sizes="{{ slide_sizes }}"
+              alt="{% if image.alt contains 'bundle_' %}{{ product.title | escape }}{% else %}{{ image.alt | escape }}{% endif %}"
+              height="{{ image.height }}"
+              width="{{ image.width }}"
+              {% if slide_index == 1 %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+              class="{{ slide_class }}">
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if marketing_images != blank -%}
+          {%- for image in marketing_images -%}
+            {%- assign slide_index = slide_index | plus: 1 -%}
+            <img
+              src="{{ image | image_url: width: 1500 }}"
+              srcset="{{ image | image_url: width: 750 }} 750w, {{ image | image_url: width: 1100 }} 1100w, {{ image | image_url: width: 1500 }} 1500w"
+              sizes="{{ slide_sizes }}"
+              alt="{% if image.alt contains 'bundle_' %}{{ product.title | escape }}{% else %}{{ image.alt | escape }}{% endif %}"
+              height="{{ image.height }}"
+              width="{{ image.width }}"
+              {% if slide_index == 1 %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+              class="{{ slide_class }} marketing_image">
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <div
+        data-text="text"
+        id="productSwiperPrev-{{ gid }}"
+        class="swiper-button-prev"></div>
+      <div
+        data-text="text"
+        id="productSwiperNext-{{ gid }}"
+        class="swiper-button-next"></div>
+    </div>
+  </div>
+  {%- comment -%} Desktop bar under the main image (Thomson Carter pattern): counter left, arrows right. {%- endcomment -%}
+  <div class="pm-gallery__bar">
+    <span class="pm-gallery__count" aria-live="polite"><span data-fmx-current>1</span> / {{ slide_index }}</span>
+    <div class="pm-gallery__arrows">
+      <button type="button" class="pm-gallery__arrow" id="fmxGalleryPrev-{{ gid }}" aria-label="{{ 'premium.pdp.previous_image' | t | escape }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      </button>
+      <button type="button" class="pm-gallery__arrow" id="fmxGalleryNext-{{ gid }}" aria-label="{{ 'premium.pdp.next_image' | t | escape }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="pm-gallery__side">
+    <div id="productThumbnails-{{ gid }}" class="swiper pm-gallery__thumbs">
+      <div class="swiper-wrapper">
+        {%- for fm_media in fm_images -%}
+          <img
+            id="slider-thumbnail-fm-{{ forloop.index0 }}"
+            src="{{ fm_media.preview_image | image_url: width: 150, height: 150 }}"
+            alt="{{ fm_media.alt | default: product.title | escape }}"
+            height="150"
+            width="150"
+            loading="lazy"
+            class="{{ thumb_class }}">
+        {%- endfor -%}
+        {%- for image in product.images -%}
+          {%- liquid
+            assign show_image = false
+            assign img_alt = image.alt | downcase
+            if image_mode == 'first' and forloop.first
+              assign show_image = true
+            elsif image_mode == 'local'
+              assign img_id = image.id | append: ''
+              if img_id == pm_local_id
+                assign show_image = true
+              endif
+            endif
+          -%}
+          {%- if show_image -%}
+            <img
+              id="slider-thumbnail-{{ forloop.index0 }}"
+              src="{{ image | image_url: width: 150, height: 150 }}"
+              alt="{% if image.alt contains 'bundle_' %}{{ product.title | escape }}{% else %}{{ image.alt | escape }}{% endif %}"
+              height="150"
+              width="150"
+              loading="lazy"
+              class="{{ thumb_class }}">
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if marketing_images != blank -%}
+          {%- for image in marketing_images -%}
+            <img
+              id="slider-thumbnail-{{ forloop.index0 }}"
+              src="{{ image | image_url: width: 150, height: 150 }}"
+              alt="{% if image.alt contains 'bundle_' %}{{ product.title | escape }}{% else %}{{ image.alt | escape }}{% endif %}"
+              height="150"
+              width="150"
+              loading="lazy"
+              class="{{ thumb_class }} marketing_image">
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // One Swiper at every width. Below 990: thumbnails in a column right of the image (swipe, no arrows).
+    // From 990 (Thomson Carter pattern): one large image, counter + arrows bar under it, thumbnail row below.
+    (function () {
+      var gallery = document.getElementById('pm-gallery-{{ gid }}');
+      var mainSwiper = null;
+      var thumbsSwiper = null;
+
+      function build() {
+        if (mainSwiper || typeof Swiper === 'undefined') return;
+
+        thumbsSwiper = new Swiper('#productThumbnails-{{ gid }}', {
+          slidesPerView: 'auto',
+          spaceBetween: 4,
+          freeMode: true,
+          watchSlidesProgress: true,
+          watchOverflow: true,
+          direction: 'vertical',
+          slideToClickedSlide: true,
+          breakpoints: { 990: { direction: 'horizontal', spaceBetween: 14 } }
+        });
+
+        mainSwiper = new Swiper('#productSwiper-{{ gid }}', {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          observer: true,
+          observeParents: true,
+          navigation: { prevEl: '#fmxGalleryPrev-{{ gid }}', nextEl: '#fmxGalleryNext-{{ gid }}' },
+          thumbs: { swiper: thumbsSwiper }
+        });
+
+        var current = gallery && gallery.querySelector('[data-fmx-current]');
+        if (current) {
+          mainSwiper.on('slideChange', function () { current.textContent = mainSwiper.realIndex + 1; });
+        }
+      }
+
+      function initProductGallerySwiper() {
+        build();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initProductGallerySwiper);
+      } else {
+        initProductGallerySwiper();
+      }
+
+
+    })();
+  </script>
+</div>

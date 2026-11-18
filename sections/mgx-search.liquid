@@ -1,0 +1,428 @@
+{%- comment -%}
+  MAGYX search overlay (magicperfume.co FM preview 1:1, aaroma 04.11.2026: English texts are the section settings saved in
+  sections/header-group.json, fixed labels are locale keys). One instance lives in
+  the header group, so it is on every page. Hidden until a trigger (snippets/mgx-search-trigger.liquid,
+  any [data-mgx-search-open]) opens it; assets/mgx-search.js runs it, matching comes from
+  assets/mgx-search-core.js and the products from /collections/all?view=mgx-search-index
+  (templates/collection.mgx-search-index.liquid), fetched on first intent.
+
+  Before typing: category pills (links), scent pills (type their word into the field), set cards and
+  a hint. While typing: up to 20 result rows plus a link to the full /search page.
+  The input has no name attribute, so search apps that bind to name="q" leave it alone.
+{%- endcomment -%}
+{{ 'mgx-search.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'mgx-search-core.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'mgx-search.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign sid = section.id
+  assign category_blocks = section.blocks | where: 'type', 'category'
+  assign term_blocks = section.blocks | where: 'type', 'term'
+  assign product_blocks = section.blocks | where: 'type', 'product'
+
+  # Bundles (product type Bundle / tag bundle) never show in search: a product card with a bundle is
+  # skipped, and the heading goes when no card is left (an empty picker still shows in the editor).
+  assign product_cards_shown = 0
+  for block in product_blocks
+    assign card_product = block.settings.product
+    if card_product == blank
+      if request.design_mode
+        assign product_cards_shown = product_cards_shown | plus: 1
+      endif
+    elsif card_product.type != 'Bundle'
+      unless card_product.tags contains 'bundle'
+        assign product_cards_shown = product_cards_shown | plus: 1
+      endunless
+    endif
+  endfor
+-%}
+
+<div
+  id="MgxSearch"
+  class="mgx-search"
+  hidden
+  role="dialog"
+  aria-modal="true"
+  aria-label="{{ 'general.search.search' | t | escape }}"
+  data-mgx-search
+  data-index-url="{{ routes.all_products_collection_url }}?view=mgx-search-index"
+  data-search-url="{{ routes.search_url }}"
+  data-inspired-label="{{ section.settings.inspired_label | escape }}"
+  data-view-all-label="{{ section.settings.view_all_label | escape }}"
+  data-empty-text="{{ section.settings.empty_text | escape }}"
+  data-loading-text="{{ section.settings.loading_text | escape }}"
+  data-count-text="{{ section.settings.count_text | escape }}"
+>
+  <div class="mgx-search__head">
+    <div class="mgx-search__bar">
+      <div class="mgx-search__field">
+        <svg class="mgx-search__glass" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="10.5" cy="10.5" r="6.75" fill="none" stroke="currentColor" stroke-width="2.2"/>
+          <path d="M15.6 15.6 20.5 20.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <input
+          id="MgxSearchInput-{{ sid }}"
+          class="mgx-search__input"
+          type="search"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded="false"
+          aria-controls="MgxSearchList-{{ sid }}"
+          aria-label="{{ section.settings.placeholder | escape }}"
+          placeholder="{{ section.settings.placeholder | escape }}"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          enterkeyhint="search"
+        >
+        <button type="button" class="mgx-search__clear" data-mgx-search-clear aria-label="{{ 'general.search.reset' | t | escape }}" hidden>
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6 18 18M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <button type="button" class="mgx-search__close" data-mgx-search-close aria-label="{{ 'accessibility.close' | t | escape }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M5.5 5.5 18.5 18.5M18.5 5.5 5.5 18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mgx-search__body">
+    <div class="mgx-search__start" data-mgx-search-start>
+      {%- if category_blocks.size > 0 -%}
+        <h2 class="mgx-search__label">{{ section.settings.heading_categories | escape }}</h2>
+        <div class="mgx-search__pills">
+          {%- for block in category_blocks -%}
+            {%- if block.settings.link != blank -%}
+              <a class="mgx-search__cat" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+                {{- block.settings.label | escape -}}
+              </a>
+            {%- elsif request.design_mode -%}
+              <span class="mgx-search__cat mgx-search__cat--nolink" {{ block.shopify_attributes }}>
+                {{- block.settings.label | escape -}}
+              </span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if term_blocks.size > 0 -%}
+        <h2 class="mgx-search__label">{{ section.settings.heading_terms | escape }}</h2>
+        <div class="mgx-search__pills">
+          {%- for block in term_blocks -%}
+            {%- liquid
+              assign term_query = block.settings.query | strip
+              if term_query == blank
+                assign term_query = block.settings.label | strip
+              endif
+              assign term_style = ''
+              if block.settings.color_1 != blank
+                assign term_style = term_style | append: '--mgx-term-1: ' | append: block.settings.color_1 | append: ';'
+              endif
+              if block.settings.color_2 != blank
+                assign term_style = term_style | append: '--mgx-term-2: ' | append: block.settings.color_2 | append: ';'
+              endif
+            -%}
+            <button
+              type="button"
+              class="mgx-search__term"
+              data-mgx-search-term="{{ term_query | escape }}"
+              {% if term_style != '' %}
+                style="{{ term_style }}"
+              {% endif %}
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.emoji != blank -%}
+                <span class="mgx-search__emoji" aria-hidden="true">{{ block.settings.emoji | escape }}</span>
+              {%- endif -%}
+              <span>{{ block.settings.label | escape }}</span>
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if product_cards_shown > 0 -%}
+        <h2 class="mgx-search__label">{{ section.settings.heading_products | escape }}</h2>
+        <div class="mgx-search__cards">
+          {%- for block in product_blocks -%}
+            {%- assign card_product = block.settings.product -%}
+            {%- if card_product != blank and card_product.type == 'Bundle' -%}{%- continue -%}{%- endif -%}
+            {%- if card_product != blank and card_product.tags contains 'bundle' -%}{%- continue -%}{%- endif -%}
+            {%- if card_product != blank -%}
+              <a class="mgx-search__card" href="{{ card_product.url }}" {{ block.shopify_attributes }}>
+                <span class="mgx-search__card-media">
+                  {%- if card_product.featured_image -%}
+                    <img
+                      src="{{ card_product.featured_image | image_url: width: 160 }}"
+                      alt=""
+                      width="58"
+                      height="58"
+                      loading="lazy"
+                      decoding="async"
+                    >
+                  {%- endif -%}
+                </span>
+                <span class="mgx-search__card-text">
+                  <span class="mgx-search__card-title">{{ card_product.title | escape }}</span>
+                  {%- if block.settings.subtitle != blank -%}
+                    <span class="mgx-search__card-sub">{{ block.settings.subtitle | escape }}</span>
+                  {%- endif -%}
+                  <span class="mgx-search__card-price">
+                    <span class="mgx-search__card-now">
+                      {%- if card_product.price_varies %}{{ 'aaroma.common.from' | t }} {% endif -%}
+                      {{- card_product.price | money -}}
+                    </span>
+                    {%- if card_product.compare_at_price > card_product.price -%}
+                      <s class="mgx-search__card-was">{{ card_product.compare_at_price | money }}</s>
+                    {%- endif -%}
+                  </span>
+                </span>
+              </a>
+            {%- elsif request.design_mode -%}
+              <div class="mgx-search__card mgx-search__card--empty" {{ block.shopify_attributes }}>
+                <span class="mgx-search__card-media"></span>
+                <span class="mgx-search__card-text">
+                  <span class="mgx-search__card-title">Choose a product</span>
+                  {%- if block.settings.subtitle != blank -%}
+                    <span class="mgx-search__card-sub">{{ block.settings.subtitle | escape }}</span>
+                  {%- endif -%}
+                </span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.hint != blank -%}
+        <p class="mgx-search__hint">{{ section.settings.hint | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="mgx-search__results" data-mgx-search-results hidden>
+      <p class="mgx-search__msg" data-mgx-search-msg hidden></p>
+      <ul
+        id="MgxSearchList-{{ sid }}"
+        class="mgx-search__list"
+        role="listbox"
+        aria-label="{{ section.settings.placeholder | escape }}"
+        data-mgx-search-list
+      ></ul>
+      <a class="mgx-search__all" href="{{ routes.search_url }}" data-mgx-search-all hidden></a>
+      {%- if category_blocks.size > 0 -%}
+        <div class="mgx-search__pills mgx-search__pills--empty" data-mgx-search-empty hidden>
+          {%- for block in category_blocks -%}
+            {%- if block.settings.link != blank -%}
+              <a class="mgx-search__cat" href="{{ block.settings.link }}">{{ block.settings.label | escape }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <p class="mgx-search__status visually-hidden" role="status" aria-live="polite" data-mgx-search-status></p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "MAGYX search",
+  "tag": "div",
+  "class": "mgx-search-section",
+  "limit": 1,
+  "max_blocks": 24,
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Full-screen search, opened by every search button and the search pill in the header. Results come from all active products; typing needs no page load."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Field placeholder",
+      "default": "Search by scent, brand or number"
+    },
+    {
+      "type": "header",
+      "content": "Before typing"
+    },
+    {
+      "type": "text",
+      "id": "heading_categories",
+      "label": "Heading above the categories",
+      "default": "Categories"
+    },
+    {
+      "type": "text",
+      "id": "heading_terms",
+      "label": "Heading above the scent pills",
+      "default": "Scent families"
+    },
+    {
+      "type": "text",
+      "id": "heading_products",
+      "label": "Heading above the set cards",
+      "default": "Popular sets"
+    },
+    {
+      "type": "text",
+      "id": "hint",
+      "label": "Hint line",
+      "default": "Type a scent, a brand or a number."
+    },
+    {
+      "type": "header",
+      "content": "While typing"
+    },
+    {
+      "type": "text",
+      "id": "inspired_label",
+      "label": "Text before the inspiration name",
+      "default": "Inspired by"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Link to all results",
+      "info": "[query] = the typed text.",
+      "default": "Show all results for \"[query]\""
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "No results",
+      "info": "[query] = the typed text. The category pills follow it.",
+      "default": "No results for \"[query]\". Try a brand or a number."
+    },
+    {
+      "type": "text",
+      "id": "loading_text",
+      "label": "While the products load",
+      "default": "Loading scents ..."
+    },
+    {
+      "type": "text",
+      "id": "count_text",
+      "label": "Result count (screen readers only)",
+      "info": "[count] = the number of matches.",
+      "default": "[count] results"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "For him"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Usually a collection. Without a link the pill is not shown."
+        }
+      ]
+    },
+    {
+      "type": "term",
+      "name": "Scent pill",
+      "settings": [
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji",
+          "default": "🌿"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Fresh"
+        },
+        {
+          "type": "text",
+          "id": "query",
+          "label": "Search word",
+          "info": "Typed into the field on tap. Empty = the label.",
+          "default": "fresh"
+        },
+        {
+          "type": "color",
+          "id": "color_1",
+          "label": "Colour 1 (top left)",
+          "default": "#d9f5ec"
+        },
+        {
+          "type": "color",
+          "id": "color_2",
+          "label": "Colour 2 (bottom right)",
+          "default": "#c0ecde"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Set card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Line under the title",
+          "default": "6 scents of your choice, 50 ml each"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MAGYX search",
+      "blocks": [
+        { "type": "category", "settings": { "label": "For him" } },
+        { "type": "category", "settings": { "label": "For her" } },
+        { "type": "category", "settings": { "label": "Bestsellers" } },
+        { "type": "category", "settings": { "label": "New scents" } },
+        {
+          "type": "term",
+          "settings": { "emoji": "🍦", "label": "Vanilla", "query": "vanilla", "color_1": "#fdf3dd", "color_2": "#f7e7c2" }
+        },
+        {
+          "type": "term",
+          "settings": { "emoji": "🌿", "label": "Fresh", "query": "fresh", "color_1": "#d9f5ec", "color_2": "#c0ecde" }
+        },
+        {
+          "type": "term",
+          "settings": { "emoji": "🪵", "label": "Woody", "query": "woody", "color_1": "#ecdfd0", "color_2": "#ddc9b0" }
+        },
+        {
+          "type": "term",
+          "settings": { "emoji": "🌸", "label": "Floral", "query": "floral", "color_1": "#ffe0f0", "color_2": "#ffc9e6" }
+        },
+        {
+          "type": "term",
+          "settings": { "emoji": "🌙", "label": "Amber", "query": "amber", "color_1": "#fde6cf", "color_2": "#f9cfa5" }
+        },
+        {
+          "type": "term",
+          "settings": { "emoji": "🍓", "label": "Sweet", "query": "gourmand", "color_1": "#ffe3ec", "color_2": "#ffd0de" }
+        },
+        { "type": "product", "settings": { "subtitle": "6 scents of your choice, 50 ml each" } },
+        { "type": "product", "settings": { "subtitle": "3 scents of your choice, 50 ml each" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

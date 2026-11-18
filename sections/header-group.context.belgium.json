@@ -1,0 +1,50 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "context": {
+    "market": "belgium"
+  },
+  "parent": "header-group.json",
+  "sections": {
+    "offer_timebar_PNTbqg": {
+      "settings": {},
+      "blocks": {
+        "payment_icon_EJx9b8": {
+          "settings": {
+            "icon": "shopify://shop_images/Bancontact_logo_2021_svg.webp"
+          }
+        }
+      },
+      "block_order": [
+        "market_offer_belgium",
+        "market_offer_estonia",
+        "market_offer_france_switz",
+        "market_offer_germany",
+        "payment_icon_qcMDiY",
+        "payment_icon_VWgiqB",
+        "payment_icon_EJx9b8",
+        "payment_icon_i3Hr68",
+        "badge_france_1",
+        "badge_france_2",
+        "badge_france_3",
+        "badge_france_4",
+        "badge_germany_1",
+        "badge_germany_2",
+        "badge_germany_3",
+        "badge_germany_4",
+        "badge_germany_5",
+        "badge_switz_1",
+        "badge_switz_2",
+        "badge_switz_3",
+        "badge_switz_4"
+      ]
+    }
+  }
+}

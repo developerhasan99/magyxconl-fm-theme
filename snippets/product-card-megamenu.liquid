@@ -1,0 +1,58 @@
+{%- comment -%}
+  Mega-menu product card (drawer slider). Uses the shared card contract from pm-card.css (WP-D):
+  .pm-card, .pm-card__media (1:1 on surface), .pm-card__title, .pm-card__price, .pm-card__compare.
+  .ab-current-price is kept for the price-test app.
+{%- endcomment -%}
+{%- liquid
+  assign card_price_variant = product.selected_or_first_available_variant
+  assign card_has_50 = false
+  for card_variant in product.variants
+    assign card_variant_size = card_variant.title | downcase | remove: ' '
+    if card_variant_size == '50ml'
+      assign card_price_variant = card_variant
+      assign card_has_50 = true
+      break
+    endif
+  endfor
+  # scents show the 50 ml price (30 / 100 ml not offered on their own, 04.11.2026); others keep the lowest price
+  unless card_has_50
+    for card_variant in product.variants
+      if card_variant.price == product.price
+        assign card_price_variant = card_variant
+        break
+      endif
+    endfor
+  endunless
+  assign card_image_alt = product.featured_image.alt | default: product.title | escape
+-%}
+<a class="pm-card pm-card--mini pm-drawer__card" href="{{ product.url }}" data-variant-id="{{ card_price_variant.id }}">
+  <div class="pm-card__media">
+    {%- if product.featured_image != blank -%}
+      {{
+        product.featured_image
+        | image_url: width: 480
+        | image_tag:
+          widths: '180, 240, 360, 480',
+          sizes: '(min-width: 750px) 170px, 44vw',
+          loading: 'lazy',
+          alt: card_image_alt
+      }}
+    {%- endif -%}
+  </div>
+  <div class="pm-card__title">{{ product.title }}</div>
+  {%- if product.metafields.reviews.rating.value != blank -%}
+    <div
+      class="pm-card__meta pm-card__rating"
+      role="img"
+      aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: product.metafields.reviews.rating.value, rating_max: product.metafields.reviews.rating.value.scale_max }}">
+      {%- render 'pm-stars', rating: product.metafields.reviews.rating.value, size: 10 -%}
+      <span>({{ product.metafields.reviews.rating_count }})</span>
+    </div>
+  {%- endif -%}
+  <div class="pm-card__price">
+    <span class="ab-current-price">{{ card_price_variant.price | money }}</span>
+    {%- if card_price_variant.compare_at_price > card_price_variant.price -%}
+      <span class="pm-card__compare">{{ card_price_variant.compare_at_price | money }}</span>
+    {%- endif -%}
+  </div>
+</a>

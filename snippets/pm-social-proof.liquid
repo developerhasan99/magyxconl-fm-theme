@@ -1,0 +1,114 @@
+{%- comment -%}
+  Homepage social proof carousel ("Here's what our customers say."), rendered by the custom-liquid section under the
+  Bestsellers tabs (templates/index.json, custom_liquid_6qnTBf: {% render 'pm-social-proof' %}).
+  FM look (04.11.2026): magicperfume.co's lander review carousel (sections/pm-collection-reviews.liquid, CSS
+  assets/pm-collection-reviews.css, cards .pm-review from pm-sections.css): heading left, stars + rating line right,
+  white bordered cards (1.15 / 2.2 / 3 per view), ink arrows under the row from 750px. No Trustpilot tiles.
+  Content: 7 real English 5-star reviews from aaroma's Judge.me (docs/reviews/judgeme-all.json), title and body
+  verbatim in the aaroma.reviews.r1..r7 locale keys, names as Judge.me shows them, no "Verified buyer" line because
+  Judge.me does not mark these 7 as verified. Rating line = aaroma.reviews.sub ("Customer reviews · 4.7 out of 5 stars",
+  Judge.me's real average).
+{%- endcomment -%}
+{%- liquid
+  assign pm_sp_names = 'Mattias Eklund|Annelie|Louise Larsen|Julia Anne Payer|Christelle|Saidul Rahman|Maks Naruszewicz' | split: '|'
+  assign pm_sp_id = 'pm-social-proof'
+-%}
+{{ 'pm-collection-reviews.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .premium #{{ pm_sp_id }} {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .premium #{{ pm_sp_id }} {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="{{ pm_sp_id }}" class="pm-scope pm-creviews color-scheme-1 gradient" data-review-label="{{ 'aaroma.reviews.review_n' | t | escape }}">
+  <div class="page-width">
+    <div class="pm-creviews__head">
+      <h2 class="pm-h2 pm-creviews__heading">{{ 'aaroma.reviews.heading' | t }}</h2>
+      <div class="pm-creviews__rating">
+        {% render 'pm-stars', rating: 4.7, size: 12 %}
+        <span class="pm-small pm-muted">{{ 'aaroma.reviews.sub' | t }}</span>
+      </div>
+    </div>
+
+    <div class="pm-creviews__slider" data-pm-cr>
+      <ul class="pm-creviews__track" role="list" data-pm-cr-track>
+        {%- for pm_sp_name in pm_sp_names -%}
+          {%- capture pm_sp_title_key -%}aaroma.reviews.r{{ forloop.index }}_title{%- endcapture -%}
+          {%- capture pm_sp_body_key -%}aaroma.reviews.r{{ forloop.index }}_body{%- endcapture -%}
+          <li class="pm-creviews__slide" data-pm-cr-card>
+            <article class="pm-review">
+              <div class="pm-review__body">
+                <div class="pm-review__meta">
+                  <div class="pm-review__who">
+                    <div>
+                      <p class="pm-review__name">{{ pm_sp_name }}</p>
+                    </div>
+                  </div>
+                  <div class="pm-review__rating">
+                    <span class="pm-review__stars" role="img" aria-label="{{ 'aaroma.reviews.stars_five' | t | escape }}">
+                      {%- for i in (1..5) -%}
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      {%- endfor -%}
+                    </span>
+                  </div>
+                </div>
+                <div class="pm-review__text rte">
+                  <p><strong>{{ pm_sp_title_key | t }}</strong></p>
+                  <p>{{ pm_sp_body_key | t }}</p>
+                </div>
+              </div>
+            </article>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="pm-creviews__nav">
+        <button type="button" class="pm-creviews__arrow pm-creviews__arrow--prev" data-pm-cr-prev aria-label="{{ 'aaroma.reviews.previous' | t | escape }}" disabled>
+          {% render 'pm-icon', icon: 'chevron-right', size: 18, stroke: 1.5 %}
+        </button>
+        <button type="button" class="pm-creviews__arrow pm-creviews__arrow--next" data-pm-cr-next aria-label="{{ 'aaroma.reviews.next' | t | escape }}">
+          {% render 'pm-icon', icon: 'chevron-right', size: 18, stroke: 1.5 %}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('{{ pm_sp_id }}');
+    if (!root || root.hasAttribute('data-started')) return;
+    root.setAttribute('data-started', '1');
+    var track = root.querySelector('[data-pm-cr-track]');
+    var prev = root.querySelector('[data-pm-cr-prev]');
+    var next = root.querySelector('[data-pm-cr-next]');
+    if (!track) return;
+    function step() {
+      var card = track.querySelector('[data-pm-cr-card]');
+      if (!card) return track.clientWidth;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+    function update() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max;
+    }
+    function go(dir) {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      track.scrollBy({ left: dir * step(), behavior: reduce ? 'auto' : 'smooth' });
+    }
+    if (prev) prev.addEventListener('click', function () { go(-1); });
+    if (next) next.addEventListener('click', function () { go(1); });
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>

@@ -1,0 +1,49 @@
+{% comment %}
+  Rating line text for the Bundle & Save page: the shop's live Judge.me rating and review count (all Judge.me
+  reviews of the store, shop metafields judgeme.all_reviews_rating / all_reviews_count), as magicperfume.co's
+  snippet ("4,8/5 Sterne (1.405 Bewertungen)"). Judge.me numbers off, or no numbers: the fallback text.
+  Output is escaped; empty when both are empty.
+  aaroma.co (04.11.2026): Judge.me numbers on (1,423 reviews, 4.71). Format = the t-key premium.pdp.rating_line
+  ("{{ rating }}/5 stars ({{ count }} reviews)", shared with the FM product pages), not a German literal. If the key
+  is missing the line falls back to the wordless "4.7/5 (1,423)".
+  Number format follows the storefront language (05.11.2026): en "4.7 / 1,430", nl/de "4,7 / 1.430",
+  fr/et/lt/lv "4,7 / 1 430" (no-break space).
+
+  Accepts:
+  - use_judgeme: {Boolean} show the Judge.me numbers when they exist
+  - fallback: {String} text when the numbers are off or missing
+
+  Usage:
+  {% render 'pm-bs-judgeme-text', use_judgeme: section.settings.use_judgeme, fallback: section.settings.rating_text %}
+{% endcomment %}
+{%- liquid
+  assign jm_rating = shop.metafields.judgeme.all_reviews_rating | plus: 0
+  assign jm_count = shop.metafields.judgeme.all_reviews_count | plus: 0
+  if use_judgeme and jm_rating > 0 and jm_count > 0
+    assign jm_lang = request.locale.iso_code | slice: 0, 2
+    assign jm_dec = ','
+    assign jm_thou = '.'
+    case jm_lang
+      when 'en'
+        assign jm_dec = '.'
+        assign jm_thou = ','
+      when 'fr', 'et', 'lt', 'lv'
+        assign jm_thou = ' '
+    endcase
+    assign jm_rating_text = jm_rating | round: 1 | append: '' | replace: '.', jm_dec
+    if jm_count >= 1000
+      assign jm_k = jm_count | divided_by: 1000
+      assign jm_rest = jm_count | modulo: 1000 | prepend: '00' | slice: -3, 3
+      assign jm_count_text = jm_k | append: jm_thou | append: jm_rest
+    else
+      assign jm_count_text = jm_count | append: ''
+    endif
+    assign jm_line = 'premium.pdp.rating_line' | t: rating: jm_rating_text, count: jm_count_text
+    if jm_line contains 'translation missing'
+      assign jm_line = jm_rating_text | append: '/5 (' | append: jm_count_text | append: ')'
+    endif
+    echo jm_line
+  else
+    echo fallback | escape
+  endif
+-%}

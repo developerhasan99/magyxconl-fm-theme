@@ -1,0 +1,323 @@
+{%- comment -%}
+  fmx-stacks-up (aaroma.co): FM comparison table (MAGYX | Other dupes | Designer brands), port of magicperfume.co
+  sections/fmx-stacks-up.liquid (= tryscent.co premium-redesign 1:1). English. Keeps the setting / block ids of
+  aaroma's stacks-up (title, btn_text, btn_url, background_color, stack_heading, stack_subheading), so
+  docs/pdp-parity/build_templates.py switches the section type and the existing row texts and their translations stay.
+  Every label is a setting saved in the product templates (translatable).
+{%- endcomment -%}
+{{ 'fmx-base.css' | asset_url | stylesheet_tag }}
+{{ 'fmx-s-stacks-up.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .fmx-scope .pm-compare--{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .fmx-scope .pm-compare--{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="fmx-scope">
+<div
+  id="{{ section.id }}"
+  class="pm-compare pm-compare--{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    {%- if section.settings.kicker != blank -%}
+      <p class="pm-eyebrow pm-muted pm-compare__kicker">{{ section.settings.kicker }}</p>
+    {%- endif -%}
+    <h2 class="pm-h2 pm-compare__heading">{{ section.settings.title }}</h2>
+    {%- assign pm_dupes = section.settings.dupes_enable -%}
+    <div class="pm-compare__table{% if pm_dupes %} pm-compare__table--3{% endif %}" role="table">
+      <div class="pm-compare__row pm-compare__row--head" role="row">
+        <div class="pm-compare__cell pm-compare__cell--label" role="columnheader"><span class="visually-hidden">{{ section.settings.kicker }}</span></div>
+        <div class="pm-compare__cell pm-compare__cell--ours" role="columnheader">
+          <span class="pm-compare__ours-label">{{ section.settings.ours_label }}</span>
+          {%- if section.settings.ours_note != blank -%}
+            <span class="pm-compare__ours-note">{{ section.settings.ours_note }}</span>
+          {%- endif -%}
+        </div>
+        {%- if pm_dupes -%}
+          <div class="pm-compare__cell pm-compare__cell--theirs pm-compare__cell--dupes" role="columnheader">{{ section.settings.dupes_label }}</div>
+        {%- endif -%}
+        <div class="pm-compare__cell pm-compare__cell--theirs" role="columnheader">{{ section.settings.theirs_label }}</div>
+      </div>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'stack' -%}
+          <div class="pm-compare__row" role="row" {{ block.shopify_attributes }}>
+            <div class="pm-compare__cell pm-compare__cell--label" role="rowheader">
+              <span class="pm-compare__feature">{{ block.settings.stack_heading }}</span>
+              {%- if block.settings.stack_subheading != blank -%}
+                <span class="pm-compare__sub">{{ block.settings.stack_subheading }}</span>
+              {%- endif -%}
+            </div>
+            <div class="pm-compare__cell pm-compare__cell--mark pm-compare__cell--yes" role="cell">
+              {% render 'fmx-icon', icon: 'check', size: 20, stroke: 1.75 %}
+              <span class="visually-hidden">{{ section.settings.yes_label }}</span>
+            </div>
+            {%- if pm_dupes -%}
+              {%- if block.settings.dupes_mark == 'yes' -%}
+                <div class="pm-compare__cell pm-compare__cell--mark pm-compare__cell--yes pm-compare__cell--dupes-yes" role="cell">
+                  {% render 'fmx-icon', icon: 'check', size: 20, stroke: 1.75 %}
+                  <span class="visually-hidden">{{ section.settings.yes_label }}</span>
+                </div>
+              {%- else -%}
+                <div class="pm-compare__cell pm-compare__cell--mark pm-compare__cell--no" role="cell">
+                  {% render 'fmx-icon', icon: 'close', size: 18, stroke: 1.5 %}
+                  <span class="visually-hidden">{{ section.settings.no_label }}</span>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+            <div class="pm-compare__cell pm-compare__cell--mark pm-compare__cell--no" role="cell">
+              {% render 'fmx-icon', icon: 'close', size: 18, stroke: 1.5 %}
+              <span class="visually-hidden">{{ section.settings.no_label }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="pm-compare__footer">
+      {%- if section.settings.btn_text != blank -%}
+        <a href="{{ section.settings.btn_url }}" class="pm-btn pm-btn--primary pm-compare__cta">{{ section.settings.btn_text }}</a>
+      {%- endif -%}
+      {%- if section.settings.proof_1 != blank or section.settings.proof_2 != blank -%}
+        <ul class="pm-compare__proof" role="list">
+          {%- if section.settings.proof_1 != blank -%}
+            <li class="pm-compare__proof-item">{% render 'fmx-icon', icon: 'clock', size: 16, stroke: 1.5 %}<span>{{ section.settings.proof_1 }}</span></li>
+          {%- endif -%}
+          {%- if section.settings.proof_2 != blank -%}
+            <li class="pm-compare__proof-item">{% render 'fmx-icon', icon: 'heart', size: 16, stroke: 1.5 %}<span>{{ section.settings.proof_2 }}</span></li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "FM comparison",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "MAGYX vs. the original"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "How MAGYX compares"
+    },
+    {
+      "type": "text",
+      "id": "ours_label",
+      "label": "Our column label",
+      "default": "MAGYX"
+    },
+    {
+      "type": "text",
+      "id": "ours_note",
+      "label": "Our column note",
+      "default": "20% concentration"
+    },
+    {
+      "type": "text",
+      "id": "theirs_label",
+      "label": "Their column label",
+      "default": "Designer brands",
+      "info": "Long single words: a soft hyphen (U+00AD) lets the narrow phone column break the word."
+    },
+    {
+      "type": "checkbox",
+      "id": "dupes_enable",
+      "label": "Show other dupes column",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "dupes_label",
+      "label": "Other dupes column label",
+      "default": "Other dupes",
+      "info": "Tick or cross per row: open each row (block) and set Other dupes."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "Discover bestsellers"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "proof_1",
+      "label": "Proof line 1 (clock icon)",
+      "default": "Lasts up to 12 hours"
+    },
+    {
+      "type": "text",
+      "id": "proof_2",
+      "label": "Proof line 2 (heart icon)",
+      "default": "4.7/5 from 10,000+ reviews"
+    },
+    {
+      "type": "text",
+      "id": "yes_label",
+      "label": "Screen-reader text for a check mark",
+      "default": "Yes"
+    },
+    {
+      "type": "text",
+      "id": "no_label",
+      "label": "Screen-reader text for a cross",
+      "default": "No"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour (unused)",
+      "info": "Kept from the old section. The FM band uses the colour scheme."
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stack",
+      "name": "Stack",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stack_heading",
+          "label": "Stack Heading",
+          "default": "Benefit"
+        },
+        {
+          "type": "text",
+          "id": "stack_subheading",
+          "label": "Stack Subheading",
+          "default": "Short explanation"
+        },
+        {
+          "type": "select",
+          "id": "dupes_mark",
+          "label": "Other dupes",
+          "options": [
+            {
+              "value": "no",
+              "label": "Cross"
+            },
+            {
+              "value": "yes",
+              "label": "Tick"
+            }
+          ],
+          "default": "no"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FM comparison",
+      "blocks": [
+        {
+          "type": "stack",
+          "settings": {
+            "stack_heading": "Fragrance concentration",
+            "stack_subheading": "More oil = longer longevity",
+            "dupes_mark": "no"
+          }
+        },
+        {
+          "type": "stack",
+          "settings": {
+            "stack_heading": "Lasts 8–12 hours on the skin",
+            "stack_subheading": "Lasts longer than most designer EDTs",
+            "dupes_mark": "no"
+          }
+        },
+        {
+          "type": "stack",
+          "settings": {
+            "stack_heading": "90% cheaper than the designer price",
+            "stack_subheading": "Without compromising on quality",
+            "dupes_mark": "yes"
+          }
+        },
+        {
+          "type": "stack",
+          "settings": {
+            "stack_heading": "≈95% scent match to the original",
+            "stack_subheading": "Made with the same fragrance accords",
+            "dupes_mark": "no"
+          }
+        },
+        {
+          "type": "stack",
+          "settings": {
+            "stack_heading": "Shipped within 48 hours",
+            "stack_subheading": "No waiting in the store",
+            "dupes_mark": "no"
+          }
+        },
+        {
+          "type": "stack",
+          "settings": {
+            "stack_heading": "Cruelty-free formula",
+            "stack_subheading": "Pure ingredients, safe for the skin",
+            "dupes_mark": "no"
+          }
+        },
+        {
+          "type": "stack",
+          "settings": {
+            "stack_heading": "60-day money-back guarantee",
+            "stack_subheading": "Love it or get your money back in full, no questions asked",
+            "dupes_mark": "no"
+          }
+        }
+      ]
+    }
+  ],
+  "class": "pm-scope"
+}
+{% endschema %}

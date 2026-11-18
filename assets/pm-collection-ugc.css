@@ -1,0 +1,120 @@
+/* pm-collection-ugc.css: the UGC video tiles inside the FM collection grid (sections/main-collection-product-grid.liquid,
+   loaded right after fuel05-ugc.css). aaroma's fuel05-ugc.css sized the tile and its product pill for aaroma's old,
+   shorter product cards (tile fills the cell, smaller pill type). Next to the FM product cards the grid tile takes
+   magicperfume.co's FM values again (its assets/fuel05-ugc.css): 260:494 tile from 750px (it sets the row height, the
+   product cards sit at its top), cell-filling tile on phones, pill bottom-aligned with 14px title, 18px price, 12px
+   struck price and sticker, ink "+" button. Colour exception: the price per bottle is magicperfume's Pine, here
+   aaroma's green #146b32. The -N% sticker stays in aaroma's photo wrapper (.fuel05-ugc__pill-media), placed so it
+   lands where magicperfume's does (4px above, 6px left of the photo). Scoped to #product-grid: the home row, the
+   product page row and the Bundle & Save carousel keep fuel05-ugc.css as it is. */
+
+@media screen and (min-width: 750px) {
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__tile {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 260 / 494;
+  }
+}
+
+/* Phones: the tile is exactly as tall as the product cards of its row. The cell is a column flex box and the tile
+   grows into it (no percentage height, which some engines leave unresolved on a stretched grid cell); the row height
+   comes from the product cards (image + title + price), the video is object-fit: cover, so it absorbs any height. */
+@media screen and (max-width: 749px) {
+  .premium #product-grid > li.fuel05-ugc--grid {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+  }
+
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__tile {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+}
+
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill {
+  align-items: flex-end;
+}
+
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.66px;
+  line-height: 1.2;
+}
+
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-price {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-compare {
+  font-size: 12px;
+}
+
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-per {
+  color: #146b32;
+}
+
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-add {
+  border-color: #121212;
+  color: #121212;
+}
+
+/* aaroma's tile snippet paints the "+" paths green (fill="#137C44"); magicperfume's use currentColor (ink). */
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-add path {
+  fill: currentColor;
+}
+
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-badge:not(.fuel05-ugc__pill-badge--inline) {
+  top: -4px;
+  left: -6px;
+}
+
+.premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-badge {
+  padding: 0 6px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+@container (max-width: 249px) {
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-badge {
+    padding: 0 5px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-compare {
+    font-size: 11px;
+  }
+}
+
+@container (max-width: 199px) {
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-badge:not(.fuel05-ugc__pill-badge--inline) {
+    top: -4px;
+    left: -5px;
+  }
+
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-badge {
+    padding: 0 4px;
+    font-size: 10px;
+    line-height: 14px;
+  }
+
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-compare {
+    font-size: 10px;
+  }
+
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-title {
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    line-height: 1.25;
+  }
+
+  .premium #product-grid .fuel05-ugc--grid .fuel05-ugc__pill-price {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+}

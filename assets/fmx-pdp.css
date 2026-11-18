@@ -1,0 +1,1476 @@
+/* fmx-pdp.css (aaroma.co, port of magicperfume.co): FM product page look for sections/fmx-main-product.liquid (scent pages
+   product.expressive-notes, bundle pages product.custom-bundle).
+   1-2 = tryscent.co assets/fmx-pdp.css (container: contained 1268px row, gallery 732 : buy box 488 from 990px;
+   gallery: Swiper with 52px thumbnail column below 990, counter + arrows + 98px thumbnail row from 990),
+   scope .fmx-scope (body is .premium on this theme). M* / B* = the live magicperfume.co buy box blocks
+   restyled in the FM look; MAGYX accent (Pine, --fmx-cta) on buttons and badges, Sale Red on discounts. */
+
+/* 1. Container: full-bleed grid, buy box column centred at 600 max ------------------------------ */
+.fmx-scope .pm-pdp {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fmx-scope .pm-pdp .product.grid_layout {
+  display: block;
+  margin: 0;
+  gap: 0;
+}
+
+.fmx-scope .pm-pdp .product .grid__item {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  flex: none;
+}
+
+.fmx-scope .pm-pdp .product .product__media-wrapper,
+.fmx-scope .pm-pdp .product .product__info-wrapper {
+  padding: 0;
+  margin: 0;
+}
+
+.fmx-scope .pm-pdp .product__info-container {
+  position: static;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--pm-buybox);
+  margin: 0 auto;
+  padding: 24px 20px 0;
+}
+
+.fmx-scope .pm-pdp .product__view-details {
+  display: none;
+}
+
+@media (min-width: 990px) {
+  /* Thomson Carter proportions: contained 1268px row, gallery 732 : buy box 488, 48px gap.
+     Cells stretch to the row (default) so the sticky buy box has room to travel inside its wrapper. */
+  .fmx-scope .pm-pdp {
+    box-sizing: border-box;
+    max-width: calc(1268px + 80px);
+    margin: 0 auto;
+    padding: 32px 40px 0;
+  }
+
+  .fmx-scope .pm-pdp .product.grid_layout {
+    display: grid;
+    grid-template-columns: minmax(0, 732fr) minmax(0, 488fr);
+    column-gap: 48px;
+    align-items: stretch;
+  }
+
+  .fmx-scope .pm-pdp .product__info-container {
+    position: sticky;
+    top: var(--pm-sticky-top, calc(var(--header-height, 64px) + 16px));
+    z-index: 2;
+    max-width: none;
+    padding: 0;
+  }
+}
+
+/* 2. Gallery (editorial) ---------------------------------------------------------------------- */
+.fmx-scope .pm-pdp .pm-gallery {
+  position: relative;
+  width: 100%;
+}
+
+.fmx-scope .pm-pdp .pm-gallery__row {
+  position: relative;
+}
+
+.fmx-scope .pm-pdp .pm-gallery .swiper {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.fmx-scope .pm-pdp .pm-gallery .productSwiperImage {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--pm-surface);
+}
+
+.fmx-scope .pm-pdp .pm-gallery .swiper-button-prev,
+.fmx-scope .pm-pdp .pm-gallery .swiper-button-next {
+  display: none;
+}
+
+/* "Scent match" tag: white badge, 2px radius, 12px inset (16 from 990) */
+.fmx-scope .pm-pdp .pm-gallery__tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  border-radius: 2px;
+  box-shadow: var(--pm-shadow-sm);
+  cursor: default;
+}
+
+/* Below 990: thumbnails in a column right of the main image (Thomson Carter pattern), 52px squares,
+   4px gaps, 8px from the image and the screen edge. */
+@media (max-width: 989px) {
+  .fmx-scope .pm-pdp .pm-gallery:has(.pm-gallery__thumbs .productThumbnail) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 52px;
+    column-gap: 8px;
+    padding-right: 8px;
+  }
+}
+
+.fmx-scope .pm-pdp .pm-gallery__side {
+  position: relative;
+  min-height: 0;
+}
+
+.fmx-scope .pm-pdp .pm-gallery__thumbs {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.fmx-scope .pm-pdp .pm-gallery__thumbs .swiper-wrapper {
+  align-items: flex-start;
+}
+
+.fmx-scope .pm-pdp .pm-gallery__thumbs .productThumbnail {
+  box-sizing: border-box;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  max-width: none;
+  object-fit: cover;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: var(--pm-surface);
+  opacity: 1;
+  cursor: pointer;
+}
+
+.fmx-scope .pm-pdp .pm-gallery__thumbs .productThumbnail.swiper-slide-thumb-active {
+  border-color: var(--pm-ink);
+}
+
+@media (min-width: 990px) {
+  .fmx-scope .pm-pdp .pm-gallery__tag {
+    top: 16px;
+    left: 16px;
+  }
+
+  /* Thomson Carter desktop gallery: one square image, counter + arrows bar, 98px thumbnail row */
+  .fmx-scope .pm-pdp .pm-gallery__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+
+  .fmx-scope .pm-pdp .pm-gallery__side {
+    margin-top: 16px;
+  }
+
+  .fmx-scope .pm-pdp .pm-gallery__thumbs {
+    position: static;
+  }
+
+  .fmx-scope .pm-pdp .pm-gallery__thumbs .productThumbnail {
+    width: 98px;
+    height: 98px;
+  }
+}
+
+@media (max-width: 989px) {
+  .fmx-scope .pm-pdp .pm-gallery__bar {
+    display: none;
+  }
+}
+
+.fmx-scope .pm-pdp .pm-gallery__count {
+  font-size: 14px;
+  color: var(--pm-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.fmx-scope .pm-pdp .pm-gallery__arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.fmx-scope .pm-pdp .pm-gallery__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pm-ink);
+  cursor: pointer;
+}
+
+.fmx-scope .pm-pdp .pm-gallery__arrow.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+
+/* ==== magicperfume.co buy box in the FM look (sections/fmx-main-product.liquid) =====================
+   Live blocks and markup (Tailwind utilities + mgx-* classes), restyled from here. Selectors carry
+   .fmx-pdp-scope + one or two classes, so they beat single Tailwind utilities without importance;
+   utilities written with "!" in the markup (padding, margins) stay as live. */
+
+/* M0. Page ground: white, FM ink (main section runs on scheme-2) */
+.fmx-pdp-scope product-info.gradient,
+.fmx-pdp-scope product-info {
+  --color-background: 255, 255, 255;
+  --gradient-background: #ffffff;
+  background: #ffffff;
+  color: var(--pm-ink);
+}
+
+.fmx-pdp-scope .product__info-container > * + * {
+  margin-top: 0;
+}
+
+/* ==== TS-PDP start: tryscent.co assets/fmx-pdp.css buy box (docs/pdp-parity/splice_pdp_css.py, rebuilt on every run) ==== */
+/* 3. Buy box: rating row, badges, title, subtitle, benefits, quick links ---------------------- */
+.fmx-scope .pm-pdp .pm-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+.fmx-scope .pm-pdp .pm-rating__eyebrow {
+  font-size: var(--pm-fs-eyebrow);
+  line-height: var(--pm-lh-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pm-muted);
+}
+
+/* "★★★★★ Excellent 4.9 | 10,000+ reviews": own line above the eyebrow below 990, right of it from 990 */
+.fmx-scope .pm-pdp .pm-rating__score {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--pm-ink);
+}
+
+.fmx-scope .pm-pdp .pm-rating__score .pm-stars {
+  color: var(--pm-good);
+}
+
+.fmx-scope .pm-pdp .pm-rating__sep {
+  color: var(--pm-muted);
+}
+
+@media (max-width: 989px) {
+  .fmx-scope .pm-pdp .pm-rating {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .fmx-scope .pm-pdp .pm-rating__score {
+    order: -1;
+  }
+}
+
+.fmx-scope .pm-pdp .pm-rating__link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.fmx-scope .pm-pdp .pm-rating__link:hover {
+  color: var(--pm-ink);
+}
+
+/* No eyebrow (bundle pages): the rating line stands alone, left-aligned, 14px */
+.fmx-scope .pm-pdp .pm-rating.pm-rating--solo {
+  justify-content: flex-start;
+}
+
+.fmx-scope .pm-pdp .pm-rating.pm-rating--solo .pm-rating__score {
+  margin-left: 0;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.fmx-scope .pm-pdp .pm-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+
+.fmx-scope .pm-pdp .pm-titlebox {
+  margin: 6px 0 0;
+}
+
+.fmx-scope .pm-pdp .pm-titlebox .pm-h1 {
+  margin: 0;
+}
+
+.fmx-scope .pm-pdp .pm-subtitle {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pm-ink);
+}
+
+/* Inspired by + designer bottle: 56px white tile with the original bottle, label over the designer name */
+.fmx-scope .pm-pdp .pm-inspired {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 0;
+}
+
+.fmx-scope .pm-pdp .pm-inspired__media {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  padding: 4px;
+  border: 1px solid var(--pm-line, rgba(0, 0, 0, 0.1));
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.fmx-scope .pm-pdp .pm-inspired__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fmx-scope .pm-pdp .pm-inspired__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.fmx-scope .pm-pdp .pm-inspired__label {
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.fmx-scope .pm-pdp .pm-inspired__name {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--pm-ink);
+}
+
+/* Designer price under the designer name (custom.original_retail_price, struck through) */
+.fmx-scope .pm-pdp .pm-inspired__designer {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.fmx-scope .pm-pdp .pm-inspired__designer .fmx-designer-price {
+  font-weight: 600;
+  color: var(--pm-ink);
+}
+
+.fmx-scope .pm-pdp .pm-inspired__solo {
+  margin: 4px 0 0;
+}
+
+.fmx-scope .pm-pdp .pm-benefits {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+/* Claim lines (magyx.co pattern): filled check, semibold text, 8px apart */
+.fmx-scope .pm-pdp .pm-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fmx-scope .pm-pdp .pm-benefits__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 22px;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--pm-ink);
+}
+
+.fmx-scope .pm-pdp .pm-benefits__icon {
+  flex: none;
+  color: var(--pm-good);
+}
+
+/* Vertical rhythm note: the spec's 1440 steps (20 / 32 / 28 / 32) put the ATC at y=956 on a 900px viewport
+   because three tier cards sit above it; the 375 steps are used at every width so the ATC stays in the first fold. */
+@media (min-width: 990px) {
+  .fmx-scope .pm-pdp .pm-rating__score {
+    margin-left: auto;
+  }
+
+  .fmx-scope .pm-pdp .pm-titlebox {
+    margin-top: 4px;
+  }
+
+  .fmx-scope .pm-pdp .pm-subtitle {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+/* Designer price block (main-product "designer_price") */
+.fmx-scope .pm-designer-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--pm-muted);
+}
+
+.fmx-scope .pm-designer-line .fmx-designer-price {
+  color: var(--pm-muted);
+}
+
+/* ==== FM buy box for the tryscent.co buying blocks ===============================================
+   The blocks keep tryscent.co's function (Tryscent+ membership, size selector, add to cart, bundle
+   upsell); the look is FM's (assets/pm-pdp.css on federicomahora.co, sections 4 and 6).
+   - fmx-variant-selector / fmx-shipping-badges / fmx-payment-icons / tsr_block carry FM classes in
+     their markup (pm-size, pm-btn pm-atc, pm-tier__save, fmx-offer);
+   - the Tryscent+ app block (Subscribfy) and the "Inte din doft?" link are styled from outside.
+   Gate for rules outside .premium: body:has(.fmx-pdp-scope), so they only apply on this template. */
+
+/* 1. Short description under the claim lines (FM pm-sdesc) --------------------------------------- */
+.fmx-scope .pm-pdp .pm-sdesc {
+  margin: 16px 0 0;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--pm-muted);
+}
+
+/* 2. Size selector (FM section 4, verbatim) -------------------------------------------------------- */
+.fmx-scope .pm-size-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 28px 0 0;
+}
+
+.fmx-scope .pm-size-head__label {
+  margin: 0;
+  color: var(--pm-ink);
+}
+
+.fmx-scope .pm-size-head__hint {
+  font-size: 12px;
+  line-height: 16px;
+  text-align: right;
+  color: var(--pm-muted);
+}
+
+.fmx-scope .pm-sizes {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.fmx-scope .pm-size {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 64px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--pm-line);
+  border-radius: var(--pm-radius-sm);
+  background: var(--pm-white);
+  color: var(--pm-ink);
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color var(--pm-dur) var(--pm-ease), box-shadow var(--pm-dur) var(--pm-ease);
+}
+
+.fmx-scope .pm-size:hover,
+.fmx-scope .pm-size.is-selected {
+  border-color: var(--pm-black);
+  box-shadow: var(--pm-shadow-sm);
+}
+
+.fmx-scope .pm-size:focus-visible {
+  outline: 2px solid var(--pm-ink);
+  outline-offset: 2px;
+}
+
+.fmx-scope .pm-size__title {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 800;
+}
+
+.fmx-scope .pm-size__meta {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--pm-muted);
+}
+
+.fmx-scope .pm-size__flag {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  padding: 3px 6px;
+  border: 1px solid var(--pm-ink);
+  border-radius: 2px;
+  background: var(--pm-ink);
+  color: var(--pm-white);
+  font-size: var(--pm-fs-badge);
+  line-height: 12px;
+  font-weight: 500;
+  letter-spacing: 0.125em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (min-width: 990px) {
+  .fmx-scope .pm-sizes {
+    gap: 12px;
+  }
+}
+
+/* TryScent colours around the buy button (live tsr-bundle page, measured 01.11):
+   "Mest Populär" red, "Bäst värde" + chosen size green, add-to-cart green */
+.fmx-scope .pm-size__flag--popular {
+  border-color: var(--pm-sale);
+  background: var(--pm-sale);
+}
+
+.fmx-scope .pm-size__flag--value {
+  border-color: var(--pm-good);
+  background: var(--pm-good);
+}
+
+.fmx-scope .pm-size.is-selected {
+  border-color: var(--pm-good);
+}
+
+.fmx-scope .pm-btn.pm-atc {
+  border-color: var(--pm-black);
+  background: var(--pm-black);
+}
+
+.fmx-scope .pm-btn.pm-atc:hover {
+  border-color: var(--fmx-cta-hover);
+  background: var(--fmx-cta-hover);
+}
+
+/* Discount badges red (-37%, Spara 48%), review stars gold (same gold as the Bundle & Save page) */
+.fmx-scope .pm-badge.pm-badge--ink {
+  border-color: var(--pm-sale);
+  background: var(--pm-sale);
+}
+
+.fmx-scope .pm-reviews .pm-stars,
+.fmx-scope .pm-review .pm-review__stars {
+  color: var(--pm-good);
+}
+
+/* 3. Subtotal + add to cart (FM pm-subtotal / pm-atc): "Delsumma 547,96 kr 289,99 kr" above the ink button */
+.fmx-scope .product-form.fmx-product-form {
+  margin: 0;
+}
+
+.fmx-scope .pm-subtotal {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--pm-ink);
+}
+
+.fmx-scope .pm-subtotal .fmx-subtotal__price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.fmx-scope .pm-subtotal__compare {
+  font-weight: 400;
+  color: var(--pm-muted);
+  text-decoration: line-through;
+}
+
+.fmx-scope .pm-subtotal__value {
+  color: var(--pm-ink);
+}
+
+.fmx-scope .pm-btn.pm-atc {
+  width: 100%;
+  min-height: 52px;
+  margin: 12px 0 0;
+  padding: 12px 24px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.fmx-scope .pm-atc::after {
+  content: none;
+}
+
+.fmx-scope .pm-atc:focus-visible,
+.fmx-scope .pm-atc:focus {
+  box-shadow: none;
+  outline: 2px solid var(--pm-ink);
+  outline-offset: 2px;
+}
+
+.fmx-scope .pm-atc:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+.fmx-scope .pm-atc:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fmx-scope .pm-atc .loading__spinner .path {
+  stroke: var(--pm-white);
+}
+
+.fmx-scope .fmx-atc__error {
+  margin: 12px 0 0;
+  color: var(--pm-error);
+}
+
+/* 5. "Inte din doft?" finder link: 13px ink text link, small ink icon ----------------------------- */
+.fmx-scope .fuel06-pdp-link {
+  margin-top: 16px;
+  color: var(--pm-ink);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.fmx-scope .fuel06-pdp-link em {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.fmx-scope .fuel06-pdp-link .fuel06-pdp-link__icon {
+  background-color: var(--pm-good);
+}
+
+.fmx-scope .fuel06-pdp-link:focus-visible {
+  outline-color: var(--pm-ink);
+}
+
+/* 6. Bundle upsell (tsr_block, markup fmx-offer): FM card, hairline, 4px radius, ink Save pill ---- */
+.fmx-scope .fmx-offer {
+  display: flex;
+  align-items: stretch;
+  margin: 24px 0;
+  overflow: hidden;
+  border: 1px solid var(--pm-line);
+  border-radius: var(--pm-radius-sm);
+  background: var(--pm-white);
+  box-shadow: var(--pm-shadow-sm);
+  color: var(--pm-ink);
+  text-decoration: none;
+  transition: border-color var(--pm-dur) var(--pm-ease);
+}
+
+.fmx-scope .fmx-offer:hover {
+  border-color: var(--pm-black);
+}
+
+.fmx-scope .fmx-offer__media {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 40%;
+  max-width: 220px;
+  background: var(--pm-surface);
+}
+
+.fmx-scope .fmx-offer__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fmx-scope .fmx-offer__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 16px;
+}
+
+.fmx-scope .fmx-offer__save {
+  align-self: flex-start;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--pm-sale);
+  color: var(--pm-white);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.fmx-scope .fmx-offer__title {
+  margin: 8px 0 4px;
+  color: var(--pm-ink);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.fmx-scope .fmx-offer__text {
+  margin: 0;
+  color: var(--pm-muted);
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+.fmx-scope .fmx-offer__text strong {
+  color: var(--pm-ink);
+  font-weight: 700;
+}
+
+/* 7. Leftover tryscent.co green / red utilities in the other buy box blocks (hidden A/B blocks) ---- */
+.fmx-scope .product__info-container .text-gray-500 {
+  color: var(--pm-muted);
+}
+
+.fmx-scope .product__info-container .text-green-600,
+.fmx-scope .product__info-container .text-green-700 {
+  color: var(--pm-ink);
+}
+
+.fmx-scope .product__info-container .bg-green-100 {
+  background-color: var(--pm-surface);
+}
+
+.fmx-scope .product__info-container .border-green-600,
+.fmx-scope .product__info-container .hover\:border-green-600:hover {
+  border-color: var(--pm-ink);
+}
+
+.fmx-scope .product__info-container .bg-red-600 {
+  background-color: var(--pm-black);
+}
+
+.fmx-scope .product__info-container .text-slate-900 {
+  color: var(--pm-ink);
+}
+
+.fmx-scope .product__info-container .text-slate-600 {
+  color: var(--pm-muted);
+}
+
+/* 7b. Badge row (fmx-shipping-badges, tryscent.co tiles): PostNord logo and guarantee seal in their own colours */
+
+/* 8. Outside .premium: floating add to cart bar on this template (FM sticky bar button) ------------ */
+body:has(.fmx-pdp-scope) #floatingAtc button {
+  background-color: var(--fmx-cta, #121212);
+  border: 1px solid var(--fmx-cta, #121212);
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.125em;
+  text-transform: uppercase;
+}
+
+body:has(.fmx-pdp-scope) #floatingAtc button:hover {
+  background-color: var(--fmx-cta-hover, #232323);
+}
+
+@media (max-width: 749px) {
+  body:has(.fmx-pdp-scope) #floatingAtc button {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+}
+/* ==== TS-PDP end ==== */
+
+/* M7. Payment icons + badge row under the button */
+.fmx-pdp-scope .fmx-trust {
+  margin: 0;
+}
+
+/* tryscent.co spacing (32 above the icons, 24 above the badge row); M0's "> * + * { margin-top: 0 }" would zero it */
+.fmx-pdp-scope .product__info-container > .fmx-pay-icons,
+.fmx-pdp-scope .fmx-trust .fmx-pay-icons {
+  margin-top: 32px;
+}
+
+.fmx-pdp-scope .product__info-container > .fmx-shipping-badges,
+.fmx-pdp-scope .fmx-trust .fmx-shipping-badges {
+  margin-top: 24px;
+}
+
+/* M6. Bundle buy button (fmx-bundle-builder): FM ink button, 4px radius, uppercase label, no shadow */
+.fmx-pdp-scope .fmx-bundle-atc.mgx-btn-primary {
+  min-height: 56px;
+  margin-top: 16px;
+  border: 1px solid var(--fmx-cta);
+  border-radius: var(--pm-radius-sm);
+  background-color: var(--fmx-cta);
+  color: #ffffff;
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  justify-content: center;
+}
+
+.fmx-pdp-scope .fmx-bundle-atc.mgx-btn-primary::after {
+  box-shadow: none;
+}
+
+.fmx-pdp-scope .fmx-bundle-atc.mgx-btn-primary:not([disabled]):hover {
+  background-color: var(--fmx-cta-hover);
+  border-color: var(--fmx-cta-hover);
+}
+
+/* B10 (tryscent.co): accordion rows (pm-accordion markup) = one hairline list, 32px under the video row */
+.fmx-scope .fmx-acc:not(.fmx-acc + .fmx-acc) {
+  margin-top: 32px;
+}
+
+.fmx-scope .fmx-acc + .fmx-acc > details {
+  border-top: 0;
+}
+
+.fmx-scope .fmx-acc .pm-accordion__title {
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+}
+
+/* M9. Folds under the buy box (expanded notes + collapsible tabs): one hairline list */
+.fmx-pdp-scope .product__accordion.accordion {
+  margin: 0;
+  border-top: 1px solid var(--pm-line);
+  border-bottom: 0;
+}
+
+.fmx-pdp-scope .product__accordion.accordion:last-of-type {
+  border-bottom: 1px solid var(--pm-line);
+}
+
+.fmx-pdp-scope .product__accordion summary,
+.fmx-pdp-scope #expanded-notes summary {
+  padding: 16px 0;
+}
+
+.fmx-pdp-scope .product__accordion .accordion__title,
+.fmx-pdp-scope #expanded-notes summary h2,
+.fmx-pdp-scope #expanded-notes summary h3 {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pm-ink);
+}
+
+.fmx-pdp-scope .product__accordion .accordion__content {
+  padding: 0 0 16px;
+  font-size: var(--pm-fs-body);
+  line-height: var(--pm-lh-body);
+  color: var(--pm-ink);
+}
+
+/* ==== Bundle pages (product.custom-bundle) ======================================================== */
+
+/* B1. Short description + "Mehr lesen" */
+/* = tryscent.co B3 (fmx-bdesc): pm-sdesc 15px muted + "Mehr lesen" text link */
+.fmx-pdp-scope .mgx-bundle-desc {
+  margin: 8px 0 0;
+}
+
+.fmx-scope .pm-pdp .mgx-bundle-desc .pm-sdesc {
+  margin: 0;
+}
+
+.fmx-scope .fmx-readmore {
+  display: inline-block;
+  margin: 10px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pm-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.fmx-scope .fmx-readmore:hover {
+  color: var(--pm-muted);
+}
+
+.fmx-pdp-scope .fmx-bclaims {
+  margin: 0 0 16px;
+}
+
+/* B2. Price = tryscent.co B4 (fmx-bprice): struck compare 15px muted, price 24px, ink discount tag, per-bottle
+   line 14px semibold ink; savings pill = tryscent.co's green outline pill (Accent Pine on its soft tint) */
+.fmx-pdp-scope .bundle-price-pdp {
+  margin: 8px 0 0;
+}
+
+.fmx-pdp-scope .bundle-price-pdp > .flex {
+  align-items: baseline;
+  gap: 10px;
+}
+
+.fmx-pdp-scope .bundle-price-pdp .mgx-bundle-compare {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--pm-muted);
+}
+
+.fmx-pdp-scope .bundle-price-pdp .mgx-bundle-price {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  color: var(--pm-ink);
+}
+
+.fmx-pdp-scope .bundle-price-pdp .discount-percent.discount-percent {
+  align-self: center;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--pm-ink);
+  color: var(--pm-white);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.fmx-pdp-scope .bundle-price-pdp > .text-lg {
+  margin: 2px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--pm-ink);
+}
+
+.fmx-pdp-scope .bundle-price-pdp > .mgx-badge-sale-soft.mgx-badge-sale-soft {
+  border-color: rgba(var(--pm-good-rgb, 20, 107, 50), 0.25);
+  background: var(--pm-good-soft);
+  color: var(--pm-good);
+}
+
+/* B2b. Steps bar (fmx-bundle-builder) = tryscent.co B5: thin ink progress line, 13px semibold label */
+.fmx-pdp-scope .fmx-steps {
+  margin: 24px 0 12px;
+}
+
+.fmx-pdp-scope .fmx-steps__track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--pm-line);
+  overflow: hidden;
+}
+
+.fmx-pdp-scope .fmx-steps__fill {
+  height: 100%;
+  min-width: 4px;
+  border-radius: 2px;
+  background: var(--pm-ink);
+  transition: width var(--pm-dur) var(--pm-ease);
+}
+
+.fmx-pdp-scope .fmx-steps__label {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--pm-ink);
+}
+
+.fmx-pdp-scope .fmx-steps__dot {
+  margin: 0 4px;
+  color: var(--pm-muted);
+}
+
+/* B3. Bottle slots: FM option rows (1px hairline, 4px radius, ink when filled) */
+.fmx-pdp-scope .fmx-slot.fmx-slot {
+  border-width: 1px;
+  border-color: var(--pm-line);
+  border-radius: var(--pm-radius-sm);
+  transition: border-color var(--pm-dur) var(--pm-ease);
+}
+
+.fmx-pdp-scope .fmx-slot.fmx-slot:hover,
+.fmx-pdp-scope .fmx-slot.mgx-selected-strong.mgx-selected-strong {
+  border-color: var(--pm-ink);
+}
+
+.fmx-pdp-scope .fmx-slot .mgx-bg-black {
+  border-radius: 2px;
+}
+
+/* B4. Bundle button disabled state: outline while bottles are missing */
+.fmx-pdp-scope .fmx-bundle-atc.mgx-btn-primary[disabled] {
+  border-color: var(--pm-ink);
+  background-color: #ffffff;
+  color: var(--pm-ink);
+  opacity: 1;
+}
+
+.fmx-pdp-scope .fmx-bundle-atc.mgx-btn-primary[disabled] .bg-white\/50 {
+  background-color: var(--pm-line);
+}
+
+
+/* ==== aaroma.co additions ===========================================================================
+   A1-A3: aaroma's bundle builder (snippets/fmx-bundle-builder.liquid = special-offer-builder in the FM layout).
+   A4: aaroma's quantity-breaker offer boxes (snippets/quantity-breaker.liquid, rendered as-is inside .fmx-qb by the
+   QB templates' custom_liquid block) in the FM buy-box look: size cards, hairline tier cards, ink radio, red savings
+   tags, ink button. Selectors carry .fmx-pdp-scope .fmx-qb + the utility classes the snippet prints. */
+
+/* A1. Bundle slots: FM option rows (hairline, 4px radius, ink when filled), ink number tile */
+.fmx-pdp-scope .fmx-slot.fmx-slot {
+  border-width: 1px;
+  border-color: var(--pm-line);
+  border-radius: var(--pm-radius-sm);
+  transition: border-color var(--pm-dur) var(--pm-ease);
+}
+
+.fmx-pdp-scope .fmx-slot.fmx-slot:hover,
+.fmx-pdp-scope .fmx-slot.fmx-slot--filled {
+  border-color: var(--pm-ink);
+}
+
+.fmx-pdp-scope .fmx-slot .fmx-slot__num {
+  border-radius: 2px;
+  background: var(--pm-ink);
+}
+
+/* bottle icon in the empty slot (snippets/perfume-icon.liquid draws it in aaroma brown on beige): magicperfume's
+   grey tile + ink bottle */
+.fmx-pdp-scope .fmx-slot svg[viewBox="0 0 60 60"] rect {
+  fill: #eeefef;
+}
+
+.fmx-pdp-scope .fmx-slot svg[viewBox="0 0 60 60"] path {
+  fill: var(--pm-ink);
+  stroke: var(--pm-ink);
+}
+
+/* A2. Price row extras: struck compare is an <s>; "You save ... today" pill = tryscent.co green outline pill */
+.fmx-pdp-scope .bundle-price-pdp s.mgx-bundle-compare {
+  text-decoration: line-through;
+}
+
+.fmx-pdp-scope .bundle-price-pdp .fmx-save-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 4px 8px;
+  border: 1px solid rgba(var(--pm-good-rgb, 20, 107, 50), 0.25);
+  border-radius: var(--pm-radius-pill);
+  background: var(--pm-good-soft);
+  color: var(--pm-good);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.fmx-pdp-scope .fmx-upgrade__link {
+  color: var(--pm-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* A3. Bundle claim lines (selling_points block between the description and the price): magicperfume fmx-bclaims */
+.fmx-pdp-scope.fmx-bundle-scope .fmx-claims {
+  margin: 0 0 16px;
+}
+
+/* A4. Quantity-breaker offer boxes in the FM look ------------------------------------------------- */
+.fmx-pdp-scope .fmx-qb #atc_scroll_target > .flex.justify-between:first-child {
+  align-items: baseline;
+  gap: 12px;
+  margin: 28px 0 0;
+}
+
+.fmx-pdp-scope .fmx-qb #atc_scroll_target > .flex.justify-between:first-child > h2 {
+  margin: 0;
+  color: var(--pm-ink);
+  font-size: var(--pm-fs-eyebrow);
+  line-height: var(--pm-lh-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fmx-pdp-scope .fmx-qb #atc_scroll_target > .flex.justify-between:first-child > div {
+  font-size: 12px;
+  line-height: 16px;
+  font-style: normal;
+  text-align: right;
+  color: var(--pm-muted);
+}
+
+/* size cards = pm-size */
+.fmx-pdp-scope .fmx-qb #variant-selector.grid {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button.variant-button {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 64px;
+  padding: 12px;
+  border-width: 1px;
+  border-color: var(--pm-line);
+  border-radius: var(--pm-radius-sm);
+  background: var(--pm-white);
+  color: var(--pm-ink);
+  transition: border-color var(--pm-dur) var(--pm-ease), box-shadow var(--pm-dur) var(--pm-ease);
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button.variant-button:hover,
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button.border-black {
+  border-color: var(--pm-good);
+  box-shadow: var(--pm-shadow-sm);
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button .text-sm {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 800;
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button .text-\[11px\] {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--pm-muted);
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button > span.absolute {
+  top: -9px;
+  padding: 3px 6px;
+  border-radius: 2px;
+  font-size: var(--pm-fs-badge);
+  line-height: 12px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0.125em;
+  text-transform: uppercase;
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button > span.bg-\[\#c8202f\] {
+  background: var(--pm-sale);
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button > span.bg-\[\#17803d\] {
+  background: var(--pm-good);
+}
+
+@media (min-width: 990px) {
+  .fmx-pdp-scope .fmx-qb #variant-selector.grid {
+    gap: 12px;
+  }
+}
+
+/* "Buy more, save more" head = FM size head type */
+.fmx-pdp-scope .fmx-qb #atc_scroll_target > div > h2.font-bold {
+  margin: 28px 0 0;
+  color: var(--pm-ink);
+  font-size: var(--pm-fs-eyebrow);
+  line-height: var(--pm-lh-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fmx-pdp-scope .fmx-qb #atc_scroll_target > div > h2.font-bold + p {
+  margin: 4px 0 12px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--pm-muted);
+}
+
+/* tier cards: hairline 4px cards, selected = ink border + shadow on white (FM size card states) */
+.fmx-pdp-scope .fmx-qb .flex-col > .rounded-xl.border-2 {
+  border-width: 1px;
+  border-color: var(--pm-line);
+  border-radius: var(--pm-radius-sm);
+  background: var(--pm-white);
+  box-shadow: none;
+}
+
+.fmx-pdp-scope .fmx-qb .flex-col > .rounded-xl.border-2.border-\[\#c8202f\] {
+  border-color: var(--pm-ink);
+  background: var(--pm-white);
+  box-shadow: var(--pm-shadow-sm);
+}
+
+.fmx-pdp-scope .fmx-qb .flex-col > .rounded-xl.border-2:hover {
+  border-color: var(--pm-ink);
+}
+
+/* radio: ink ring + dot */
+.fmx-pdp-scope .fmx-qb .rounded-xl .size-5.rounded-full {
+  border-width: 1px;
+  border-color: var(--pm-line);
+}
+
+.fmx-pdp-scope .fmx-qb .rounded-xl .size-5.rounded-full.border-\[\#c8202f\] {
+  border-color: var(--pm-ink);
+}
+
+.fmx-pdp-scope .fmx-qb .rounded-xl .size-5 .bg-\[\#c8202f\] {
+  background: var(--pm-ink);
+}
+
+/* tier label, savings tag (red, as FM discount tags), per-bottle line */
+.fmx-pdp-scope .fmx-qb .rounded-xl .font-bold.text-black {
+  color: var(--pm-ink);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.fmx-pdp-scope .fmx-qb .rounded-xl span.rounded.bg-\[\#17803d\] {
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--pm-sale);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.fmx-pdp-scope .fmx-qb .rounded-xl .text-\[\#17803d\] {
+  color: var(--pm-good);
+}
+
+.fmx-pdp-scope .fmx-qb .rounded-xl .font-extrabold {
+  color: var(--pm-ink);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.fmx-pdp-scope .fmx-qb .rounded-xl .line-through {
+  color: var(--pm-muted);
+  font-weight: 400;
+}
+
+/* "Best deal" ribbon: square FM badge, no folded ends */
+.fmx-pdp-scope .fmx-qb .rounded-xl > span.absolute {
+  top: -9px;
+  padding: 3px 6px;
+  border-radius: 2px;
+  background: var(--pm-good);
+  box-shadow: none;
+  font-size: var(--pm-fs-badge);
+  line-height: 12px;
+  font-weight: 500;
+  letter-spacing: 0.125em;
+  text-transform: uppercase;
+}
+
+.fmx-pdp-scope .fmx-qb .rounded-xl > span.absolute::before,
+.fmx-pdp-scope .fmx-qb .rounded-xl > span.absolute::after {
+  content: none;
+}
+
+/* bundle slots inside the open tier: FM option rows */
+.fmx-pdp-scope .fmx-qb .rounded-xl .p-2\.5.rounded-xl {
+  border-color: var(--pm-line);
+  border-radius: var(--pm-radius-sm);
+}
+
+.fmx-pdp-scope .fmx-qb .rounded-xl .p-2\.5 .rounded-lg {
+  border-radius: 2px;
+}
+
+/* add to cart = FM ink button (pm-atc): 52px, 4px radius, 14px uppercase label, no shadow */
+.fmx-pdp-scope .fmx-qb .atc-button.button {
+  min-height: 52px;
+  margin: 16px 0 0;
+  border: 1px solid var(--pm-black);
+  border-radius: var(--pm-radius-sm);
+  background: var(--pm-black);
+  box-shadow: none;
+  color: var(--pm-white);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.125em;
+  text-transform: uppercase;
+}
+
+.fmx-pdp-scope .fmx-qb .atc-button.button:hover {
+  border-color: var(--fmx-cta-hover);
+  background: var(--fmx-cta-hover);
+}
+
+.fmx-pdp-scope .fmx-qb .atc-button.button::after {
+  box-shadow: none;
+}
+
+.fmx-pdp-scope .fmx-qb .atc-button .bg-\[\#0c5224\] {
+  background: transparent;
+  font-size: 14px;
+}
+
+/* A4b. Buy box rhythm: on aaroma the folds (expanded notes, collapsible tabs) and the UGC row are direct children of
+   the info column, so Dawn's "> * + * { margin: 1.5rem 0 }" puts 15px under each row (magicperfume renders them in a
+   wrapper, rows touch). Below 750 Dawn's step is 1.2rem on magicperfume, 1.5rem here. */
+.fmx-pdp-scope .product__info-container > .fmx-acc,
+.fmx-pdp-scope .product__info-container > .product__accordion {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .fmx-pdp-scope .product__info-container > * + * {
+    margin-bottom: 1.2rem;
+  }
+
+  .fmx-pdp-scope .product__info-container > .fmx-acc,
+  .fmx-pdp-scope .product__info-container > .product__accordion {
+    margin-bottom: 0;
+  }
+}
+
+/* A5. Judge.me widget colours: moved to assets/pm-base.css section 27 (theme-wide since 04.11.2026). */
+
+/* A6. Bundle picker modal (snippets/special-offer-products-modal.liquid, rendered after the FM main section, outside
+   .fmx-scope) in magicperfume's colours: ink for the active category pill, hovers, search focus, the selected card,
+   the "+" / "-" controls and the loader; the Bestseller badge in aaroma green (magicperfume: Pine). Matched on the
+   utility classes the modal prints, FM product pages only. */
+body:has(.fmx-pdp-scope) [x-show="$store.bundleBuilder.showModal"] .border-\[\#944234\] {
+  border-color: var(--fmx-cta, #121212);
+}
+
+body:has(.fmx-pdp-scope) [x-show="$store.bundleBuilder.showModal"] .bg-\[\#944234\] {
+  background-color: var(--fmx-cta, #121212);
+}
+
+body:has(.fmx-pdp-scope) [x-show="$store.bundleBuilder.showModal"] .text-\[\#944234\],
+body:has(.fmx-pdp-scope) [x-show="$store.bundleBuilder.showModal"] .hover\:text-\[\#944234\]:hover {
+  color: var(--fmx-cta, #121212);
+}
+
+body:has(.fmx-pdp-scope) [x-show="$store.bundleBuilder.showModal"] .hover\:border-\[\#944234\]:hover,
+body:has(.fmx-pdp-scope) [x-show="$store.bundleBuilder.showModal"] .focus\:border-\[\#944234\]:focus {
+  border-color: var(--fmx-cta, #121212);
+}
+
+body:has(.fmx-pdp-scope) [x-show="$store.bundleBuilder.showModal"] .fill-\[\#944234\] {
+  fill: var(--fmx-cta, #121212);
+}
+
+body:has(.fmx-pdp-scope) [x-show="$store.bundleBuilder.showModal"] span.rounded-full.bg-\[\#944234\].text-\[10px\] {
+  background-color: #146b32;
+}
+
+/* A7. QB size row in the scent page order 30 / 50 / 100 (the quantity-breaker snippet prints the sizes reversed):
+   ordered by the size in data-variant-title, so the row stays right if the snippet's loop order changes. */
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button[data-variant-title*="30"] {
+  order: 1;
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button[data-variant-title*="50"] {
+  order: 2;
+}
+
+.fmx-pdp-scope .fmx-qb #variant-selector .variant-button[data-variant-title*="100"] {
+  order: 3;
+}

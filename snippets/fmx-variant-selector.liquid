@@ -1,0 +1,219 @@
+{%- comment -%}
+  fmx-variant-selector (aaroma.co): aaroma's snippets/reactive-variant-selector.liquid buying function (sizes 30 / 50 /
+  100 ml, 50 ml preselected, prices, sold-out alternative, "Inspired By" line property, bundle-mix dropdown for
+  bundle products, variant note, add to cart) in the markup of magicperfume.co snippets/fmx-reactive-atc.liquid
+  (= tryscent.co snippets/fmx-variant-selector.liquid, premium-redesign):
+  "Choose your size" head with hint -> FM size cards (pm-size, flags "Most popular" 50 ml / "Best value" 100 ml,
+  price per ml) -> "Subtotal" line (struck compare-at + price) -> label-only add-to-cart (pm-atc) -> finder link
+  -> payment icons -> badge row. Styles: assets/fmx-pdp.css. Rendered by sections/fmx-main-product.liquid
+  (atc_bundle_builder block, single scents). Texts = locale keys.
+{%- endcomment -%}
+{% liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign selected_variant = product.selected_or_first_available_variant
+
+  # 30 ml and 100 ml are not offered on their own (Adrian, 04.11.2026): a scent with a 50 ml variant shows only 50 ml.
+  # The variants stay in the store (the 3 x 100 ml bundles still use the 100 ml ones).
+  assign has_50 = false
+  for variant in product.variants
+    assign variant_size = variant.title | downcase | remove: ' '
+
+    if variant_size == '50ml'
+      assign selected_variant = variant
+      assign has_50 = true
+      break
+    endif
+  endfor
+%}
+
+{% unless product.available %}
+  {% render 'sold-out-alternative', product: product %}
+{% else %}
+{% if product.variants.size > 1 %}
+  {%- comment -%} 50 ml = the only size on offer: no size chooser at all (Adrian, 05.11.2026) {%- endcomment -%}
+  {% unless has_50 %}
+  <div class="pm-size-head">
+    <h2 class="pm-eyebrow pm-size-head__label" id="fmx-size-label-{{ section.id }}">{{ 'aaroma.size.choose' | t }}</h2>
+    <span class="pm-size-head__hint">{{ 'aaroma.size.hint_80' | t }}</span>
+  </div>
+
+  <div class="pm-sizes" id="variant-selector" role="group" aria-labelledby="fmx-size-label-{{ section.id }}">
+    {% for variant in product.variants %}
+      {% liquid
+        assign variant_size = variant.title | downcase | remove: ' '
+        if has_50
+          if variant_size == '30ml' or variant_size == '100ml'
+            continue
+          endif
+        endif
+        assign variant_ml = 0
+        if variant.title contains '100'
+          assign variant_ml = 100
+        elsif variant.title contains '50'
+          assign variant_ml = 50
+        elsif variant.title contains '30'
+          assign variant_ml = 30
+        endif
+
+        if variant_ml > 0
+          assign price_per_ml = variant.price | times: 1.0 | divided_by: variant_ml
+          assign price_per_ml_money = price_per_ml | money
+        endif
+      %}
+      <button
+        type="button"
+        class="variant-button pm-size{% if variant.id == selected_variant.id %} is-selected{% endif %}"
+        aria-pressed="{% if variant.id == selected_variant.id %}true{% else %}false{% endif %}"
+        data-variant-id="{{ variant.id }}"
+        data-variant-ml="{{ variant_ml }}"
+        data-variant-title="{{ variant.title }}"
+        data-original-price="{{ variant.price | money }}"
+        data-compare-price="{{ variant.compare_at_price | money }}">
+        <span class="pm-size__title">{{ variant.title }}</span>
+        {% if variant_ml == 50 %}
+          <span class="pm-size__flag pm-size__flag--popular">{{ 'aaroma.common.most_popular' | t }}</span>
+        {% endif %}
+        {% if variant_ml == 100 %}
+          <span class="pm-size__flag pm-size__flag--value">{{ 'aaroma.common.best_value' | t }}</span>
+        {% endif %}
+        {% if variant_ml > 0 %}
+          <span class="pm-size__meta price-per-ml">{{ 'aaroma.size.per_ml' | t: price: price_per_ml_money }}</span>
+        {% endif %}
+      </button>
+    {% endfor %}
+  </div>
+  {% endunless %}
+  {% if product.tags contains 'variant_note' %}
+    <div id="variantSuggestion" class="pm-sdesc"></div>
+  {% endif %}
+{% endif %}
+
+<product-form
+  class="product-form fmx-product-form"
+  data-hide-errors="{{ gift_card_recipient_feature_active }}"
+  data-section-id="{{ section.id }}">
+  {%- form 'product'
+    , product
+    , id: product_form_id
+    , class: 'form'
+    , novalidate: 'novalidate'
+    , data-type: 'add-to-cart-form'
+  -%}
+    <input
+      type="hidden"
+      name="id"
+      id="product-variant-id"
+      value="{{ selected_variant.id }}"
+      class="product-variant-id">
+    {% if product.metafields.custom.choose_your_fragrances_options != blank %}
+      {% render 'bundle-mix-dropdown' %}
+    {% else %}
+      <input
+        type="hidden"
+        name="properties[Inspired By]"
+        value="{{ product.metafields.custom.nuta }}" />
+    {% endif %}
+    <div class="pm-subtotal">
+      <span>{{ 'premium.pdp.subtotal' | t }}</span>
+      <span class="fmx-subtotal__price" id="product-price" role="status">
+        {%- if selected_variant.compare_at_price > selected_variant.price -%}
+          <span class="compare-price pm-subtotal__compare">{{ selected_variant.compare_at_price | money }}</span>
+        {%- endif -%}
+        <span class="current-price pm-subtotal__value">{{ selected_variant.price | money }}</span>
+      </span>
+    </div>
+    <button
+      type="submit"
+      name="add"
+      value="1"
+      class="atc-button cta_product_from_submit_btn button button--full-width button--primary pm-btn pm-btn--primary pm-atc"
+      aria-label="{{ 'products.product.add_to_cart' | t }}"
+      {% if product.metafields.custom.choose_your_fragrances_options != blank %}
+      disabled="disabled"
+      {% endif %}>
+      <span class="fmx-atc__label">{{ 'products.product.add_to_cart' | t }}</span>
+      {%- render 'loading-spinner' -%}
+    </button>
+    <div class="product-form__error-message-wrapper fmx-atc__error" role="alert" hidden>
+      <span class="svg-wrapper">
+        {{- 'icon-error.svg' | inline_asset_content -}}
+      </span>
+      <span class="product-form__error-message"></span>
+    </div>
+  {%- endform -%}
+</product-form>
+{% endunless %}
+
+{%- render 'fuel06-pdp-link' -%}
+
+{% render 'fmx-payment-icons' %}
+{% render 'fmx-shipping-badges', product: product %}
+
+<script>
+  (function() {
+    const variantsData = {
+      {% for variant in product.variants %}
+        "{{ variant.id }}": {
+          title: {{ variant.title | json }},
+          originalPrice: {{ variant.price | money | json }},
+          compareAtPrice: {{ variant.compare_at_price | money | json }},
+          hasComparePrice: {% if variant.compare_at_price > variant.price %}true{% else %}false{% endif %}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    };
+
+    const variantButtons = document.querySelectorAll('#variant-selector .variant-button');
+    const variantIdInput = document.getElementById('product-variant-id');
+    const priceContainer = document.getElementById('product-price');
+    // No size buttons when 50 ml is the only size; the floating-bar price sync below still runs.
+    if (!variantIdInput) return;
+    const currentPriceSpan = priceContainer ? priceContainer.querySelector('.current-price') : null;
+
+    function updateVariant(variantId) {
+      const variantData = variantsData[variantId];
+      if (!variantData) return;
+      variantIdInput.value = variantId;
+
+      variantButtons.forEach(button => {
+        const selected = button.dataset.variantId === variantId;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+
+      if (priceContainer) {
+        let compareSpan = priceContainer.querySelector('.compare-price');
+        if (variantData.hasComparePrice) {
+          if (!compareSpan) {
+            compareSpan = document.createElement('span');
+            compareSpan.className = 'compare-price pm-subtotal__compare';
+            priceContainer.insertBefore(compareSpan, currentPriceSpan);
+          }
+          compareSpan.innerHTML = variantData.compareAtPrice;
+          compareSpan.style.display = '';
+        } else if (compareSpan) {
+          compareSpan.style.display = 'none';
+        }
+        if (currentPriceSpan) currentPriceSpan.innerHTML = variantData.originalPrice;
+      }
+
+      // Other current-price elements on the page (floating bar)
+      document.querySelectorAll('.current-price').forEach(element => {
+        if (element !== currentPriceSpan && element.textContent.trim() !== '') {
+          element.innerHTML = variantData.originalPrice;
+        }
+      });
+    }
+
+    variantButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        updateVariant(this.dataset.variantId);
+      });
+    });
+
+    // The floating bar (sections/floating-atc.liquid) prints the first variant's price (it looks for "50ML");
+    // sync it to the preselected size once the page is parsed.
+    const syncSelected = () => updateVariant(variantIdInput.value);
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncSelected);
+    else syncSelected();
+  })();
+</script>

@@ -1,0 +1,102 @@
+{%- comment -%}
+  pm-local-image: the id of a product's packshot for the storefront LANGUAGE (aaroma, 05.11.2026, Adrian: gallery
+  images per website language). Before, the packshot followed the visitor's country (alt bundle_<country>): /nl-be and
+  /fr-be got the English packshot, /en-nl the Dutch one, while the marketing images already followed the language.
+  Used by every place that shows a local_image packshot: snippets/product-media-gallery.liquid,
+  snippets/fmx-media-gallery.liquid, the bundle card in sections/main-product.liquid + fmx-main-product.liquid,
+  snippets/card-product.liquid.
+
+  First match wins:
+  1. alt bundle_<language code>: nl, fr, de, et -> ee, en -> usd, lt, lv (sv -> se, da -> dk, fi, nb/no -> no)
+  2. file name contains the language name (dutch, french, german, estonian/eesti, english, lithuanian, latvian,
+     swedish, danish, finnish, norwegian). Keeps working when someone rewrites the alt texts for SEO: on tryscent.co
+     the bundle_<country> alts of all active bundles were replaced with Swedish sentences and no packshot showed.
+  3. alt bundle_<country> (the old rule)
+  4. alt bundle_usd
+  5. the product's first image
+  Outputs the image id only (no whitespace); empty when the product has no images.
+
+  Usage:
+  {%- capture pm_local_id -%}{%- render 'pm-local-image', product: product -%}{%- endcapture -%}
+  then compare (image.id | append: '') with pm_local_id.
+{%- endcomment -%}
+{%- liquid
+  assign li_lang = request.locale.iso_code | downcase | split: '-' | first
+  assign li_code = li_lang
+  assign li_word = ''
+  assign li_word2 = ''
+  case li_lang
+    when 'en'
+      assign li_code = 'usd'
+      assign li_word = 'english'
+    when 'nl'
+      assign li_word = 'dutch'
+    when 'fr'
+      assign li_word = 'french'
+    when 'de'
+      assign li_word = 'german'
+    when 'et'
+      assign li_code = 'ee'
+      assign li_word = 'estonian'
+      assign li_word2 = 'eesti'
+    when 'lt'
+      assign li_word = 'lithuanian'
+    when 'lv'
+      assign li_word = 'latvian'
+    when 'sv'
+      assign li_code = 'se'
+      assign li_word = 'swedish'
+    when 'da'
+      assign li_code = 'dk'
+      assign li_word = 'danish'
+    when 'fi'
+      assign li_word = 'finnish'
+    when 'nb', 'no'
+      assign li_code = 'no'
+      assign li_word = 'norwegian'
+  endcase
+  assign li_alt = 'bundle_' | append: li_code
+  assign li_country_alt = localization.country.iso_code | prepend: 'bundle_' | downcase
+
+  assign li_by_alt = ''
+  assign li_by_file = ''
+  assign li_by_country = ''
+  assign li_by_usd = ''
+  assign li_first = ''
+  for li_img in product.images
+    assign li_id = li_img.id | append: ''
+    if forloop.first
+      assign li_first = li_id
+    endif
+    assign li_img_alt = li_img.alt | downcase | strip
+    if li_by_alt == blank and li_img_alt == li_alt
+      assign li_by_alt = li_id
+    endif
+    if li_by_file == blank and li_word != blank
+      assign li_file = li_img.src | split: '?' | first | split: '/' | last | downcase
+      if li_file contains li_word
+        assign li_by_file = li_id
+      elsif li_word2 != blank and li_file contains li_word2
+        assign li_by_file = li_id
+      endif
+    endif
+    if li_by_country == blank and li_img_alt == li_country_alt
+      assign li_by_country = li_id
+    endif
+    if li_by_usd == blank and li_img_alt == 'bundle_usd'
+      assign li_by_usd = li_id
+    endif
+  endfor
+
+  if li_by_alt != blank
+    echo li_by_alt
+  elsif li_by_file != blank
+    echo li_by_file
+  elsif li_by_country != blank
+    echo li_by_country
+  elsif li_by_usd != blank
+    echo li_by_usd
+  else
+    echo li_first
+  endif
+-%}

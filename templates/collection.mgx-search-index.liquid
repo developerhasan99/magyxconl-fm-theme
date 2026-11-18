@@ -1,0 +1,143 @@
+{%- layout none -%}
+{%- comment -%}
+  Search index for the search overlay (sections/mgx-search.liquid, assets/mgx-search.js).
+  JSON only, at /collections/all?view=mgx-search-index; the overlay fetches it on first intent
+  (pointer or focus on a search trigger, or on open), so no other page pays for it.
+
+  {"v":1,"items":[{"id","url","title","number","inspiration","brand","type","image","price",
+  "compare","bestseller","available","tags"}, ...]}
+  - number: the digits after "Nr" in the title, leading zeros stripped ("Nr. 021" -> "21";
+    "Nr.474" and "Nr 200" also count); "" when there is none.
+  - brand: from the first marke:<slug> tag, as in sections/scent-bundle-builder-single.liquid
+    (every slug word capitalised, plus a few house spellings).
+  - price: "From " (aaroma.common.from) in front when the variants differ in price; compare: "" unless it is higher
+    and the product is tagged onsale (aaroma rule, same as snippets/card-product.liquid).
+  - tags: every tag except the internal ones (dfw-active, hidden, hide-bundle,
+    bundle-price-show, voids-exclude, fixed-bundle, fixed, local-image, en, onsale, test-*;
+    case and _/- ignored).
+  Skips the free gift (handle gratisgeschenk), as sections/main-search.liquid does, every
+  product tagged hidden (gift wrap, mystery products: hidden from collections, so from search too)
+  and every bundle (product type Bundle or tag bundle): bundles never show in search. One page of
+  paginate holds at most 250 products per collection. Every string goes through | json.
+
+  Products come from the collections in index_handles, each product once, not from the
+  collection in the URL. aaroma.co (04.11.2026): /collections/all holds every product, bundles are
+  skipped below. The scent family (custom.fragrance_family: Amber, Woody, Floral, Spicy, Citrus,
+  Fruity, Gourmand, Aquatic / Marine, Fresh) joins the tags, so the scent pills find a family.
+{%- endcomment -%}
+{%- assign digits = '0123456789' -%}
+{%- assign item_sep = '' -%}
+{%- assign index_handles = 'all' | split: ',' -%}
+{%- assign seen_ids = ',' -%}
+{"v":1,"items":[
+{%- for index_handle in index_handles -%}
+{%- paginate collections[index_handle].products by 250 -%}
+  {%- for product in collections[index_handle].products -%}
+    {%- assign seen_key = ',' | append: product.id | append: ',' -%}
+    {%- if seen_ids contains seen_key -%}{%- continue -%}{%- endif -%}
+    {%- assign seen_ids = seen_ids | append: product.id | append: ',' -%}
+    {%- if product.handle == 'gratisgeschenk' or product.tags contains 'hidden' or product.tags contains 'Hidden' -%}{%- continue -%}{%- endif -%}
+    {%- if product.type == 'Bundle' or product.tags contains 'bundle' -%}{%- continue -%}{%- endif -%}
+    {%- liquid
+      assign number = ''
+      if product.title contains 'Nr'
+        assign after = product.title | split: 'Nr' | last | strip
+        assign after_head = after | slice: 0, 1
+        if after_head == '.'
+          assign after = after | remove_first: '.' | strip
+        endif
+        assign after_chars = after | split: ''
+        for c in after_chars
+          if digits contains c
+            assign number = number | append: c
+          else
+            break
+          endif
+        endfor
+        if number != ''
+          assign number = number | plus: 0 | append: ''
+        endif
+      endif
+
+      assign inspiration = ''
+      if product.metafields.custom.inspiration.value
+        assign inspiration = product.metafields.custom.inspiration.value.name | default: ''
+      endif
+
+      assign brand_slug = ''
+      assign bestseller = false
+      for t in product.tags
+        assign tl = t | downcase | strip
+        if tl == 'bestseller'
+          assign bestseller = true
+        endif
+        assign tl_head = tl | slice: 0, 6
+        if brand_slug == '' and tl_head == 'marke:'
+          assign brand_slug = tl | remove_first: 'marke:' | strip
+        endif
+      endfor
+      assign brand = ''
+      case brand_slug
+        when ''
+          assign brand = ''
+        when 'ysl'
+          assign brand = 'YSL'
+        when 'jpgaultier'
+          assign brand = 'Jean Paul Gaultier'
+        when 'lancome'
+          assign brand = 'Lancôme'
+        when 'hermes'
+          assign brand = 'Hermès'
+        when 'dolce-gabbana'
+          assign brand = 'Dolce & Gabbana'
+        else
+          assign brand_words = brand_slug | split: '-'
+          for w in brand_words
+            assign brand_word = w | capitalize
+            if brand == ''
+              assign brand = brand_word
+            else
+              assign brand = brand | append: ' ' | append: brand_word
+            endif
+          endfor
+      endcase
+
+      assign image = ''
+      if product.featured_image
+        assign image = product.featured_image | image_url: width: 160
+        assign image_head = image | slice: 0, 2
+        if image_head == '//'
+          assign image = 'https:' | append: image
+        endif
+      endif
+
+      assign price = product.price | money | strip_html
+      if product.price_varies
+        assign price_from = 'aaroma.common.from' | t
+        assign price = price_from | append: ' ' | append: price
+      endif
+      assign compare = ''
+      if product.compare_at_price > product.price and product.tags contains 'onsale'
+        assign compare = product.compare_at_price | money | strip_html
+      endif
+    -%}
+    {{- item_sep -}}
+    {"id":{{ product.id }},"url":{{ product.url | json }},"title":{{ product.title | json }},"number":{{ number | json }},"inspiration":{{ inspiration | json }},"brand":{{ brand | json }},"type":{{ product.type | json }},"image":{{ image | json }},"price":{{ price | json }},"compare":{{ compare | json }},"bestseller":{{ bestseller }},"available":{{ product.available }},"tags":[
+    {%- assign tag_sep = '' -%}
+    {%- for t in product.tags -%}
+      {%- assign tn = t | downcase | replace: '_', '-' | strip -%}
+      {%- assign tn_head = tn | slice: 0, 5 -%}
+      {%- if tn == 'dfw-active' or tn == 'hidden' or tn == 'hide-bundle' or tn == 'bundle-price-show' or tn == 'voids-exclude' or tn == 'fixed-bundle' or tn == 'fixed' or tn == 'local-image' or tn == 'en' or tn == 'onsale' or tn_head == 'test-' -%}
+        {%- continue -%}
+      {%- endif -%}
+      {{- tag_sep -}}{{- t | json -}}
+      {%- assign tag_sep = ',' -%}
+    {%- endfor -%}
+    {%- assign family = product.metafields.custom.fragrance_family.value | default: product.metafields.custom.fragrance_family -%}
+    {%- if family != blank -%}{{- tag_sep -}}{{- family | append: '' | json -}}{%- endif -%}
+    ]}
+    {%- assign item_sep = ',' -%}
+  {%- endfor -%}
+{%- endpaginate -%}
+{%- endfor -%}
+]}

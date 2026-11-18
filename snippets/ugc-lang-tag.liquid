@@ -1,0 +1,23 @@
+{%- comment -%}
+  Theme editor only: a small label on a reel that shoppers on this page's language
+  don't see (snippets/ugc-lang-match printed "editor"). Never rendered on the storefront.
+
+  Accepts:
+  - lang: {String} the reel's language setting (nl, fr, en; blank = nl)
+
+  Usage:
+  {%- if ugc_ok == 'editor' -%}{% render 'ugc-lang-tag', lang: block.settings.language %}{%- endif -%}
+{%- endcomment -%}
+{%- if request.design_mode -%}
+  {%- liquid
+    case lang
+      when 'fr'
+        assign tag_text = 'French pages only'
+      when 'en'
+        assign tag_text = 'English pages only'
+      else
+        assign tag_text = 'Dutch pages only'
+    endcase
+  -%}
+  <span style="position:absolute;top:8px;left:8px;z-index:5;padding:3px 8px;border-radius:4px;background:#121212;color:#fff;font:600 11px/1.3 sans-serif;pointer-events:none;">{{ tag_text }}</span>
+{%- endif -%}

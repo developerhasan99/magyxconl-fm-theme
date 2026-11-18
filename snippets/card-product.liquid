@@ -1,0 +1,164 @@
+{% comment %}
+  Product card, FM look (04.11.2026): the magicperfume.co / tryscent.co pm-card (snippets/product-card.liquid there),
+  rendered under aaroma's own snippet name so every caller (collection grid, search, homepage tabs, related products,
+  featured collection) gets the same card. Styles: assets/pm-card.css.
+
+  Accepts (aaroma's Dawn contract is kept so callers need no change):
+  - card_product: {Object} Product Liquid object
+  - lazy_load: {Boolean} false = eager image. Default: lazy
+  - show_rating, show_vendor, quick_add, media_aspect_ratio, image_shape, show_secondary_image, extend_height,
+    skip_styles, section_id, horizontal_class, horizontal_quick_add: accepted and ignored. The FM card has no rating
+    line, no vendor, no add-to-cart button and a fixed 1:1 image (magicperfume's cards show none of them).
+  - placeholder_image: {String} placeholder when no product is given (editor previews)
+
+  Card: 1:1 image, badges top-left (Sold out, New = tag "new", Bestseller = tag "bestseller"; the old 25_edp /
+  bundle_banner ribbons are gone: no product carries those tags, 04.11.2026), uppercase title, 20px rule, designer bottle (blurred 2px) + "Inspired by: X",
+  price of the first available variant, struck compare-at only on products tagged "onsale" (aaroma's rule: most
+  products carry a compare-at price the shop never shows). No % OFF ribbon, no rating, no button.
+  aaroma data kept: bundle products show the image whose alt is "bundle_<currency>" for the shopper's currency.
+  Contract for the price-test app: the price span keeps .ab-current-price. The title keeps .card__heading and the link
+  carries data-mgx-hay = "title | inspiration" in the page language (assets/collection-search.js reads both).
+{% endcomment %}
+{%- if card_product and card_product != empty -%}
+  {%- liquid
+    assign pm_variant = nil
+    for pm_v in card_product.variants
+      assign pm_v_size = pm_v.title | downcase | remove: ' '
+      if pm_v_size == '50ml'
+        assign pm_variant = pm_v
+        break
+      endif
+    endfor
+    # scents show the 50 ml price (30 / 100 ml are not offered on their own, 04.11.2026); others: first available
+    if pm_variant == nil
+      for pm_v in card_product.variants
+        if pm_v.available
+          assign pm_variant = pm_v
+          break
+        endif
+      endfor
+    endif
+    if pm_variant == nil
+      assign pm_variant = card_product.selected_or_first_available_variant | default: card_product.variants.first
+    endif
+    assign pm_price = pm_variant.price | default: card_product.price
+    assign pm_compare = 0
+    if card_product.tags contains 'onsale'
+      assign pm_compare = pm_variant.compare_at_price | default: 0
+    endif
+
+    assign pm_image = card_product.featured_image | default: card_product.images.first
+    assign pm_fm = card_product.metafields.custom.fm_images.value | first
+    if pm_fm != blank
+      assign pm_image = pm_fm.preview_image
+    endif
+    # local_image bundles: the packshot for the storefront language (snippets/pm-local-image.liquid)
+    if card_product.tags contains 'local_image'
+      capture pm_local_id
+        render 'pm-local-image', product: card_product
+      endcapture
+      assign pm_local_id = pm_local_id | strip
+      for pm_img in card_product.images
+        assign pm_img_id = pm_img.id | append: ''
+        if pm_img_id == pm_local_id
+          assign pm_image = pm_img
+          break
+        endif
+      endfor
+    endif
+
+    assign pm_tags = card_product.tags | join: ',' | downcase | prepend: ',' | append: ','
+    assign pm_is_new = false
+    if pm_tags contains ',new,'
+      assign pm_is_new = true
+    endif
+    assign pm_is_best = false
+    if pm_tags contains ',bestseller,'
+      assign pm_is_best = true
+    endif
+
+    assign pm_badge_count = 0
+    if card_product.available == false
+      assign pm_badge_count = pm_badge_count | plus: 1
+    endif
+    if pm_is_new
+      assign pm_badge_count = pm_badge_count | plus: 1
+    endif
+    if pm_is_best
+      assign pm_badge_count = pm_badge_count | plus: 1
+    endif
+
+    assign pm_insp = card_product.metafields.custom.inspiration.value
+  -%}
+
+  <a href="{{ card_product.url }}" class="pm-card pm-card--product" id="CardLink-{{ section_id }}-{{ card_product.id }}" data-mgx-hay="{{ card_product.title | escape }} | {{ pm_insp.name | escape }}">
+    <div class="pm-card__media">
+      {%- if pm_image -%}
+        <img
+          src="{{ pm_image | image_url: width: 540 }}"
+          srcset="{{ pm_image | image_url: width: 360 }} 360w, {{ pm_image | image_url: width: 540 }} 540w, {{ pm_image | image_url: width: 720 }} 720w"
+          sizes="(min-width: 990px) 25vw, 50vw"
+          alt="{{ pm_image.alt | default: card_product.title | escape }}"
+          width="{{ pm_image.width }}"
+          height="{{ pm_image.height }}"
+          {% unless lazy_load == false %}loading="lazy"{% endunless %}
+        >
+      {%- endif -%}
+
+      {%- if pm_badge_count > 0 -%}
+        <div class="pm-card__badges">
+          {%- if card_product.available == false -%}
+            <span class="pm-badge pm-badge--ink">{{ 'products.product.sold_out' | t }}</span>
+          {%- endif -%}
+          {%- if pm_is_new -%}
+            <span class="pm-badge pm-badge--ink">{{ 'premium.card.new' | t }}</span>
+          {%- endif -%}
+          {%- if pm_is_best -%}
+            <span class="pm-badge pm-badge--ink">{{ 'aaroma.common.bestseller' | t }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <span class="pm-card__quick" aria-hidden="true">
+        <span class="pm-card__quick-label">{{ 'premium.card.view_scent' | t }}</span>
+        {%- render 'pm-icon', icon: 'arrow-right', size: 16 -%}
+      </span>
+    </div>
+
+    <div class="pm-card__body">
+      <h3 class="pm-card__title card__heading" id="title-{{ section_id }}-{{ card_product.id }}">{{ card_product.title | escape }}</h3>
+      <span class="pm-card__rule" aria-hidden="true"></span>
+      {%- if pm_insp != blank -%}
+        <p class="pm-card__meta pm-dmeta">
+          {%- if pm_insp.image != blank -%}
+            <span class="pm-dthumb" aria-hidden="true">
+              {{- pm_insp.image | image_url: width: 96 | image_tag: width: 48, height: 48, loading: 'lazy', alt: '', class: 'pm-dthumb__img', style: 'filter: blur(2px);' -}}
+            </span>
+          {%- endif -%}
+          <span class="pm-dmeta__text">{{ 'aaroma.common.inspired_by' | t }} <span class="inspiration_heading">{{ pm_insp.name }}</span></span>
+        </p>
+      {%- endif -%}
+      <div class="pm-card__price">
+        <span class="ab-current-price">{{ pm_price | money }}</span>
+        {%- if pm_compare > pm_price -%}
+          <s class="pm-card__compare">{{ pm_compare | money }}</s>
+        {%- endif -%}
+      </div>
+    </div>
+  </a>
+{%- else -%}
+  <div class="pm-card pm-card--product">
+    <div class="pm-card__media">
+      {%- if placeholder_image -%}
+        {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- else -%}
+        {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+    <div class="pm-card__body">
+      <h3 class="pm-card__title card__heading">{{ 'onboarding.product_title' | t }}</h3>
+      <span class="pm-card__rule" aria-hidden="true"></span>
+      <div class="pm-card__price">{% render 'price', placeholder: true %}</div>
+    </div>
+  </div>
+{%- endif -%}

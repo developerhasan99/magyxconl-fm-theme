@@ -1,0 +1,134 @@
+/* pm-collection-toolbar.css: FM look for the collection toolbar (sections/main-collection-product-grid.liquid).
+   Port of the magicperfume.co FM redesign file (docs/collections/port_toolbar_css.py); only the pill-order keys differ.
+   The pill bar (snippets/mgx-filters.liquid, assets/mgx-filters.*) and the search field (snippets/collection-search.liquid)
+   stay the magicperfume versions: tryscent.co's toolbar was itself built from them. Only the product count under the
+   search field is new (same size and colour as tryscent.co: 12px muted, centred). It sits inside #ProductGridContainer, so
+   it follows the filters, and it steps aside while the collection search shows its own count line. */
+.pm-ccount {
+  margin: 0 auto;
+  padding: 0 20px 20px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #707070;
+  text-align: center;
+}
+
+body:has(.mgx-csearch__status:not(:empty)) .pm-ccount {
+  display: none;
+}
+
+@media (min-width: 750px) {
+  .pm-ccount {
+    padding-bottom: 24px;
+  }
+}
+
+/* Grid frame as on tryscent.co (FM page width 1500): side padding 20 / 40 (750) / 60 (990), card gaps 20 x 10 on phones and
+   40 x 20 from 750. The theme page width here is 1200, so the collection grid alone widens to 150rem (root font-size 10px). */
+.premium .collection.page-width {
+  max-width: 150rem;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.premium .collection #product-grid.product-grid {
+  gap: 20px 10px;
+}
+
+@media (min-width: 750px) {
+  .premium .collection.page-width {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .premium .collection #product-grid.product-grid {
+    gap: 40px 20px;
+  }
+}
+
+@media (min-width: 990px) {
+  .premium .collection.page-width {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+/* Pill order as on magicperfume.co / tryscent.co: Sort, (Brand: none on aaroma), Gender, Season, Occasion (the Search &
+   Discovery order here is Season, Occasion, Scent family, Gender). Keyed on the filter param names; a filter not listed
+   (Scent family) keeps its place after these. */
+@media (min-width: 750px) {
+  .mgx-fc-bar .mgx-fc-dd { order: 10; }
+  .mgx-fc-bar .mgx-fc-dd[data-key="sort_by"] { order: 0; }
+  .mgx-fc-bar .mgx-fc-dd[data-key="filter.v.t.shopify.target-gender"] { order: 2; }
+  .mgx-fc-bar .mgx-fc-dd[data-key="filter.v.t.shopify.season"] { order: 3; }
+  .mgx-fc-bar .mgx-fc-dd[data-key="filter.v.t.shopify.occasion"] { order: 4; }
+}
+
+/* Below 990px tryscent.co keeps the pills instead of a "Filter and sort" drawer: one horizontally scrollable row, edge to edge,
+   centred while it fits; each panel opens as a full-width sheet under the row (positioned against .mgx-fc, which sits outside
+   the scrolling row, so the row's overflow does not clip it). The phone drawer markup stays in the page, hidden. */
+@media screen and (max-width: 989px) {
+  .mgx-fc-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 0 -20px;
+    padding: 8px 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mgx-fc-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* phones: .page-width pads 15px here, so the edge-to-edge row pulls out 15px (20px made the page scroll sideways) */
+  @media screen and (max-width: 749px) {
+    .mgx-fc-bar {
+      margin: 0 -15px;
+      padding: 8px 15px;
+    }
+  }
+
+  .mgx-fc-mbar {
+    display: none;
+  }
+
+  .mgx-fc-dd {
+    position: static;
+    flex: none;
+    scroll-snap-align: start;
+  }
+
+  .mgx-fc-bar .mgx-fc-dd,
+  .mgx-fc-bar .mgx-fc-dd[data-key] {
+    order: 10;
+  }
+
+  .mgx-fc-bar .mgx-fc-dd[data-key="sort_by"] { order: 0; margin-left: auto; }
+  .mgx-fc-bar .mgx-fc-dd[data-key="filter.v.t.shopify.target-gender"] { order: 2; }
+  .mgx-fc-bar .mgx-fc-dd[data-key="filter.v.t.shopify.season"] { order: 3; }
+  .mgx-fc-bar .mgx-fc-dd[data-key="filter.v.t.shopify.occasion"] { order: 4; }
+  .mgx-fc-bar .mgx-fc-dd[data-key="filter.p.m.custom.fragrance_family"] { margin-right: auto; }
+
+  .mgx-fc-bar .mgx-fc-panel {
+    top: 100%;
+    left: 0;
+    right: 0;
+    min-width: 0;
+    max-height: min(360px, 60vh);
+    margin: 0;
+  }
+}
+
+/* aaroma addition: aaroma's grid keeps Dawn's .grid class (magicperfume renamed it grid_layout), so Dawn's
+   `.grid:last-child { margin-bottom: 0 }` took the grid's 2rem bottom margin whenever no loader button follows it.
+   magicperfume keeps the 20px under the last row. */
+.premium .collection #product-grid.product-grid {
+  margin-bottom: 2rem;
+}

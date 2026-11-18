@@ -1,0 +1,94 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_Wq7F7g": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style> #ts-hero-custom{ position:relative; min-height:560px; overflow:hidden; background: linear-gradient(90deg,rgba(250,249,246,.92) 0%,rgba(250,249,246,.72) 30%,rgba(250,249,246,.12) 54%,rgba(250,249,246,0) 72%), url('https://tryscent.co/cdn/shop/files/TryScent_Days.png?v=1781607718&width=1920') center right/cover no-repeat, #faf9f6; } #ts-hero-custom .ts-container{ width:min(1180px,calc(100% - 36px)); margin-inline:auto; } #ts-hero-custom .ts-hero-inner{ min-height:560px; display:flex; align-items:center; position:relative; z-index:2; } #ts-hero-custom .ts-hero-copy{max-width:640px} #ts-hero-custom .ts-rating-pill{ display:inline-flex; align-items:center; gap:10px; background:#fff; border-radius:999px; padding:10px 18px; margin-bottom:28px; box-shadow:0 4px 18px rgba(0,0,0,.07); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#121212; } #ts-hero-custom .ts-stars{color:#ffb000;letter-spacing:2px} #ts-hero-custom h1{ margin:0 0 24px; font-size:36px; font-weight:900; line-height:1.12; letter-spacing:-.9px; color:#121212; } #ts-hero-custom .ts-category-line{ max-width:670px; margin-bottom:14px; font-size:18px; font-weight:600; letter-spacing:.4px; line-height:1.45; color:#121212; } #ts-hero-custom .ts-expert-line{ max-width:620px; margin:0; font-size:16px; line-height:1.7; color:rgba(18,18,18,.62); } #ts-hero-custom .ts-microcopy{ margin:12px 0 0; font-size:14px; color:rgba(18,18,18,.5); } @media(max-width:700px){ #ts-hero-custom{ min-height:auto; background: linear-gradient(180deg,rgba(250,249,246,.6) 0%,rgba(250,249,246,.25) 26%,rgba(250,249,246,0) 44%), url('https://tryscent.co/cdn/shop/files/TryScent_Days_Mobile.png?v=1781609496&width=1100') center top/cover no-repeat, #faf9f6; } #ts-hero-custom .ts-hero-inner{ min-height:auto; display:block; padding-top:40px; padding-bottom:380px; } #ts-hero-custom .ts-hero-copy{ max-width:100%; text-align:center; } #ts-hero-custom .ts-rating-pill{margin-bottom:22px} #ts-hero-custom h1{ font-size:30px; margin-bottom:18px; } #ts-hero-custom .ts-category-line, #ts-hero-custom .ts-expert-line{ margin-inline:auto; } #ts-hero-custom .ts-microcopy{ color:rgba(18,18,18,.8); font-weight:600; } } </style> <section id=\"ts-hero-custom\"> <div class=\"ts-container\"> <div class=\"ts-hero-inner\"> <div class=\"ts-hero-copy\"> <div class=\"ts-rating-pill\"> <span class=\"ts-stars\">&#9733;&#9733;&#9733;&#9733;&#9733;</span> <span>{{ 'aaroma.hero.loved_by' | t }}</span> </div> <h1>{{ 'aaroma.hero.title' | t }}</h1> <div class=\"ts-category-line\">{{ 'aaroma.hero.category' | t }}</div> <p class=\"ts-expert-line\">{{ 'aaroma.hero.expert' | t }}</p> <p class=\"ts-microcopy\">{{ 'aaroma.hero.micro' | t }}</p> </div> </div> </div> </section>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "scheme-3"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 36,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-2",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "scent_bundle_builder_RPB4R4": {
+      "type": "scent-bundle-builder",
+      "name": "Scent bundle builder",
+      "settings": {
+        "grid_collection": "bestseller-singles",
+        "variant_ml": "100",
+        "tier_1_label": "2+1",
+        "tier_1_badge": "Most popular",
+        "tier_1_total": 3,
+        "tier_1_free": 1,
+        "enable_tier_2": true,
+        "tier_2_label": "4+2",
+        "tier_2_badge": "Best value",
+        "tier_2_total": 6,
+        "tier_2_free": 2,
+        "heading": "Build your own – pick & save",
+        "subheading": "Perfumes – get your free bottles",
+        "slot_label": "Choose your scent",
+        "free_slot_label": "Free scent",
+        "free_pill_label": "FREE",
+        "counter_text": "[selected] / [total] selected",
+        "hint_text": "Add [remaining] more scents to unlock your free scents!",
+        "hint_text_one": "Add 1 more scent to unlock your free scent!",
+        "done_text": "Your bundle is ready!",
+        "total_label": "Regular total",
+        "discount_label": "Discount",
+        "price_label": "Your price",
+        "savings_label": "You save",
+        "search_placeholder": "Find your perfume",
+        "cta_label": "Add",
+        "empty_text": "No scents match your search.",
+        "cta_button_label": "Add to cart"
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_Wq7F7g",
+    "banner",
+    "product-grid",
+    "scent_bundle_builder_RPB4R4"
+  ]
+}

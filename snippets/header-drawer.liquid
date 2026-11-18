@@ -1,0 +1,215 @@
+{%- assign pm_brand = settings.brand_name | default: shop.name -%}
+{% comment %}
+  Renders a header drawer menu for mobile and desktop.
+
+  Usage:
+  {% render 'header-drawer' %}
+
+  Premium (WP-B): left drawer, 100% / 400px, logo + close in the head, level-1 rows 56px with hairlines,
+  level-2 rows 44px, footer links (Log in / Search). Dawn's header-drawer / menu-drawer JS contract is kept:
+  header-drawer > details#Details-menu-drawer-container.menu-drawer-container > summary.header__icon--menu + #menu-drawer.menu-drawer.
+{% endcomment %}
+
+{%- liquid
+  assign drawer_logo_alt = settings.logo.alt | default: pm_brand | escape
+-%}
+
+<header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
+  <details id="Details-menu-drawer-container" class="menu-drawer-container">
+    <summary class="header__icon header__icon--menu header__icon--summary link focus-inset" aria-label="{{ 'sections.header.menu' | t }}">
+      <span>
+        {%- render 'pm-icon', icon: 'menu', size: 24, stroke: 1.5, class: 'icon icon-hamburger' -%}
+        {%- render 'pm-icon', icon: 'close', size: 24, stroke: 1.5, class: 'icon icon-close' -%}
+      </span>
+    </summary>
+    <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }} pm-drawer">
+      <div class="menu-drawer__inner-container pm-drawer__inner">
+        <div class="pm-drawer__head">
+          <a href="{{ routes.root_url }}" class="pm-drawer__logo" aria-label="{{ pm_brand | escape }}">
+            {%- if settings.logo != blank -%}
+              {{
+                settings.logo
+                | image_url: width: 480
+                | image_tag:
+                  class: 'pm-drawer__logo-img',
+                  widths: '120, 180, 240, 360, 480',
+                  sizes: '120px',
+                  alt: drawer_logo_alt,
+                  loading: 'lazy'
+              }}
+            {%- else -%}
+              <span class="pm-drawer__logo-text">{{ pm_brand }}</span>
+            {%- endif -%}
+          </a>
+          <button type="button" class="pm-drawer__close" aria-label="{{ 'premium.general.close' | t }}">
+            {%- render 'pm-icon', icon: 'close', size: 18, stroke: 1.5 -%}
+          </button>
+        </div>
+        <div class="menu-drawer__navigation-container pm-drawer__body">
+          <nav class="menu-drawer__navigation pm-drawer__nav" aria-label="{{ 'premium.header.menu' | t }}">
+            <ul class="pm-drawer__list" role="list">
+              {% for block in section.blocks %}
+                {% if block.type == 'mega_menu_item' %}
+                  <li class="pm-drawer__item" {{ block.shopify_attributes }}>
+                    <header-menu>
+                      <details id="Details-HeaderMenu-{{ block.id }}" class="mega-menu pm-drawer__details">
+                        <summary
+                          id="HeaderMenu-{{ block.id }}"
+                          class="header__menu-item list-menu__item link focus-inset pm-drawer__row pm-drawer__row--toggle"
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls="MegaMenu-Content-{{ block.id }}">
+                          <span>{{ block.settings.label | escape }}</span>
+                        </summary>
+                        <div id="MegaMenu-Content-{{ block.id }}" class="pm-drawer__panel" tabindex="-1">
+                          {%- assign item_collection = block.settings.collection -%}
+                          {%- if item_collection != blank and item_collection.products_count > 0 -%}
+                            <div class="pm-drawer__panel-head">
+                              {%- if block.settings.slider_heading != blank -%}
+                                <p class="pm-eyebrow pm-muted pm-drawer__panel-title">{{ block.settings.slider_heading | escape }}</p>
+                              {%- endif -%}
+                              <a class="pm-drawer__seeall" href="{{ item_collection.url }}">{{ 'aaroma.common.view_all' | t }}</a>
+                            </div>
+                            <div class="swiper menu-drawer-slider pm-drawer__slider">
+                              <div class="swiper-wrapper">
+                                {%- for product in item_collection.products limit: 6 -%}
+                                  <div class="swiper-slide pm-drawer__slide">
+                                    {% render 'product-card-megamenu', product: product %}
+                                  </div>
+                                {%- endfor -%}
+                              </div>
+                            </div>
+                          {%- else -%}
+                            <p class="pm-muted">{{ 'aaroma.misc.no_products_men' | t }}</p>
+                          {%- endif -%}
+                        </div>
+                      </details>
+                    </header-menu>
+                  </li>
+                {% elsif block.type == 'sub_menu_items' %}
+                  <li class="pm-drawer__item" {{ block.shopify_attributes }}>
+                    <header-menu>
+                      <details id="Details-HeaderMenu-{{ block.id }}" class="mega-menu pm-drawer__details">
+                        <summary
+                          id="HeaderMenu-{{ block.id }}"
+                          class="header__menu-item list-menu__item link focus-inset pm-drawer__row pm-drawer__row--toggle"
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls="MegaMenu-Content-{{ block.id }}">
+                          <span>{{ block.settings.label | escape }}</span>
+                        </summary>
+                        <div id="MegaMenu-Content-{{ block.id }}" class="pm-drawer__panel" tabindex="-1">
+                          {%- if block.settings.link_list != blank -%}
+                            <ul class="pm-drawer__sublist" role="list">
+                              {%- for link in block.settings.link_list.links -%}
+                                <li class="pm-drawer__subitem">
+                                  <a
+                                    class="pm-drawer__sublink"
+                                    href="{{ link.url }}"
+                                    {% if link.current %}
+                                      aria-current="page"
+                                    {% endif %}>
+                                    {{ link.title | escape }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </div>
+                      </details>
+                    </header-menu>
+                  </li>
+                {% else %}
+                  <li class="pm-drawer__item" {{ block.shopify_attributes }}>
+                    <a
+                      id="HeaderMenu-{{ block.id }}"
+                      href="{{ block.settings.url }}"
+                      class="header__menu-item list-menu__item link link--text focus-inset pm-drawer__row">
+                      <span>{{ block.settings.label }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+              {%- comment -%}
+                magicperfume.co: no drawer blocks set, so the drawer lists the phone menu (mobile_menu, else the main menu)
+                with the same rows as the sub_menu_items / menu_item blocks above.
+              {%- endcomment -%}
+              {%- if section.blocks.size == 0 -%}
+                {%- assign pm_dm_handle = section.settings.mobile_menu | strip -%}
+                {%- if pm_dm_handle != blank and linklists[pm_dm_handle].links.size > 0 -%}
+                  {%- assign pm_dm_links = linklists[pm_dm_handle].links -%}
+                {%- else -%}
+                  {%- assign pm_dm_links = section.settings.menu.links -%}
+                {%- endif -%}
+                {%- for pm_dm_link in pm_dm_links -%}
+                  <li class="pm-drawer__item">
+                    {%- if pm_dm_link.links.size > 0 -%}
+                      <header-menu>
+                        <details id="Details-HeaderMenu-{{ pm_dm_link.handle }}" class="mega-menu pm-drawer__details">
+                          <summary
+                            id="HeaderMenu-{{ pm_dm_link.handle }}"
+                            class="header__menu-item list-menu__item link focus-inset pm-drawer__row pm-drawer__row--toggle"
+                            role="button"
+                            aria-expanded="false"
+                            aria-controls="MegaMenu-Content-{{ pm_dm_link.handle }}">
+                            <span>{{ pm_dm_link.title | escape }}</span>
+                          </summary>
+                          <div id="MegaMenu-Content-{{ pm_dm_link.handle }}" class="pm-drawer__panel" tabindex="-1">
+                            <ul class="pm-drawer__sublist" role="list">
+                              {%- for pm_dm_child in pm_dm_link.links -%}
+                                <li class="pm-drawer__subitem">
+                                  <a class="pm-drawer__sublink" href="{{ pm_dm_child.url }}"{% if pm_dm_child.current %} aria-current="page"{% endif %}>
+                                    {{ pm_dm_child.title | escape }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                        </details>
+                      </header-menu>
+                    {%- else -%}
+                      <a
+                        id="HeaderMenu-{{ pm_dm_link.handle }}"
+                        href="{{ pm_dm_link.url }}"
+                        class="header__menu-item list-menu__item link link--text focus-inset pm-drawer__row">
+                        <span>{{ pm_dm_link.title | escape }}</span>
+                      </a>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              {%- endif -%}
+            </ul>
+          </nav>
+          <div class="pm-drawer__foot">
+            {%- if shop.customer_accounts_enabled -%}
+              <a class="pm-drawer__footlink" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" rel="nofollow">
+                {%- if customer -%}{{ 'customer.account_fallback' | t }}{%- else -%}{{ 'customer.log_in' | t }}{%- endif -%}
+              </a>
+            {%- endif -%}
+            <a class="pm-drawer__footlink" href="{{ routes.search_url }}">{{ 'premium.general.search' | t }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+</header-drawer>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.menu-drawer-slider').forEach(function (menuSlider) {
+      if (typeof Swiper !== 'function') return;
+      new Swiper(menuSlider, {
+        slidesPerView: 2.2,
+        spaceBetween: 8,
+      });
+    });
+    // The close X routes through the burger summary so Dawn's HeaderDrawer runs its full close path
+    // (menu-open class, body scroll lock, focus trap, slide-out animation).
+    document.querySelectorAll('.pm-drawer__close').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var drawer = button.closest('header-drawer');
+        var summary = drawer ? drawer.querySelector('summary') : null;
+        if (summary) summary.click();
+      });
+    });
+  });
+</script>

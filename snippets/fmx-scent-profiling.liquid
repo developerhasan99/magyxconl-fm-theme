@@ -1,0 +1,12 @@
+{%- comment -%}
+  fmx-scent-profiling (aaroma.co): copy of magicperfume.co / tryscent.co snippets/fmx-scent-profiling.liquid. The short
+  scent description under the claim lines (FM pm-sdesc) from custom.scent_description. No concentration line, no
+  quick links ("Full description" / "Clean label"), no icon row (family / occasion / season): the claim lines are the
+  selling_points block, family / occasion / season sit in the scent notes section below the buy box (as on
+  magicperfume.co). Empty custom.scent_description = nothing.
+{%- endcomment -%}
+{% if product.metafields.custom.scent_description != blank %}
+  <p class="pm-sdesc">
+    {{ product.metafields.custom.scent_description }}
+  </p>
+{% endif %}

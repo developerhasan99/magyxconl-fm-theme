@@ -1,0 +1,686 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_EGTLGz": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\n#ts-hero-custom{\n  position:relative;\n  min-height:560px;\n  overflow:hidden;\n  background:\n    linear-gradient(90deg,rgba(250,249,246,.92) 0%,rgba(250,249,246,.72) 30%,rgba(250,249,246,.12) 54%,rgba(250,249,246,0) 72%),\n    url('https://cdn.shopify.com/s/files/1/0610/1073/9338/files/MAGYX_Site_Header.webp?v=1789830901&width=1920') center right/cover no-repeat,\n    #faf9f6;\n}\n#ts-hero-custom .ts-container{\n  width:min(1180px,calc(100% - 36px));\n  margin-inline:auto;\n}\n#ts-hero-custom .ts-hero-inner{\n  min-height:560px;\n  display:flex;\n  align-items:center;\n  position:relative;\n  z-index:2;\n}\n#ts-hero-custom .ts-hero-copy{max-width:640px}\n#ts-hero-custom .ts-rating-pill{\n  display:inline-flex;\n  align-items:center;\n  gap:10px;\n  background:#fff;\n  border-radius:999px;\n  padding:10px 18px;\n  margin-bottom:28px;\n  box-shadow:0 4px 18px rgba(0,0,0,.07);\n  font-size:12px;\n  font-weight:700;\n  text-transform:uppercase;\n  letter-spacing:.05em;\n  color:#121212;\n}\n#ts-hero-custom .ts-stars{color:#ffb000;letter-spacing:2px}\n#ts-hero-custom h1{\n  margin:0 0 24px;\n  font-size:36px;\n  font-weight:900;\n  line-height:1.12;\n  letter-spacing:-.9px;\n  color:#121212;\n}\n#ts-hero-custom .ts-category-line{\n  max-width:670px;\n  margin-bottom:14px;\n  font-size:18px;\n  font-weight:600;\n  letter-spacing:.4px;\n  line-height:1.45;\n  color:#121212;\n}\n#ts-hero-custom .ts-expert-line{\n  max-width:620px;\n  margin:0;\n  font-size:16px;\n  line-height:1.7;\n  color:rgba(18,18,18,.62);\n}\n#ts-hero-custom .ts-microcopy{\n  margin:12px 0 0;\n  font-size:14px;\n  color:rgba(18,18,18,.5);\n}\n@media(max-width:700px){\n  #ts-hero-custom{\n    min-height:auto;\n    background:\n      linear-gradient(180deg,rgba(250,249,246,.6) 0%,rgba(250,249,246,.25) 26%,rgba(250,249,246,0) 44%),\n      url('https://cdn.shopify.com/s/files/1/0610/1073/9338/files/MAGYX_Site_Header_Mobile_A.webp?v=1789830903&width=1100') center bottom/cover no-repeat,\n      #faf9f6;\n  }\n  #ts-hero-custom .ts-hero-inner{\n    min-height:auto;\n    display:block;\n    padding-top:40px;\n    padding-bottom:380px;\n  }\n  #ts-hero-custom .ts-hero-copy{\n    max-width:100%;\n    text-align:center;\n  }\n  #ts-hero-custom .ts-rating-pill{margin-bottom:22px}\n  #ts-hero-custom h1{\n    font-size:30px;\n    margin-bottom:18px;\n  }\n  #ts-hero-custom .ts-category-line,\n  #ts-hero-custom .ts-expert-line{\n    margin-inline:auto;\n  }\n  #ts-hero-custom .ts-microcopy{\n    color:rgba(18,18,18,.8);\n    font-weight:600;\n  }\n}\n</style>\n<section id=\"ts-hero-custom\">\n  <div class=\"ts-container\">\n    <div class=\"ts-hero-inner\">\n      <div class=\"ts-hero-copy\">\n        <div class=\"ts-rating-pill\">\n          <span class=\"ts-stars\">&#9733;&#9733;&#9733;&#9733;&#9733;</span>\n          <span>{{ 'aaroma.hero.loved_by' | t }}</span>\n        </div>\n        <h1>{{ 'aaroma.hero.title' | t }}</h1>\n        <div class=\"ts-category-line\">{{ 'aaroma.hero.category' | t }}</div>\n        <p class=\"ts-expert-line\">{{ 'aaroma.hero.expert' | t }}</p>\n        <p class=\"ts-microcopy\">{{ 'aaroma.hero.micro' | t }}</p>\n      </div>\n    </div>\n  </div>\n</section>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "disabled": true
+    },
+    "custom_liquid_bGbADd": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\n#ts-trust-custom{\n  padding:30px 0;\n  background:#fff;\n  border-bottom:1px solid #f0efec;\n}\n#ts-trust-custom .ts-container{\n  width:min(1180px,calc(100% - 36px));\n  margin-inline:auto;\n}\n#ts-trust-custom .ts-trust-grid{\n  display:grid;\n  grid-template-columns:repeat(4,1fr);\n  gap:24px;\n}\n#ts-trust-custom .ts-trust-item{\n  text-align:center;\n  padding:10px 18px;\n}\n#ts-trust-custom .ts-icon{\n  height:44px;\n  margin:0 auto 12px;\n  color:#121212;\n}\n#ts-trust-custom .ts-icon svg{\n  width:40px;\n  height:40px;\n}\n#ts-trust-custom h3{\n  margin:0 0 8px;\n  font-size:18px;\n  font-weight:600;\n  letter-spacing:.4px;\n  color:#121212;\n}\n#ts-trust-custom p{\n  margin:0;\n  font-size:16px;\n  line-height:1.5;\n  color:rgba(18,18,18,.6);\n}\n@media(max-width:700px){\n  #ts-trust-custom{padding:15px 0}\n  #ts-trust-custom .ts-trust-grid{\n    grid-template-columns:1fr 1fr;\n    gap:10px;\n  }\n  #ts-trust-custom .ts-trust-item{padding:12px 4px}\n  #ts-trust-custom h3{font-size:16px}\n}\n</style>\n<section id=\"ts-trust-custom\">\n  <div class=\"ts-container\">\n    <div class=\"ts-trust-grid\">\n      <div class=\"ts-trust-item\">\n        <div class=\"ts-icon\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"7.5\" width=\"16\" height=\"12.5\" rx=\"1\"/><path d=\"M4 7.5 6.5 4h11L20 7.5\"/><path d=\"M12 4v3.5\"/><path d=\"M9.5 12h5\"/></svg>\n        </div>\n        <h3>{{ 'aaroma.trust.europe_title' | t }}</h3>\n        <p>{{ 'aaroma.trust.europe_text' | t }}</p>\n      </div>\n      <div class=\"ts-trust-item\">\n        <div class=\"ts-icon\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.5c3.4 4.3 5.8 7.4 5.8 10.2a5.8 5.8 0 1 1-11.6 0C6.2 10.9 8.6 7.8 12 3.5z\"/><path d=\"M9.6 14.2a2.6 2.6 0 0 0 2.3 2.5\"/></svg>\n        </div>\n        <h3>{{ 'aaroma.trust.conc_title' | t }}</h3>\n        <p>{{ 'aaroma.trust.conc_text' | t }}</p>\n      </div>\n      <div class=\"ts-trust-item\">\n        <div class=\"ts-icon\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.5 19 6v5.4c0 4.4-2.9 7.7-7 9.1-4.1-1.4-7-4.7-7-9.1V6z\"/><path d=\"m9 11.9 2.2 2.2 3.8-4.2\"/></svg>\n        </div>\n        <h3>{{ 'aaroma.trust.guarantee_title' | t }}</h3>\n        <p>{{ 'aaroma.trust.guarantee_text' | t }}</p>\n      </div>\n      <div class=\"ts-trust-item\">\n        <div class=\"ts-icon\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/><path d=\"M12 7.5V12l3 2\"/></svg>\n        </div>\n        <h3>{{ 'aaroma.trust.wear_title' | t }}</h3>\n        <p>{{ 'aaroma.trust.wear_text' | t }}</p>\n      </div>\n    </div>\n  </div>\n</section>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "disabled": true
+    },
+    "insta_story_6kD6Ki": {
+      "type": "insta-story",
+      "blocks": {
+        "story_gjiCaN": {
+          "type": "story",
+          "settings": {
+            "title": "LV",
+            "link": "shopify://collections/louis-vuitton®"
+          }
+        },
+        "story_yMVHwJ": {
+          "type": "story",
+          "settings": {
+            "title": "Dior",
+            "link": "shopify://collections/dior®"
+          }
+        },
+        "story_BpqQDR": {
+          "type": "story",
+          "settings": {
+            "title": "Tom Ford",
+            "link": "shopify://collections/tomford®"
+          }
+        },
+        "story_YdjabH": {
+          "type": "story",
+          "settings": {
+            "title": "Baccarat",
+            "link": "shopify://collections/baccarat-rouge®"
+          }
+        },
+        "story_fFraf6": {
+          "type": "story",
+          "settings": {
+            "title": "Creed",
+            "link": "shopify://collections/creed®"
+          }
+        },
+        "story_TBAmBK": {
+          "type": "story",
+          "disabled": true,
+          "settings": {
+            "title": "Xerjoff",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "story_gjiCaN",
+        "story_yMVHwJ",
+        "story_BpqQDR",
+        "story_YdjabH",
+        "story_fFraf6",
+        "story_TBAmBK"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "fm_hero": {
+      "type": "pm-collection-lander-hero",
+      "settings": {
+        "layout": "overlay",
+        "text_tone": "dark",
+        "mobile_buttons": "bottom",
+        "color_scheme": "scheme-1",
+        "background_color": "#ffffff",
+        "min_height": 480,
+        "mobile_min_height": 480,
+        "review_text": "",
+        "title_color": "",
+        "subtitle_color": "",
+        "button_text": "",
+        "button_link": "",
+        "secondary_button_text": "",
+        "secondary_button_link": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 0,
+        "custom_css": "",
+        "background_image": "shopify://shop_images/MAGYX_Site_Header.webp",
+        "mobile_background_image": "shopify://shop_images/MAGYX_Site_Header_Mobile_A.webp",
+        "overlay_opacity": 0,
+        "mobile_overlay_opacity": 0,
+        "eyebrow": "Loved by over 1,400 customers",
+        "title": "Find the scent they'll remember you by.",
+        "subtitle": "The #1 choice in designer-inspired fragrances.",
+        "overlay_style": "solid",
+        "mobile_image_position": "bottom",
+        "image_position": "right",
+        "mobile_height_vw": 140
+      }
+    },
+    "fm_marquee": {
+      "type": "marquee-labels",
+      "settings": {
+        "style": "premium",
+        "color_scheme": "scheme-3",
+        "speed": 48,
+        "separator": "•"
+      },
+      "blocks": {
+        "label_1": {
+          "type": "label",
+          "settings": {
+            "label": "20% fragrance oils",
+            "link": ""
+          }
+        },
+        "label_2": {
+          "type": "label",
+          "settings": {
+            "label": "Lasts up to 12 hours",
+            "link": ""
+          }
+        },
+        "label_3": {
+          "type": "label",
+          "settings": {
+            "label": "Made in Europe",
+            "link": ""
+          }
+        },
+        "label_4": {
+          "type": "label",
+          "settings": {
+            "label": "Free from parabens and phthalates",
+            "link": ""
+          }
+        },
+        "label_5": {
+          "type": "label",
+          "settings": {
+            "label": "Vegan and cruelty-free",
+            "link": ""
+          }
+        },
+        "label_6": {
+          "type": "label",
+          "settings": {
+            "label": "60-day guarantee",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "label_1",
+        "label_2",
+        "label_3",
+        "label_4",
+        "label_5",
+        "label_6"
+      ]
+    },
+    "fm_reviews": {
+      "type": "pm-collection-reviews",
+      "blocks": {
+        "review_01": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Amazing parfums with strong and intense aroma. Really sticks around the entire day! Would for sure buy again.”</p>",
+            "author": "Timo de Graaf",
+            "date": "02.11.2026",
+            "rating": 5,
+            "show_verified_badge": true
+          }
+        },
+        "review_02": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“I bought this as a gift for my dad, and he said it smells exactly like the original. It was really what he was looking for!”</p>",
+            "author": "Marie",
+            "date": "29.10.2026",
+            "rating": 5,
+            "show_verified_badge": true
+          }
+        },
+        "review_04": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Excellent perfume, pleasant and long-lasting scent. Happy with the purchase!”</p>",
+            "author": "Cristina P",
+            "date": "08.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_05": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Very happy with the smell, incredibly similar to the original. Can't notice any difference. Lasts all day.”</p>",
+            "author": "Jessica Jason",
+            "date": "08.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_06": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“The perfumes are really good! There is almost no difference from the originals, and I am actually very happy with the purchase. Good price.”</p>",
+            "author": "Rimuska B",
+            "date": "07.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_07": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“I have bought perfume for both myself and my wife and they smell really nice. Exactly like the one it is inspired by. Recommended”</p>",
+            "author": "Mattias Eklund",
+            "date": "07.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_08": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Only positives! Tried several of the manufacturers that try to mimic high end brands, so far this is by far the closest on the once i have tried (tried 10+) Thanks for the good job and reasonable prices!”</p>",
+            "author": "JPS",
+            "date": "07.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_09": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“I was really surprised. I coudn’t feel any difference from the original!! Best buy for shure😊”</p>",
+            "author": "Ulf",
+            "date": "06.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_10": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Perfume scents last a long time.The scents are exactly like the original perfumes.”</p>",
+            "author": "Saidul Rahman",
+            "date": "06.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_11": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“A truly wonderful discovery... amazing! A wonderful discovery with perfume 145 (Hypnotic Poison)! It's remarkably similar to the original; it's truly impressive. The price-quality ratio is excellent, and the fragrance lasts beautifully on the skin. Special mention to Abi for her advice and availability; it's so nice to have such great support. 🥰 I highly recommend it!”</p>",
+            "author": "Ing Duf",
+            "date": "06.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_12": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“My girlfriend ordered from here, arrived quickly and very good perfumes. Highly recommend buying!”</p>",
+            "author": "Aleksander Djordjic",
+            "date": "06.09.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        },
+        "review_13": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“I love these perfumes amazing scents i will buy again .. this is my second purchase.. fast delivery and I'm very happy with my new perfumes”</p>",
+            "author": "Ihab",
+            "date": "05.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_14": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Fast and stable delivery of first-class perfumes that keep what they promise in my opinion.”</p>",
+            "author": "Pär Törnkvist",
+            "date": "04.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_15": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Their fragrance is amazing!! I used 140W one and it smells luxurious!! Love it!! Also Abi thank you so much!!❤️❤️✨”</p>",
+            "author": "Ishikasingh Gaur",
+            "date": "04.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_16": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Great perfume - outperforming my current EDP, fast shipping! Recommended!”</p>",
+            "author": "Mikael",
+            "date": "03.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_17": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“I love your parfumes, it smells just like the Original. I wish you would get Chanel Tendre”</p>",
+            "author": "Nadya Indra CE Solander Sundberg",
+            "date": "03.09.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        },
+        "review_18": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“The best perfume and smells so incredibly wonderful and is like the real thing”</p>",
+            "author": "Jan-Ole Janne",
+            "date": "02.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_19": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Love the scents, they last a long time and are similar to the original.”</p>",
+            "author": "Catharina Stråhlman",
+            "date": "02.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_20": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“I am super satisfied😍😍😍 ordered 6 and got one for free😍 Smells great Will order again and again Highly recommend!!!!”</p>",
+            "author": "Remy Remy",
+            "date": "01.09.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_21": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“I love Aaaroma fragrances! I can't tell the difference between expensive brand name perfumes and Aaaroma's perfumes in any way. I highly recommend that everyone stop spending a fortune on expensive brand name perfumes and instead get more for their money at Aaaroma. With Aaaroma's perfumes you can smell expensive and still stay within your budget! Love, love Aaaroma!❤️❤️❤️”</p>",
+            "author": "Simone Cederlund",
+            "date": "31.08.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_22": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Very good perfumes. Highly recommended. Good prices for the same scents as the original.”</p>",
+            "author": "JERRY",
+            "date": "31.08.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_23": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Fast delivery, meets my expectations, lovely scent that is so close to the original”</p>",
+            "author": "Mrs. Rose",
+            "date": "30.08.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_24": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“An amazing fragrance at a great price! I found this equivalent absolutely incredible! The Lost Cherry Eau de Parfum 🍒 ❤️ N°438 is a really great fragrance that lasts perfectly on my skin and smells so good 🥰 thank you to the brand and to Abi for this wonderful discovery”</p>",
+            "author": "Emilie",
+            "date": "30.08.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_25": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Very good, good scents, no difference from original! Lasts very well”</p>",
+            "author": "Laith Thaher",
+            "date": "30.08.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_26": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“All the perfumes I bought smell so good and last a long time”</p>",
+            "author": "Sham nour",
+            "date": "29.08.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        },
+        "review_27": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Wonderful scents and it was delivered quickly too! Thank you so much, now I smell good again!!! 🤗🤗🤗”</p>",
+            "author": "James H",
+            "date": "28.08.2026",
+            "rating": 5,
+            "show_verified_badge": false
+          }
+        },
+        "review_28": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Good prices, smells very good and lasts a long time.”</p>",
+            "author": "Matthias",
+            "date": "28.08.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        },
+        "review_29": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“At first I was a little hesitant but wanted to try my first one anyway. The delivery was fast and safe. I really liked the scent which is 288M. I have ordered again.”</p>",
+            "author": "Alp Guler",
+            "date": "12.08.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        },
+        "review_30": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Such good prices smells exactly like the original why pay over 1000kr for one perfume when you can buy several for that price 👌🏻👌🏻👌🏻👌🏻👌🏻”</p>",
+            "author": "Andres Nidal",
+            "date": "31.07.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        },
+        "review_31": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Aaaroma, delivers, fantastic good perfumes to really good prices. Sincerely DB”</p>",
+            "author": "Dick Björklund",
+            "date": "18.06.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        },
+        "review_32": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“All fragrances smell exactly like the original and last better than the original.”</p>",
+            "author": "Daniel",
+            "date": "17.06.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        },
+        "review_33": {
+          "type": "review",
+          "settings": {
+            "content": "<p>“Good website with a good overview and explanation of different scents at incredibly good prices”</p>",
+            "author": "Brian Noll",
+            "date": "12.06.2026",
+            "rating": 4,
+            "show_verified_badge": false
+          }
+        }
+      },
+      "block_order": [
+        "review_01",
+        "review_02",
+        "review_04",
+        "review_05",
+        "review_06",
+        "review_07",
+        "review_08",
+        "review_09",
+        "review_10",
+        "review_11",
+        "review_12",
+        "review_13",
+        "review_14",
+        "review_15",
+        "review_16",
+        "review_17",
+        "review_18",
+        "review_19",
+        "review_20",
+        "review_21",
+        "review_22",
+        "review_23",
+        "review_24",
+        "review_25",
+        "review_26",
+        "review_27",
+        "review_28",
+        "review_29",
+        "review_30",
+        "review_31",
+        "review_32",
+        "review_33"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading": "Loved by over 1,400 fragrance lovers",
+        "use_judgeme": true,
+        "judgeme_format": "[rating]/5 stars ([count] reviews)",
+        "rating_text": "4.7 out of 5 stars",
+        "verified_text": "Verified buyer",
+        "rating_label": "[rating] out of 5 stars",
+        "prev_label": "Previous review",
+        "next_label": "Next review",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "fuel05_ugc_video_nR9Epz": {
+          "type": "fuel05_ugc_video",
+          "disabled": true,
+          "settings": {
+            "position": 10,
+            "device": "both",
+            "video": "shopify://files/videos/aaroma_co_DalmaJ_SmelLikeAnge_a186e21c.mov",
+            "video_url": "",
+            "product": "3x-100ml-perfume-bottles"
+          }
+        },
+        "fuel05_ugc_video_abCqai": {
+          "type": "fuel05_ugc_video",
+          "disabled": true,
+          "settings": {
+            "position": 8,
+            "device": "both",
+            "video": "shopify://files/videos/aaroma_co_JoeM_SmelLikeArma_ddb6a55c.mov",
+            "video_url": "",
+            "product": "nacht-van-passie-3x-50ml-parfumflesjes"
+          }
+        },
+        "fuel05_ugc_video_Faa9Er": {
+          "type": "fuel05_ugc_video",
+          "disabled": true,
+          "settings": {
+            "position": 4,
+            "device": "both",
+            "video": "shopify://files/videos/aaroma_co_EsmeeB_SmelLikeArma_dda7fc6e.mp4",
+            "video_url": "",
+            "product": "3-x-50ml-geurgarderobe-44"
+          }
+        },
+        "fuel05_ugc_video_w8m9iK": {
+          "type": "fuel05_ugc_video",
+          "disabled": true,
+          "settings": {
+            "position": 2,
+            "device": "both",
+            "video": "shopify://files/videos/aaroma_co_KristelW_SmelLikePist_ad4377e6.mov",
+            "video_url": "",
+            "product": "6-x-50ml-geurgarderobe-64"
+          }
+        }
+      },
+      "block_order": [
+        "fuel05_ugc_video_nR9Epz",
+        "fuel05_ugc_video_abCqai",
+        "fuel05_ugc_video_Faa9Er",
+        "fuel05_ugc_video_w8m9iK"
+      ],
+      "settings": {
+        "products_per_page": 36,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 32,
+        "padding_bottom": 60,
+        "search_placeholder": "Search by brand, scent or number",
+        "search_results_text": "[count] results for “[query]”",
+        "search_result_text": "1 result for “[query]”",
+        "search_empty_text": "No match for “[query]”. Try the brand or the name of the original.",
+        "search_loading_text": "Searching all scents…",
+        "search_clear_label": "Clear search"
+      }
+    },
+    "rich_text_fnCgkL": {
+      "type": "rich-text",
+      "blocks": {
+        "text_x4GrCN": {
+          "type": "text",
+          "settings": {
+            "text": "<p></p>{{ collection.description }}"
+          }
+        }
+      },
+      "block_order": [
+        "text_x4GrCN"
+      ],
+      "custom_css": [
+        ".rich-text--full-width {background-color: #fcfbf9; border-top: #f3f3f3 2px solid;}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 60,
+        "padding_bottom": 60
+      },
+      "disabled": true
+    }
+  },
+  "order": [
+    "custom_liquid_EGTLGz",
+    "custom_liquid_bGbADd",
+    "insta_story_6kD6Ki",
+    "banner",
+    "fm_hero",
+    "fm_marquee",
+    "fm_reviews",
+    "product-grid",
+    "rich_text_fnCgkL"
+  ]
+}

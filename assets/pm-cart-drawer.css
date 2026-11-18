@@ -1,0 +1,213 @@
+/* pm-cart-drawer.css (aaroma.co FM parity, 04.11.2026): the cart drawer of magicperfume.co's FM preview
+   (snippets/cart-drawer.liquid there = the older magyx.co drawer; the pm-cart markup is not used on either theme,
+   so assets/pm-cart.css styles only the /cart page here). Values = magicperfume's component-cart-drawer.css /
+   component-cart-items.css as measured on its preview, in aaroma's colours (ink #121212, green #146b32).
+   Loaded from snippets/cart-drawer.liquid. Every selector starts with .premium .cart-drawer (or .premium cart-drawer)
+   so it out-specifies aaroma's Dawn rules in component-cart-drawer.css without importance overrides.
+   Section 6 = Tailwind utilities the drawer / upsell markup uses that aaroma's frozen tailwind-compiled.css lacks
+   (magicperfume's build has them). Mobile-first; the 750px step = magicperfume's own breakpoint. */
+
+/* 1. Panel: 400px wide (full width below 400), no side padding on the panel itself */
+.premium .cart-drawer .drawer__inner {
+  width: 40rem;
+  max-width: 100vw;
+  padding: 0;
+}
+
+.premium cart-drawer.is-empty .drawer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* 2. Header: full-width hairline, 24px sides */
+.premium .cart-drawer .drawer__header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.premium .cart-drawer .drawer__heading {
+  font-size: 17px;
+  font-weight: var(--font-heading-weight, 800);
+}
+
+.premium .cart-drawer .drawer__heading-dot {
+  color: #555;
+}
+
+/* 3. Scroll area: Kite progress bar + lines + upsells scroll together, 24px sides */
+.premium .cart-drawer cart-drawer-items {
+  display: block;
+  flex: 1;
+  overflow: auto;
+  padding: 0 24px;
+}
+
+.premium .cart-drawer .drawer__inner-empty {
+  height: auto;
+  overflow: visible;
+  padding: 20px 24px 60px;
+}
+
+.premium .cart-drawer .cart-drawer__form {
+  margin-bottom: 30px;
+}
+
+/* low phones: the whole panel scrolls (Dawn behaviour, kept at the new specificity) */
+@media screen and (max-height: 650px) {
+  .premium .cart-drawer cart-drawer-items {
+    overflow: visible;
+  }
+
+  .premium .cart-drawer .drawer__inner {
+    overflow: scroll;
+  }
+}
+
+/* 4. Line item: rounded image, grey variant line, small bordered stepper */
+.premium .cart-drawer .cart-item__image {
+  border-radius: 7px;
+}
+
+.premium .cart-drawer .product-option.variant-details {
+  font-size: 13px;
+  font-weight: 500;
+  color: #9ca3af;
+  margin: 0 0 6px;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.premium .cart-drawer .quantity.cart-quantity {
+  display: flex;
+  align-items: center;
+  width: 100px;
+  max-width: 100px;
+  min-height: 28px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.premium .cart-drawer .quantity.cart-quantity::before,
+.premium .cart-drawer .quantity.cart-quantity::after {
+  display: none;
+}
+
+.premium .cart-drawer .quantity.cart-quantity .quantity__button {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.premium .cart-drawer .quantity.cart-quantity .quantity__button[name='minus'] {
+  border-right: 1px solid #d1d5db;
+}
+
+.premium .cart-drawer .quantity.cart-quantity .quantity__button[name='plus'] {
+  border-left: 1px solid #d1d5db;
+}
+
+.premium .cart-drawer .cart-item cart-remove-button {
+  margin-top: 0;
+}
+
+/* round focus ring on the bin, as on magicperfume */
+.premium .cart-drawer .cart-remove-button {
+  border-radius: 999px;
+}
+
+@media screen and (min-width: 750px) {
+  .premium .cart-drawer .cart-item cart-remove-button {
+    margin-left: 1.5rem;
+  }
+}
+
+/* 5. Footer: hairline, 24px sides, totals 14px semibold, 50px checkout pill */
+.premium .cart-drawer .drawer__footer {
+  border-top: 1px solid #e5e7eb;
+  padding: 20px 24px;
+}
+
+.premium .cart-drawer .cart-drawer__footer > * + * {
+  margin-top: 0;
+}
+
+.premium .cart-drawer .totals {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.premium .cart-drawer .totals > * {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.premium .cart-drawer .totals > h2 {
+  font-size: 1.4rem;
+  letter-spacing: 0;
+}
+
+.premium .cart-drawer .totals .totals__total-value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.premium .cart-drawer .pm-cart-drawer__saving {
+  color: var(--pm-good, #146b32);
+}
+
+.premium .cart-drawer .cart__checkout-button,
+.premium .cart-drawer .drawer__inner-empty .button {
+  --buttons-radius: 40px;
+  --buttons-radius-outset: 40px;
+  padding: 0 30px;
+  line-height: 50px;
+  background-color: var(--pm-ink, #121212);
+  color: #fff;
+}
+
+.premium .cart-drawer .cart__checkout-button:hover,
+.premium .cart-drawer .cart__checkout-button:focus-visible,
+.premium .cart-drawer .drawer__inner-empty .button:hover,
+.premium .cart-drawer .drawer__inner-empty .button:focus-visible {
+  background-color: #3a3a3c;
+  color: #fff;
+}
+
+/* Kite's cart-page discount wrapper stays out of the button column (magicperfume hides it there too) */
+.premium .cart-drawer .cart__ctas .gfgPageWrapper {
+  display: none;
+}
+
+/* 6. Utilities missing from aaroma's tailwind-compiled.css (upsell cards = 2 per row) */
+.premium .cart-drawer .cart-upsell-slider .upsell-product-card {
+  width: calc(50% - 8px);
+}
+
+.premium .cart-drawer .cart-upsell-slider .bg-gray-50 {
+  background-color: rgb(249 250 251);
+}
+
+.premium .cart-drawer .cart-upsell-slider button.loading {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.premium .cart-drawer .cart-upsell-slider button .path {
+  stroke: #fff;
+}
+
+/* 7. /cart page (sections/main-cart-footer.liquid, also loads this file): magicperfume's checkout button carries
+   leading-[50px] on top of pm-cart.css's 16px padding; aaroma's Tailwind build lacks the utility */
+.premium .cart__footer-wrapper .cart__checkout-button.leading-\[50px\] {
+  line-height: 50px;
+}

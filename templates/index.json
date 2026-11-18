@@ -1,0 +1,1339 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "homepage_hero_XnJ8mD": {
+      "type": "homepage-hero",
+      "blocks": {
+        "market_text_belgium": {
+          "type": "market_text",
+          "settings": {
+            "markets": "belgium",
+            "title": "",
+            "subtitle": "",
+            "button_text": "",
+            "secondary_button_text": "",
+            "review_text": ""
+          }
+        },
+        "market_text_estonia": {
+          "type": "market_text",
+          "settings": {
+            "markets": "estonia",
+            "title": "",
+            "subtitle": "",
+            "button_text": "",
+            "secondary_button_text": "",
+            "review_text": ""
+          }
+        },
+        "market_text_france": {
+          "type": "market_text",
+          "settings": {
+            "markets": "france",
+            "title": "",
+            "subtitle": "",
+            "button_text": "",
+            "secondary_button_text": "",
+            "review_text": ""
+          }
+        },
+        "market_text_germany": {
+          "type": "market_text",
+          "settings": {
+            "markets": "germany",
+            "title": "",
+            "subtitle": "",
+            "button_text": "",
+            "secondary_button_text": "",
+            "review_text": ""
+          }
+        },
+        "market_text_switz": {
+          "type": "market_text",
+          "settings": {
+            "markets": "switz",
+            "title": "",
+            "subtitle": "",
+            "button_text": "",
+            "secondary_button_text": "",
+            "review_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "market_text_belgium",
+        "market_text_estonia",
+        "market_text_france",
+        "market_text_germany",
+        "market_text_switz"
+      ],
+      "name": "Homepage Hero",
+      "settings": {
+        "background_color": "#fcfbf9",
+        "fade_color": "#121212",
+        "show_review_pill": false,
+        "text_color": "#ffffff",
+        "background_image": "shopify://shop_images/Magyx-BF-Red-01.webp",
+        "mobile_background_image": "shopify://shop_images/MAGYX_Perfume_Collection_Glow.webp",
+        "review_text": "LOVED BY 10,000+ CUSTOMERS",
+        "title": "Find the fragrance you'll be remembered for.",
+        "subtitle": "The world's No. 1 designer-inspired fragrances. Made by the same experts behind some of the world's best-known perfumes.",
+        "button_text": "For Him",
+        "button_link": "shopify://collections/alle-herengeuren",
+        "secondary_button_text": "For Her",
+        "secondary_button_link": "shopify://collections/alle-damesgeuren",
+        "padding_top": 120,
+        "padding_bottom": 100,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 400,
+        "mobile_image_offset": 160,
+        "mobile_image_fill": "#0b0200",
+        "mobile_buttons_bottom": true,
+        "mobile_buttons_offset": 24
+      }
+    },
+    "trust_icons_pm": {
+      "type": "trust-icons",
+      "blocks": {
+        "ti_1": {
+          "type": "item",
+          "settings": {
+            "icon": "box",
+            "title": "Made in Europe",
+            "text": "No phthalates or parabens. No hormone-disrupting substances."
+          }
+        },
+        "ti_2": {
+          "type": "item",
+          "settings": {
+            "icon": "drop",
+            "title": "Highly concentrated eau de parfum",
+            "text": "20% perfume oil from Grasse, France, in every scent."
+          }
+        },
+        "ti_3": {
+          "type": "item",
+          "settings": {
+            "icon": "bottle",
+            "title": "Developed by perfume experts",
+            "text": "By the people behind well-known brands. Over 70 scents to choose from."
+          }
+        },
+        "ti_4": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "60-day trial",
+            "text": "Not your scent? Return it within 60 days."
+          }
+        }
+      },
+      "block_order": [
+        "ti_1",
+        "ti_2",
+        "ti_3",
+        "ti_4"
+      ],
+      "settings": {
+        "icon_color": "#184031",
+        "background_color": "#ffffff",
+        "border_bottom": true,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "fuel06_finder": {
+      "type": "fuel06-finder",
+      "settings": {}
+    },
+    "tabs_best": {
+      "type": "home-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "title": "🔥 Bestsellers",
+            "collection": "top-sellers",
+            "button_text": "View all"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "title": "New scents",
+            "collection": "heetste-zomergeuren-2026",
+            "button_text": "View all"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Women",
+            "collection": "women",
+            "button_text": "View all"
+          }
+        },
+        "tab_4": {
+          "type": "tab",
+          "settings": {
+            "title": "Men",
+            "collection": "men",
+            "button_text": "View all"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3",
+        "tab_4"
+      ],
+      "settings": {
+        "heading": "A scent for every side of you",
+        "subheading": "Pick a category and discover the scents that suit you.",
+        "background_color": "#f7f7f7",
+        "products_per_tab": 4,
+        "padding_top": 28,
+        "padding_bottom": 72
+      }
+    },
+    "custom_liquid_6qnTBf": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "{% render 'pm-social-proof' %}",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "ugc_home_row": {
+      "type": "ugc-home-row",
+      "blocks": {
+        "video_1": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "language": "nl",
+            "video": "shopify://files/videos/aaroma_co_JoeM_SmelLikeArma_ddb6a55c.mov",
+            "video_url": "",
+            "poster_url": "",
+            "product": "nacht-van-passie-3x-50ml-parfumflesjes"
+          }
+        },
+        "video_2": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "language": "nl",
+            "video": "shopify://files/videos/aaroma_co_DalmaJ_SmelLikeAnge_a186e21c.mov",
+            "video_url": "",
+            "poster_url": "",
+            "product": "3-x-50ml-geurgarderobe-44"
+          }
+        },
+        "video_3": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "language": "nl",
+            "video": "shopify://files/videos/aaroma_co_EsmeeB_SmelLikeArma_dda7fc6e.mp4",
+            "video_url": "",
+            "poster_url": "",
+            "product": "3x-100ml-perfume-bottles"
+          }
+        },
+        "video_4": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "language": "nl",
+            "video": "shopify://files/videos/aaroma_co_KristelW_SmelLikePist_ad4377e6.mov",
+            "video_url": "",
+            "poster_url": "",
+            "product": "6-x-50ml-geurgarderobe-64"
+          }
+        }
+      },
+      "block_order": [
+        "video_1",
+        "video_2",
+        "video_3",
+        "video_4"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "rating_text": "",
+        "heading": "Loved by thousands",
+        "subheading": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "home_category_pm": {
+      "type": "home-category",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Magyx_Website_01.jpg",
+            "image_position": "center",
+            "text": "For him",
+            "descriptor": "Scents for him",
+            "link": "shopify://collections/men"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Magyx_Website_02.webp",
+            "image_position": "center",
+            "text": "For her",
+            "descriptor": "Scents for her",
+            "link": "shopify://collections/women"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Magyx_Website_03.webp",
+            "image_position": "center",
+            "text": "Unisex",
+            "descriptor": "Scents for everyone",
+            "link": "shopify://collections/unisex"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "background_color": "#ffffff",
+        "title": "Choose your category",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "tabs_family": {
+      "type": "home-product-tabs",
+      "blocks": {
+        "family_1": {
+          "type": "tab",
+          "settings": {
+            "title": "Amber",
+            "collection": "all",
+            "filter": "Amber"
+          }
+        },
+        "family_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Woody",
+            "collection": "all",
+            "filter": "Woody"
+          }
+        },
+        "family_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Floral",
+            "collection": "all",
+            "filter": "Floral"
+          }
+        },
+        "family_4": {
+          "type": "tab",
+          "settings": {
+            "title": "Spicy",
+            "collection": "all",
+            "filter": "Spicy"
+          }
+        },
+        "family_5": {
+          "type": "tab",
+          "settings": {
+            "title": "Citrus",
+            "collection": "all",
+            "filter": "Citrus"
+          }
+        },
+        "family_6": {
+          "type": "tab",
+          "settings": {
+            "title": "Fruity",
+            "collection": "all",
+            "filter": "Fruity"
+          }
+        }
+      },
+      "block_order": [
+        "family_1",
+        "family_2",
+        "family_3",
+        "family_4",
+        "family_5",
+        "family_6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading": "Choose your scent family",
+        "subheading": "Pick a scent family and discover the perfumes that suit you.",
+        "products_per_tab": 12,
+        "cards_desktop": "6",
+        "cards_mobile": "2.2",
+        "button_text": "View all",
+        "button_link": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "bundle_feed": {
+      "type": "home-bundle-feed",
+      "blocks": {
+        "bundle_1": {
+          "type": "bundle",
+          "settings": {
+            "product": "3-x-50ml-geurgarderobe-44",
+            "badge": "",
+            "title": "",
+            "subtitle": "Choose 3 scents",
+            "link": ""
+          }
+        },
+        "bundle_2": {
+          "type": "bundle",
+          "settings": {
+            "product": "6-x-50ml-geurgarderobe-64",
+            "badge": "",
+            "title": "",
+            "subtitle": "Choose 6 scents",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "bundle_1",
+        "bundle_2"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "banner_image": "shopify://shop_images/Magyx_Website_04.webp",
+        "banner_heading": "Discover our sets",
+        "banner_link_text": "Shop now",
+        "banner_link": "shopify://collections/bundle-save",
+        "overlay_opacity": 55,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "image_and_text": {
+      "type": "image-and-text",
+      "blocks": {
+        "heading_ax7WWJ": {
+          "type": "heading",
+          "settings": {
+            "content": "Why Choose MagyX?",
+            "heading_type": "h2",
+            "font_size": 40,
+            "mobile_font_size": 24
+          }
+        },
+        "text_gzPVkb": {
+          "type": "text",
+          "settings": {
+            "content": "<p>Luxury scents. European quality. Without the designer price tag.</p>",
+            "mobile_content": "",
+            "font_size": 18
+          }
+        },
+        "point_yJrEAL": {
+          "type": "point",
+          "settings": {
+            "icon": "shopify://shop_images/Screenshot_2026-05-03_at_9.32.50_PM.png",
+            "heading": "Made in Europe",
+            "description": "<p>Our perfumes are made in certified European facilities, following strict European cosmetics standards.</p>",
+            "mobile_description": ""
+          }
+        },
+        "point_jDHtzX": {
+          "type": "point",
+          "settings": {
+            "icon": "shopify://shop_images/Screenshot_2026-05-03_at_9.37.47_PM.png",
+            "heading": "French Quality",
+            "description": "<p>Crafted with the same attention to detail and fragrance notes as designer perfumes.</p>",
+            "mobile_description": ""
+          }
+        },
+        "point_Yp49mb": {
+          "type": "point",
+          "settings": {
+            "icon": "shopify://shop_images/Screenshot_2026-05-03_at_9.39.01_PM.png",
+            "heading": "A Fraction of the Price",
+            "description": "<p>Save up to 90% compared to designer brands. Pay for the fragrance—not expensive advertising campaigns and luxury stores.</p>",
+            "mobile_description": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_ax7WWJ",
+        "text_gzPVkb",
+        "point_yJrEAL",
+        "point_jDHtzX",
+        "point_Yp49mb"
+      ],
+      "settings": {
+        "background_color": "#ffffff",
+        "image": "shopify://shop_images/MAGYX_Site_Showcase.webp",
+        "rounded_image": true,
+        "image_placement": "0",
+        "mobile_image_placement": "under_heading",
+        "button_text": "",
+        "button_url": "",
+        "columns_gap": 40,
+        "rows_gap": 20,
+        "content_alignment": "center",
+        "blocks_gap": 24,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40
+      }
+    },
+    "makes_different_pm": {
+      "type": "makes-different-list",
+      "blocks": {
+        "item_1": {
+          "type": "list_item",
+          "settings": {
+            "title": "Inspired by luxury icons",
+            "description": "without the inflated price tags."
+          }
+        },
+        "item_2": {
+          "type": "list_item",
+          "settings": {
+            "title": "Free from parabens and phthalates",
+            "description": "vegan and cruelty-free."
+          }
+        },
+        "item_3": {
+          "type": "list_item",
+          "settings": {
+            "title": "Lasts up to 12 hours",
+            "description": "even on your busiest days."
+          }
+        },
+        "item_4": {
+          "type": "list_item",
+          "settings": {
+            "title": "Try a smaller size first",
+            "description": "get to know the scent on your skin before you go for a bigger bottle."
+          }
+        },
+        "item_5": {
+          "type": "list_item",
+          "settings": {
+            "title": "60-day guarantee",
+            "description": "in case it isn't love at first spray."
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "background_color": "#ffffff",
+        "makes_diferent_title": "What makes MagyX different?",
+        "makes-different-image": "shopify://shop_images/Magyx_Website_05.webp",
+        "makes-different-btn-text": "Shop our sets",
+        "makes-different-btn-link": "shopify://collections/bundle-save",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "massive_review_section": {
+      "type": "massive-review",
+      "blocks": {
+        "jdgm_19fa2def": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "https://review-images.judgeme.com/aaroma-co/1793113805__1793113802469-17931137756448716005286590__original.jpg?quality=80&width=1024#aaroma_jdgm_19fa2def-95fd-44c3-b04e-400092045760_1.jpg|1024x1820",
+            "content": "<p>Fantastic</p>",
+            "author": "Anonymous",
+            "date": "27.10.2026",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "mx_christinen": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/1_25.png",
+            "review_image_url": "",
+            "content": "<p>I loooove these perfumes! Each one I received smells divinely good. Some, I would say, are better than the original.</p>",
+            "author": "Christine N.",
+            "date": "04.08.2026",
+            "rating": 4,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_dfd23a84": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "https://review-images.judgeme.com/aaroma-co/1789049348__0__r4WxlXF7__magyx248__original.jpg?quality=80&width=1024#aaroma_jdgm_dfd23a84-1415-458f-9848-74d13ffdd58a_1.jpg|1024x1361",
+            "content": "<p><strong>Excellent long lasting perfume</strong></p><p>Excellent perfume, pleasant and long-lasting scent. Happy with the purchase!</p>",
+            "author": "Cristina P",
+            "date": "08.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "mx_alexw": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/2026-07-02_16h58_13.png",
+            "review_image_url": "",
+            "content": "<p>Best of the BEST!</p>",
+            "author": "Alex W.",
+            "date": "14.10.2026",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "jdgm_2766521a": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "https://review-images.judgeme.com/aaroma-co/1789049348__0__RIvQNBG1__magyx360__original.jpg?quality=80&width=1024#aaroma_jdgm_2766521a-3f55-441e-ada3-bfa1ce3501ca_1.jpg|1024x1820",
+            "content": "<p><strong>Clear information, easy ordering</strong></p><p>Easy page to read information and easy to order from.</p>",
+            "author": "Jenny Johansson",
+            "date": "08.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "mx_annee": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/2026-07-22_16h43_29.jpg",
+            "review_image_url": "",
+            "content": "<p>These smells amazing , good price fast delivery.</p>",
+            "author": "Anne E.",
+            "date": "04.09.2026",
+            "rating": 4,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "jdgm_cc02598e": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "https://review-images.judgeme.com/aaroma-co/1789049366__0__P_Ky6EAJ__magyxtrio__original.jpg?quality=80&width=1024#aaroma_jdgm_cc02598e-9c8e-4777-89fa-f8e6f0c6298b_1.jpg|904x1260",
+            "content": "<p><strong>Really very good</strong></p><p>Super super good. ☺️</p>",
+            "author": "Benjamin X",
+            "date": "08.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "mx_clarap": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/WhatsApp_Image_2026-09-09_at_8.33.40_AM.jpg",
+            "review_image_url": "",
+            "content": "<p>I had the opportunity to try their perfumes, they have a great price, a wide range of fragrances but above all their perfumes are persistent and long-lasting highly recommended!</p>",
+            "author": "Clara P.",
+            "date": "01.11.2026",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "jdgm_2f35a400": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "https://review-images.judgeme.com/aaroma-co/1789049348__0__RfdBiBa6__magyxp__original.jpg?quality=80&width=1024#aaroma_jdgm_2f35a400-840d-4446-8762-d6024483199c_1.jpg|1024x771",
+            "content": "<p><strong>Easy shopping, good price</strong></p><p>Easy to shop and good price!</p>",
+            "author": "Peter",
+            "date": "08.09.2026",
+            "rating": 4,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "mx_alvarezp": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/261_revie.png",
+            "review_image_url": "",
+            "content": "<p>Very high quality!!</p>",
+            "author": "Alvarez P.",
+            "date": "14.10.2026",
+            "rating": 4,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "jdgm_623ddd9d": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "https://review-images.judgeme.com/aaroma-co/1789049368__0__l7fn1Z-r__2026-07-02_16h41_42__original.png?quality=80&width=1024#aaroma_jdgm_623ddd9d-6a9e-456c-8617-3b5432b66942_1.jpg|548x939",
+            "content": "<p><strong>Similar scents, good prices</strong></p><p>The perfumes are really good! There is almost no difference from the originals, and I am actually very happy with the purchase. Good price.</p>",
+            "author": "Rimuska B",
+            "date": "07.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "mx_tianan": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/2026-07-02_16h55_49.png",
+            "review_image_url": "",
+            "content": "<p>the perfume is mega-true, beautiful scent, I fell in love with it</p>",
+            "author": "Tiana N.",
+            "date": "14.10.2026",
+            "rating": 4,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "jdgm_ffe6f991": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "https://review-images.judgeme.com/aaroma-co/1789049368__0__j9nGNYyj__Anastasiia_Komisarova__original.jpg?quality=80&width=1024#aaroma_jdgm_ffe6f991-3610-4df5-8015-d01df492d34c_1.jpg|1024x1820",
+            "content": "<p><strong>I would recommend</strong></p><p>I recommend it.</p>",
+            "author": "Diago Hasan",
+            "date": "07.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "mx_mariam": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/1_24.png",
+            "review_image_url": "",
+            "content": "<p>Supergood alternativ, lasting long and is the same like the more expansive perfumes. Highly recommend to test you will not be disappointed.</p>",
+            "author": "Maria M",
+            "date": "02.11.2026",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "mx_robinsond": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/3_16.png",
+            "review_image_url": "",
+            "content": "<p>I love your perfumes♥️♥️</p>",
+            "author": "Robinson D.",
+            "date": "04.07.2026",
+            "rating": 4,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "mx_lilianm": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/2_24.png",
+            "review_image_url": "",
+            "content": "<p>I really like this brand and the fragrance are amazing..</p>",
+            "author": "Lilian M.",
+            "date": "03.11.2026",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "jdgm_54968222": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Great scents, marketing issues</strong></p><p>I have bought other perfumes on similar sites, but these are the absolute best I have tried. They smell natural and good, and last a long time. No cheap screaming alcohol-smelling sprays but real good perfume. I can recommend buying a small bottle or two to try it out. The only thing I can complain about is that the advertising emails come a bit often, and sometimes the offers you get are not really accurate. You have to keep a close eye on the shopping cart so that there is no mistake there before you click Buy.</p>",
+            "author": "Anna",
+            "date": "08.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_d16cbbac": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Affordable variety of fragrances</strong></p><p>Easy to find my favourites and great nice to be able to wear different parfumes throughout the week without having to spend a fortune.</p>",
+            "author": "Marie Elmskog",
+            "date": "31.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_a8175e67": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Affordable with wide selection</strong></p><p>Cheap and good, lots to choose from</p>",
+            "author": "BEATRICE Persson",
+            "date": "08.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_481efce2": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Just like the original</strong></p><p>Very happy with the smell, incredibly similar to the original. Can't notice any difference. Lasts all day.</p>",
+            "author": "Jessica Jason",
+            "date": "08.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_731d8b6f": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Perfumes arrived smelling amazing</strong></p><p>I received the perfumes today and they smell absolutely amazing!</p>",
+            "author": "Äklys Reimann",
+            "date": "30.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_251da779": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p>Amazing parfums with strong and intense aroma. Really sticks around the entire day! Would for sure buy again.</p>",
+            "author": "Timo de Graaf",
+            "date": "02.11.2026",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "jdgm_0a78990f": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p>I bought this as a gift for my dad, and he said it smells exactly like the original. It was really what he was looking for!</p>",
+            "author": "Marie",
+            "date": "29.10.2026",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "jdgm_ba5966c6": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Perfumes match the originals</strong></p><p>I have bought perfume for both myself and my wife and they smell really nice. Exactly like the one it is inspired by. Recommended</p>",
+            "author": "Mattias Eklund",
+            "date": "07.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_1f43700a": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Helpful original bottle pictures</strong></p><p>Simple and easy-to-use website, fantastic with a picture of the \"original\" perfume bottle next to/under your perfumes so you get a sense of how it smells.</p>",
+            "author": "Egzon Llapashtica",
+            "date": "07.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_d7c28328": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Quick arrival, great perfumes</strong></p><p>My girlfriend ordered from here, arrived quickly and very good perfumes. Highly recommend buying!</p>",
+            "author": "Aleksander Djordjic",
+            "date": "06.09.2026",
+            "rating": 4,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_cdf03378": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>No noticeable scent difference</strong></p><p>I was really surprised. I coudn’t feel any difference from the original!! Best buy for shure😊</p>",
+            "author": "Ulf",
+            "date": "06.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_e649d736": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Lasting scents match originals</strong></p><p>Perfume scents last a long time.The scents are exactly like the original perfumes.</p>",
+            "author": "Saidul Rahman",
+            "date": "06.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_28df631a": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Consistently satisfied with fragrances</strong></p><p>A brand I absolutely love, no disappointment whatsoever, neither the scent nor the longevity. I highly recommend this brand, never disappointed, a fantastic discovery!</p>",
+            "author": "Christelle",
+            "date": "05.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_732268c4": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Happy with second purchase</strong></p><p>I love these perfumes amazing scents i will buy again .. this is my second purchase.. fast delivery and I'm very happy with my new perfumes</p>",
+            "author": "Ihab",
+            "date": "05.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_cf709cf0": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Reliable delivery, quality perfumes</strong></p><p>Fast and stable delivery of first-class perfumes that keep what they promise in my opinion.</p>",
+            "author": "Pär Törnkvist",
+            "date": "04.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_ba80f1a1": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Luxurious scent, helpful Abi</strong></p><p>Their fragrance is amazing!! I used 140W one and it smells luxurious!! Love it!! Also Abi thank you so much!!❤️❤️✨</p>",
+            "author": "Ishikasingh Gaur",
+            "date": "04.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_41418d3f": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Well packed, lovely scents</strong></p><p>Very well packaged and everything smells good, the delivery was quite fast and nothing was broken, I am really super satisfied</p>",
+            "author": "Maks Naruszewicz",
+            "date": "03.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_67706a36": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Great scents, repeat purchases</strong></p><p>I am super satisfied😍😍😍 ordered 6 and got one for free😍 Smells great Will order again and again Highly recommend!!!!</p>",
+            "author": "Remy Remy",
+            "date": "01.09.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_3f7f87d3": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Affordable variety of fragrances</strong></p><p>Easy to find my favourites and great nice to be able to wear different parfumes throughout the week without having to spend a fortune.</p>",
+            "author": "Marie Elmskog",
+            "date": "31.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_da783a1d": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Fast delivery, similar scent</strong></p><p>Fast delivery, meets my expectations, lovely scent that is so close to the original</p>",
+            "author": "Mrs. Rose",
+            "date": "30.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_74eaca94": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Wonderful Lost Cherry alternative</strong></p><p>An amazing fragrance at a great price! I found this equivalent absolutely incredible! The Lost Cherry Eau de Parfum 🍒 ❤️ N°438 is a really great fragrance that lasts perfectly on my skin and smells so good 🥰 thank you to the brand and to Abi for this wonderful discovery</p>",
+            "author": "Emilie",
+            "date": "30.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_b7f30a9f": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Wonderful scents delivered quickly</strong></p><p>Wonderful scents and it was delivered quickly too! Thank you so much, now I smell good again!!! 🤗🤗🤗</p>",
+            "author": "James H",
+            "date": "28.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_c9c6f82b": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Pleasant webshop to revisit</strong></p><p>It’s a pleasure to visit your webshop. And all I can say is Thank you. Will be back.</p>",
+            "author": "Anders",
+            "date": "28.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_277cdb20": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Quality perfumes worth buying</strong></p><p>Very good perfumes and it is worth the prices I must say from my experience with perfumes this is quality 💯😊</p>",
+            "author": "Jesper Frykholm",
+            "date": "28.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_35ace1ff": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Honest company, matching scents</strong></p><p>Wonderful and honest company. RECOMMENDED 10/10, really nice perfumes smells just like the original and really honest prices. Orderd 2 times</p>",
+            "author": "Ayham Alrayes",
+            "date": "26.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        },
+        "jdgm_3c6337e6": {
+          "type": "review",
+          "settings": {
+            "review_image_url": "",
+            "content": "<p><strong>Pleasantly surprised by perfumes</strong></p><p>Wow what a surprise on the perfumes! Really good smell! In addition, I ordered 3 pcs 30ml and we 2 pcs and one 50ml. Really satisfied. Now the next order is expected with men's scent! And hopefully it will be perfect for a Christmas present ♥️♥️</p>",
+            "author": "Linda Vdt",
+            "date": "26.08.2026",
+            "rating": 5,
+            "show_verified_badge": false,
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "jdgm_19fa2def",
+        "mx_christinen",
+        "jdgm_dfd23a84",
+        "mx_alexw",
+        "jdgm_2766521a",
+        "mx_annee",
+        "jdgm_cc02598e",
+        "mx_clarap",
+        "jdgm_2f35a400",
+        "mx_alvarezp",
+        "jdgm_623ddd9d",
+        "mx_tianan",
+        "jdgm_ffe6f991",
+        "mx_mariam",
+        "mx_robinsond",
+        "mx_lilianm",
+        "jdgm_54968222",
+        "jdgm_d16cbbac",
+        "jdgm_a8175e67",
+        "jdgm_481efce2",
+        "jdgm_731d8b6f",
+        "jdgm_251da779",
+        "jdgm_0a78990f",
+        "jdgm_ba5966c6",
+        "jdgm_1f43700a",
+        "jdgm_d7c28328",
+        "jdgm_cdf03378",
+        "jdgm_e649d736",
+        "jdgm_28df631a",
+        "jdgm_732268c4",
+        "jdgm_cf709cf0",
+        "jdgm_ba80f1a1",
+        "jdgm_41418d3f",
+        "jdgm_67706a36",
+        "jdgm_3f7f87d3",
+        "jdgm_da783a1d",
+        "jdgm_74eaca94",
+        "jdgm_b7f30a9f",
+        "jdgm_c9c6f82b",
+        "jdgm_277cdb20",
+        "jdgm_35ace1ff",
+        "jdgm_3c6337e6"
+      ],
+      "disabled": true,
+      "settings": {
+        "background_color": "#fcfbf9",
+        "heading": "Trusted by 10,000+ Customers",
+        "review_text": "Rated 4.7/5 from 1,426 reviews",
+        "button_text": "See more reviews",
+        "button_link": "#",
+        "padding_top": 60,
+        "padding_bottom": 72
+      }
+    },
+    "175501299681a2aa62": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "175501299598bc050d": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_all_reviews_page_aaroma": {
+          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_page/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "max_width": 1200,
+            "review_source": "all",
+            "show_all_reviews_in_same_tab": true,
+            "show_first": "product",
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_all_reviews_page_aaroma"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "feature_ships_pm": {
+      "type": "feature-ships-from",
+      "blocks": {
+        "perk_1": {
+          "type": "ships_from",
+          "settings": {
+            "icon": "truck",
+            "text": ""
+          }
+        },
+        "perk_2": {
+          "type": "perks",
+          "settings": {
+            "icon": "shield",
+            "perk_title": "60-day guarantee",
+            "perk_content": "Try the perfume at home. Not for you? You have 60 days to return it."
+          }
+        },
+        "perk_3": {
+          "type": "perks",
+          "settings": {
+            "icon": "clock",
+            "perk_title": "Lasts up to 12 hours",
+            "perk_content": "Thanks to 20% fragrance oils."
+          }
+        },
+        "perk_4": {
+          "type": "perks",
+          "settings": {
+            "icon": "sparkle",
+            "perk_title": "Made in Europe",
+            "perk_content": "Free from parabens and phthalates, with IFRA-certified fragrance oils."
+          }
+        }
+      },
+      "block_order": [
+        "perk_1",
+        "perk_2",
+        "perk_3",
+        "perk_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "background_color": "#ffffff",
+        "show_legacy_ships_from": false,
+        "ships_from_icon": "truck",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "our_bestsellers_pm": {
+      "type": "our-bestsellers",
+      "settings": {
+        "heading": "Our bestsellers",
+        "prefix": "Inspired by:",
+        "collection": "top-sellers",
+        "limit": 20,
+        "background_color": "#f6f6f6",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "magic_hero_GLbzbL": {
+      "type": "magic-hero",
+      "disabled": true,
+      "name": "Magic Hero",
+      "settings": {
+        "background_color": "#fcfbf9",
+        "background_image": "shopify://shop_images/newheader.webp",
+        "mobile_background_image": "shopify://shop_images/newheader_mobile.webp",
+        "title": "Smell more expensive. Pay less.",
+        "subtitle": "The same fragrance pyramid as the perfumes you admire — without the inflated price tag of a designer brand.",
+        "button_text": "Discover your scent",
+        "button_link": "shopify://collections/bestsellers",
+        "second_button_text": "",
+        "second_button_link": "shopify://collections/women",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "home_hero_banner_qmaB3G": {
+      "type": "home-hero-banner",
+      "disabled": true,
+      "name": "Home Hero Banner",
+      "settings": {
+        "image": "shopify://shop_images/herobanner.webp",
+        "mobile_image": "shopify://shop_images/heromobile.webp",
+        "link": "shopify://products/4-x-100ml-perfume-bottles"
+      }
+    },
+    "review_grid_H3xfHP": {
+      "type": "review-grid",
+      "blocks": {
+        "review_MKcdVw": {
+          "type": "review",
+          "settings": {
+            "heading": "Highly recommended.",
+            "content": "<p>“I wore No. 079 out to dinner, and three people asked what perfume I was wearing. One of them thought it was Chanel.”</p>",
+            "author": "Sanne V., Rotterdam",
+            "date": "2 days ago",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "review_kCUEm4": {
+          "type": "review",
+          "settings": {
+            "heading": "Arrived in perfect condition.",
+            "content": "<p>“After a twelve-hour workday, I can still smell it. Even my €120 perfume doesn’t last that long. This one lasts. That one doesn’t.”</p>",
+            "author": "Daan M., Utrecht",
+            "date": "2 days ago",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        },
+        "review_EbFNac": {
+          "type": "review",
+          "settings": {
+            "heading": "Great quality, great price.",
+            "content": "<p><br/>“I was really impressed with the quality. The scent lasts a long time and is comparable to much more expensive brands.”</p>",
+            "author": "Santosh K.",
+            "date": "2 days ago",
+            "rating": 5,
+            "show_verified_badge": true,
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "review_MKcdVw",
+        "review_kCUEm4",
+        "review_EbFNac"
+      ],
+      "disabled": true,
+      "name": "Review Grid",
+      "settings": {
+        "background_color": "#ffffff",
+        "heading": "What Our Customers Say",
+        "review_text": "Verified buyers. Real experiences.",
+        "button_text": "Read all reviews",
+        "button_link": "shopify://collections/all",
+        "padding_top": 72,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "homepage_hero_XnJ8mD",
+    "trust_icons_pm",
+    "fuel06_finder",
+    "tabs_best",
+    "custom_liquid_6qnTBf",
+    "ugc_home_row",
+    "home_category_pm",
+    "tabs_family",
+    "bundle_feed",
+    "image_and_text",
+    "makes_different_pm",
+    "massive_review_section",
+    "175501299681a2aa62",
+    "175501299598bc050d",
+    "feature_ships_pm",
+    "our_bestsellers_pm",
+    "magic_hero_GLbzbL",
+    "home_hero_banner_qmaB3G",
+    "review_grid_H3xfHP"
+  ]
+}

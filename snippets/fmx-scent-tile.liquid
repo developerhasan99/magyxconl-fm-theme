@@ -1,0 +1,34 @@
+{%- comment -%}
+  fmx-scent-tile (aaroma.co, copy of magicperfume.co): one scent-notes tile (fmx-scent-notes), copy of tryscent.co
+  snippets/fmx-scent-tile.liquid (= FM snippets/pm-scent-tile.liquid).
+  Accepts:
+  - label: layer label, e.g. Top
+  - name: note name shown on the tile
+  - image: image object from images[file] (optional; renders the photo tile exactly like FM)
+  - file: Shopify Files filename (optional; used only when the images[] lookup returned nothing)
+  No image and no file = FM's plain dark tile.
+  aaroma.co: until the photos are copied into aaroma's Files (docs/note-photos/upload_files.py --apply), images[file] is
+  empty and the tile loads the same filename from magicperfume.co's Files CDN (the source of the copy, same image).
+  Once the file exists here, images[file] wins and the CDN line is never used. The onerror keeps the dark tile if a
+  photo is missing on both stores.
+{%- endcomment -%}
+{%- assign fmx_note_cdn = 'https://cdn.shopify.com/s/files/1/0700/7928/3458/files/' -%}
+<li class="pm-scent__tile{% if image != blank or file != blank %} pm-scent__tile--image{% endif %}">
+  {%- if image != blank -%}
+    {{ image | image_url: width: 1200 | image_tag: widths: '400, 600, 800, 1200', sizes: '(min-width: 1216px) 384px, (min-width: 750px) 32vw, 100vw', loading: 'lazy', alt: '', class: 'pm-scent__img' }}
+  {%- elsif file != blank -%}
+    {%- assign file_src = fmx_note_cdn | append: file -%}
+    <img
+      src="{{ file_src }}?width=1200"
+      srcset="{{ file_src }}?width=400 400w, {{ file_src }}?width=600 600w, {{ file_src }}?width=800 800w, {{ file_src }}?width=1200 1200w"
+      sizes="(min-width: 1216px) 384px, (min-width: 750px) 32vw, 100vw"
+      width="1200"
+      height="679"
+      loading="lazy"
+      alt=""
+      class="pm-scent__img"
+      onerror="this.parentNode.classList.remove('pm-scent__tile--image');this.remove();">
+  {%- endif -%}
+  <p class="pm-scent__label">{{ label }}</p>
+  <p class="pm-scent__name">{{ name }}</p>
+</li>

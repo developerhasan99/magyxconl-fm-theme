@@ -1,0 +1,25 @@
+{%- comment -%}
+  fmx-payment-icons (aaroma.co): payment methods row under the buy button on the FM product pages (scent pages,
+  quantity-breaker pages, bundle pages) and the Bundle & Save box. Port of magicperfume.co
+  snippets/fmx-payment-icons.liquid (FM layout of tryscent.co: one centred line of Shopify payment SVGs).
+  The list = the methods aaroma's own payment badge shows (assets/payment-badge-nl.png: Wero, Klarna, MobilePay,
+  PayPal, SEPA Direct Debit, Apple Pay, Google Pay, Visa, Mastercard). Wero has no own Shopify icon: type 'ideal'
+  draws the "iDEAL | Wero" mark. An icon Shopify cannot draw is left out instead of printing an error.
+
+  Usage:
+  {% render 'fmx-payment-icons' %}
+{%- endcomment -%}
+{%- assign fmx_pay_types = 'ideal,klarna,mobilepay,paypal,sepadirectdebit,apple_pay,google_pay,visa,master' | split: ',' -%}
+<style>
+  .fmx-pay-icons { display: flex; justify-content: center; gap: 6px; max-width: 400px; margin: 32px auto 0; padding: 0; list-style: none; }
+  .fmx-pay-icons > li { flex: 0 1 38px; min-width: 0; margin: 0; }
+  .fmx-pay-icons__icon { display: block; width: 100%; height: auto; }
+</style>
+<ul class="fmx-pay-icons" role="list" aria-label="{{ 'aaroma.common.payment_methods' | t | escape }}">
+  {%- for type in fmx_pay_types -%}
+    {%- capture fmx_pay_icon -%}{{ type | strip | payment_type_svg_tag: class: 'fmx-pay-icons__icon' }}{%- endcapture -%}
+    {%- if fmx_pay_icon contains '<svg' -%}
+      <li>{{ fmx_pay_icon }}</li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

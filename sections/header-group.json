@@ -1,0 +1,552 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "offer_timebar_PNTbqg": {
+      "type": "offer-timebar",
+      "blocks": {
+        "market_offer_belgium": {
+          "type": "market_offer",
+          "settings": {
+            "markets": "belgium",
+            "top_banner_text": "",
+            "prepend_text": "",
+            "append_text": "BUY 3 PAY FOR 2"
+          }
+        },
+        "market_offer_estonia": {
+          "type": "market_offer",
+          "settings": {
+            "markets": "estonia",
+            "top_banner_text": "",
+            "prepend_text": "",
+            "append_text": ""
+          }
+        },
+        "market_offer_france_switz": {
+          "type": "market_offer",
+          "settings": {
+            "markets": "france, switz",
+            "top_banner_text": "",
+            "prepend_text": "",
+            "append_text": "BUY 3, GET 1 FREE"
+          }
+        },
+        "market_offer_germany": {
+          "type": "market_offer",
+          "settings": {
+            "markets": "germany",
+            "top_banner_text": "",
+            "prepend_text": "",
+            "append_text": "BUY 3, GET 1 FREE"
+          }
+        },
+        "payment_icon_qcMDiY": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/090e7fd71af4b4e7589642874d6cae93a0a34f77.png",
+            "label": "Fast Delivery"
+          }
+        },
+        "payment_icon_VWgiqB": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/65f2284e66ff1dcb1a272319f1ef543c429f73e2.png",
+            "label": "EU Made"
+          }
+        },
+        "payment_icon_i3Hr68": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/IDEAL_Logo_2020.svg",
+            "label": "Pay with iDEAL"
+          }
+        },
+        "payment_icon_EJx9b8": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/800c98d03dc73f77225bfa90300384e0370c7cff.png",
+            "label": "Secure"
+          }
+        },
+        "badge_france_1": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "france",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/090e7fd71af4b4e7589642874d6cae93a0a34f77.png",
+            "label": "Fast delivery in France"
+          }
+        },
+        "badge_france_2": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "france",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/65f2284e66ff1dcb1a272319f1ef543c429f73e2.png",
+            "label": "Made in the EU"
+          }
+        },
+        "badge_france_3": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "france",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/IDEAL_Logo_2020.svg",
+            "label": "Pay with iDEAL"
+          }
+        },
+        "badge_france_4": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "france",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/800c98d03dc73f77225bfa90300384e0370c7cff.png",
+            "label": "Secure"
+          }
+        },
+        "badge_germany_1": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "germany",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/090e7fd71af4b4e7589642874d6cae93a0a34f77.png",
+            "label": "Fast"
+          }
+        },
+        "badge_germany_2": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "germany",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/65f2284e66ff1dcb1a272319f1ef543c429f73e2.png",
+            "label": "EU Made"
+          }
+        },
+        "badge_germany_3": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "germany",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/800c98d03dc73f77225bfa90300384e0370c7cff.png",
+            "label": "Secure"
+          }
+        },
+        "badge_germany_4": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "germany",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/777929254296c2d290f0836dc4e68451f4cfdbc4.png",
+            "label": "Flexible"
+          }
+        },
+        "badge_germany_5": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "germany",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/images-555x360--08-28-2026_03_03_PM.png",
+            "label": "Direct"
+          }
+        },
+        "badge_switz_1": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "switz",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/090e7fd71af4b4e7589642874d6cae93a0a34f77.png",
+            "label": "Tracked shipping"
+          }
+        },
+        "badge_switz_2": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "switz",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/65f2284e66ff1dcb1a272319f1ef543c429f73e2.png",
+            "label": "EU Made"
+          }
+        },
+        "badge_switz_3": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "switz",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/IDEAL_Logo_2020.svg",
+            "label": "Secure payment"
+          }
+        },
+        "badge_switz_4": {
+          "type": "payment_icon",
+          "settings": {
+            "markets": "switz",
+            "use_country_flag": false,
+            "icon": "shopify://shop_images/800c98d03dc73f77225bfa90300384e0370c7cff.png",
+            "label": "Secure"
+          }
+        }
+      },
+      "block_order": [
+        "market_offer_belgium",
+        "market_offer_estonia",
+        "market_offer_france_switz",
+        "market_offer_germany",
+        "payment_icon_qcMDiY",
+        "payment_icon_VWgiqB",
+        "payment_icon_i3Hr68",
+        "payment_icon_EJx9b8",
+        "badge_france_1",
+        "badge_france_2",
+        "badge_france_3",
+        "badge_france_4",
+        "badge_germany_1",
+        "badge_germany_2",
+        "badge_germany_3",
+        "badge_germany_4",
+        "badge_germany_5",
+        "badge_switz_1",
+        "badge_switz_2",
+        "badge_switz_3",
+        "badge_switz_4"
+      ],
+      "name": "Offer Timebar",
+      "settings": {
+        "style": "minimal",
+        "color_scheme": "scheme-4",
+        "enable_top_bar": false,
+        "enable_timer": true,
+        "enable_badges": false,
+        "primary_color": "#c8202f",
+        "secondary_color": "#ffffff",
+        "timer_box_color": "#0b0b0b",
+        "timer_label_color": "#ffffff",
+        "top_banner_text": "LIMITED TIME ONLY",
+        "prepend_text": "BLACK MONTH FLASH SALE",
+        "countdown_date": "",
+        "append_text": "SAVE UP TO 40%",
+        "link": "shopify://products/bundle-and-save",
+        "goal_line_enable": true,
+        "goal_steps": "2:25, 4:30, 6:35, 8:40",
+        "goal_bs_handle": "bundle-and-save",
+        "goal_text_empty": "Add [n] and get [pct] OFF",
+        "goal_text_step": "Add [n] and get [pct] OFF",
+        "goal_text_unlocked": "[rewards] unlocked",
+        "goal_text_done": "You get [pct] OFF",
+        "goal_label_pct": "[pct] OFF",
+        "goal_word_one": "bottle",
+        "goal_word_many": "bottles"
+      }
+    },
+    "announcement_bar_6UYB9c": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_RnCB3b": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "Free shipping from €55",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_RnCB3b"
+      ],
+      "name": "t:sections.announcement-bar.presets.name",
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "marquee_labels_CjAgNU": {
+      "type": "marquee-labels",
+      "blocks": {
+        "label_Qg6CjC": {
+          "type": "label",
+          "settings": {
+            "label": "🚚 Free shipping on orders over €50",
+            "link": ""
+          }
+        },
+        "label_QEEHfb": {
+          "type": "label",
+          "settings": {
+            "label": "🚚 Free shipping on orders over €50",
+            "link": ""
+          }
+        },
+        "label_iyePna": {
+          "type": "label",
+          "settings": {
+            "label": "🚚 Free shipping on orders over €50",
+            "link": ""
+          }
+        },
+        "label_YacV8q": {
+          "type": "label",
+          "settings": {
+            "label": "🚚 Free shipping on orders over €50",
+            "link": ""
+          }
+        },
+        "label_PPUE4g": {
+          "type": "label",
+          "settings": {
+            "label": "🚚 Free shipping on orders over €50",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "label_Qg6CjC",
+        "label_QEEHfb",
+        "label_iyePna",
+        "label_YacV8q",
+        "label_PPUE4g"
+      ],
+      "disabled": true,
+      "name": "Marquee Labels",
+      "settings": {
+        "style": "legacy",
+        "color_scheme": "",
+        "speed": 24,
+        "separator": "•"
+      }
+    },
+    "offer_announcement_cN6pMF": {
+      "type": "offer-announcement",
+      "disabled": true,
+      "name": "Offer Announcement",
+      "settings": {
+        "background_color": "#114325",
+        "prepend_text": "Women's Day Sale",
+        "link_text": "Buy 2 Get 1 Free!",
+        "append_text": "Shop Now 👉",
+        "link": ""
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "sub_menu_items_im8CWQ": {
+          "type": "sub_menu_items",
+          "settings": {
+            "label": "For Her",
+            "link_list": "for-her"
+          }
+        },
+        "sub_menu_items_M8nfJY": {
+          "type": "sub_menu_items",
+          "settings": {
+            "label": "For Him",
+            "link_list": "for-him"
+          }
+        },
+        "menu_item_H4UXV8": {
+          "type": "menu_item",
+          "settings": {
+            "label": "Unisex",
+            "url": "shopify://collections/unisex"
+          }
+        },
+        "menu_item_keTJid": {
+          "type": "menu_item",
+          "settings": {
+            "label": "Bestsellers",
+            "url": "shopify://collections/all"
+          }
+        },
+        "menu_item_4fzMDy": {
+          "type": "menu_item",
+          "settings": {
+            "label": "New Scents",
+            "url": "shopify://collections/heetste-zomergeuren-2026"
+          }
+        },
+        "menu_item_z9h3fq": {
+          "type": "menu_item",
+          "settings": {
+            "label": "Find your fragrance",
+            "url": "#quiz"
+          }
+        }
+      },
+      "block_order": [
+        "sub_menu_items_im8CWQ",
+        "sub_menu_items_M8nfJY",
+        "menu_item_H4UXV8",
+        "menu_item_keTJid",
+        "menu_item_4fzMDy",
+        "menu_item_z9h3fq"
+      ],
+      "settings": {
+        "logo_position": "top-center",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "mobile_menu": "",
+        "search_style": "icon",
+        "show_category_row": true,
+        "category_menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": false,
+        "color_scheme": "scheme-4",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "mgx_search": {
+      "type": "mgx-search",
+      "blocks": {
+        "category_her": {
+          "type": "category",
+          "settings": {
+            "label": "For her",
+            "link": "shopify://collections/women"
+          }
+        },
+        "category_him": {
+          "type": "category",
+          "settings": {
+            "label": "For him",
+            "link": "shopify://collections/men"
+          }
+        },
+        "category_best": {
+          "type": "category",
+          "settings": {
+            "label": "Bestsellers",
+            "link": "shopify://collections/top-sellers"
+          }
+        },
+        "category_new": {
+          "type": "category",
+          "settings": {
+            "label": "New scents",
+            "link": "shopify://collections/heetste-zomergeuren-2026"
+          }
+        },
+        "term_vanilla": {
+          "type": "term",
+          "settings": {
+            "emoji": "🍦",
+            "label": "Vanilla",
+            "query": "vanilla",
+            "color_1": "#fdf3dd",
+            "color_2": "#f7e7c2"
+          }
+        },
+        "term_fresh": {
+          "type": "term",
+          "settings": {
+            "emoji": "🌿",
+            "label": "Fresh",
+            "query": "fresh",
+            "color_1": "#d9f5ec",
+            "color_2": "#c0ecde"
+          }
+        },
+        "term_woody": {
+          "type": "term",
+          "settings": {
+            "emoji": "🪵",
+            "label": "Woody",
+            "query": "woody",
+            "color_1": "#ecdfd0",
+            "color_2": "#ddc9b0"
+          }
+        },
+        "term_floral": {
+          "type": "term",
+          "settings": {
+            "emoji": "🌸",
+            "label": "Floral",
+            "query": "floral",
+            "color_1": "#ffe0f0",
+            "color_2": "#ffc9e6"
+          }
+        },
+        "term_amber": {
+          "type": "term",
+          "settings": {
+            "emoji": "🌙",
+            "label": "Amber",
+            "query": "amber",
+            "color_1": "#fde6cf",
+            "color_2": "#f9cfa5"
+          }
+        },
+        "term_sweet": {
+          "type": "term",
+          "settings": {
+            "emoji": "🍓",
+            "label": "Sweet",
+            "query": "gourmand",
+            "color_1": "#ffe3ec",
+            "color_2": "#ffd0de"
+          }
+        }
+      },
+      "block_order": [
+        "category_her",
+        "category_him",
+        "category_best",
+        "category_new",
+        "term_vanilla",
+        "term_fresh",
+        "term_woody",
+        "term_floral",
+        "term_amber",
+        "term_sweet"
+      ],
+      "settings": {
+        "placeholder": "Search by scent, brand or number",
+        "heading_categories": "Categories",
+        "heading_terms": "Scent families",
+        "heading_products": "Popular sets",
+        "hint": "Type a scent, a brand or a number.",
+        "inspired_label": "Inspired by",
+        "view_all_label": "Show all results for \"[query]\"",
+        "empty_text": "No results for \"[query]\". Try a brand or a number.",
+        "loading_text": "Loading scents ...",
+        "count_text": "[count] results"
+      }
+    }
+  },
+  "order": [
+    "offer_timebar_PNTbqg",
+    "announcement_bar_6UYB9c",
+    "marquee_labels_CjAgNU",
+    "offer_announcement_cN6pMF",
+    "header",
+    "mgx_search"
+  ]
+}

@@ -1,0 +1,221 @@
+{%- comment -%}
+  Collection header, FM look (port of magicperfume.co FM redesign sections/collection-hero.liquid, itself the
+  tryscent.co redesign): the collection image (desktop: collection.image; phone: custom.hero_mobile_image, else
+  collection.image) behind a light panel with breadcrumb, title and description. Without an image the band is the
+  light grey surface. The description shows its first sentences (setting, default 2) and folds the rest behind
+  "Read more" (the fold script below runs while the page is parsed, so the full text never flashes up; without
+  JavaScript the whole text shows and the toggle stays hidden).
+  Aaroma difference to magicperfume: both toggle labels are page text (spans switched by CSS on aria-expanded),
+  the script never writes label text, so Shopify's translations cover both.
+  Labels are settings saved in the templates (translatable); empty = aaroma.misc.read_more / read_less.
+  Styles: assets/pm-s-collection-hero.css.
+{%- endcomment -%}
+{{ 'pm-s-collection-hero.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign hero_desktop_image = collection.image
+  assign hero_mobile_image = collection.metafields.custom.hero_mobile_image | default: collection.image
+  assign more_label = section.settings.description_more_label
+  if more_label == blank
+    assign more_label = 'aaroma.misc.read_more' | t
+  endif
+  assign less_label = section.settings.description_less_label
+  if less_label == blank
+    assign less_label = 'aaroma.misc.read_less' | t
+  endif
+-%}
+<div
+  class="pm-chero pm-chero--panel{% if hero_desktop_image == blank and hero_mobile_image == blank %} pm-chero--noimg{% endif %}"
+  style="{% if hero_mobile_image %}--hero-img-mobile: url('{{ hero_mobile_image | image_url: width: 900 }}');{% endif %} {% if hero_desktop_image %}--hero-img-desktop: url('{{ hero_desktop_image | image_url: width: 1920 }}');{% endif %}">
+  <div class="page-width pm-chero__wrap">
+    <div class="pm-chero__panel">
+      {%- if section.settings.show_breadcrumbs -%}
+        <nav class="pm-chero__crumbs" aria-label="{{ section.settings.breadcrumb_label | escape }}">
+          <a href="{{ routes.root_url }}">{{ section.settings.breadcrumb_home_label | escape }}</a>
+          {%- render 'pm-icon', icon: 'chevron-right', size: 12 -%}
+          <span aria-current="page">{{ collection.title | escape }}</span>
+        </nav>
+      {%- endif -%}
+      {%- if section.settings.show_rating_badge -%}
+        <p class="pm-chero__rating">
+          <span aria-hidden="true">★★★★★</span>
+          {{ section.settings.rating_text | escape }}
+        </p>
+      {%- endif -%}
+      <h1 class="pm-chero__title pm-title">{{ collection.title | escape }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="pm-chero__desc mgx-cdesc" data-mgx-cdesc>
+          <div class="mgx-cdesc__text" id="MgxCollectionDescription-{{ section.id }}">{{ collection.description }}</div>
+          <button
+            type="button"
+            class="mgx-cdesc__toggle pm-chero__toggle"
+            aria-expanded="false"
+            aria-controls="MgxCollectionDescription-{{ section.id }}"
+            hidden
+          >
+            <span class="pm-chero__toggle-more">{{ more_label | escape }}</span>
+            <span class="pm-chero__toggle-less">{{ less_label | escape }}</span>
+          </button>
+        </div>
+        <script>
+          (function () {
+            // Shows the first sentences of the description; the rest (the remainder of that paragraph and every
+            // block after it) gets [hidden] until the toggle opens it. A sentence ends at . ! or ? followed by a space
+            // and a capital, a quote, a bracket or a digit, or at the end of a paragraph. Not an end: "No." / "Nr."
+            // before a number, and the abbreviations Nr., ca., z. B. (magicperfume list, harmless in EN/FR/NL).
+            var SHOWN = {{ section.settings.description_sentences | default: '2' | plus: 0 | at_least: 1 }};
+            var ABBR = /(?:^|[^a-zÀ-Ž])(?:nr|ca|inkl|bzw|usw|z\.\s?b|u\.\s?a|d\.\s?h)\.$/i;
+            var PAIR = /(?:^|[^a-zÀ-Ž])(?:z\.\s?b|u\.\s?a|d\.\s?h)\./i;
+            var setup = function (root) {
+              if (!root || root.dataset.mgxReady) return;
+              root.dataset.mgxReady = '1';
+              var text = root.querySelector('.mgx-cdesc__text');
+              var toggle = root.querySelector('.mgx-cdesc__toggle');
+              if (!text || !toggle) return;
+              var blocks = [];
+              var loose = false;
+              for (var n = text.firstChild; n; n = n.nextSibling) {
+                if (n.nodeType === 1) blocks.push(n);
+                else if (n.nodeType === 3 && n.nodeValue.trim()) loose = true;
+              }
+              if (loose || !blocks.length) blocks = [text];
+              var ends = function (str) {
+                var out = [];
+                var re = /[.!?]+["'”’»)]*(?=\s+["'“‘„«(]?[A-Z0-9À-Ž])/g;
+                var m;
+                while ((m = re.exec(str))) {
+                  var before = str.slice(0, m.index + 1);
+                  var after = str.slice(re.lastIndex);
+                  if (/\b(?:no|nr)\.$/i.test(before) && /^\s+\d/.test(after)) continue;
+                  if (ABBR.test(before) || PAIR.test(before.slice(-3) + after.slice(0, 4))) continue;
+                  out.push(re.lastIndex);
+                }
+                var trimmed = str.replace(/\s+$/, '');
+                if (/[.!?]["'”’»)]*$/.test(trimmed) && out[out.length - 1] !== trimmed.length) out.push(trimmed.length);
+                return out;
+              };
+              var count = 0;
+              var cutBlock = -1;
+              var cutAt = -1;
+              for (var i = 0; i < blocks.length && cutBlock < 0; i++) {
+                var e = ends(blocks[i].textContent);
+                if (count + e.length >= SHOWN) {
+                  cutBlock = i;
+                  cutAt = e[SHOWN - count - 1];
+                }
+                count += e.length;
+              }
+              if (cutBlock < 0) return;
+              var hide = [];
+              var block = blocks[cutBlock];
+              var rest = block.textContent.slice(cutAt);
+              if (rest.trim()) {
+                // The last shown sentence ends inside a paragraph: move the rest of that paragraph into a hidden span.
+                var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT);
+                var seen = 0;
+                var node;
+                while ((node = walker.nextNode())) {
+                  if (seen + node.nodeValue.length >= cutAt) break;
+                  seen += node.nodeValue.length;
+                }
+                if (!node) return;
+                var range = document.createRange();
+                range.setStart(node, cutAt - seen);
+                range.setEnd(block, block.childNodes.length);
+                var span = document.createElement('span');
+                span.className = 'mgx-cdesc__rest';
+                span.appendChild(range.extractContents());
+                block.appendChild(span);
+                hide.push(span);
+              }
+              for (var j = cutBlock + 1; j < blocks.length; j++) {
+                if (blocks[j] !== text && blocks[j].textContent.trim()) hide.push(blocks[j]);
+              }
+              if (!hide.length) return;
+              if (block !== text) block.classList.add('mgx-cdesc__cut');
+              hide.forEach(function (el) {
+                el.hidden = true;
+              });
+              toggle.hidden = false;
+              toggle.addEventListener('click', function () {
+                var open = toggle.getAttribute('aria-expanded') !== 'true';
+                toggle.setAttribute('aria-expanded', String(open));
+                root.classList.toggle('is-open', open);
+                hide.forEach(function (el) {
+                  el.hidden = !open;
+                });
+              });
+            };
+            var scripts = document.getElementsByTagName('script');
+            var me = document.currentScript || scripts[scripts.length - 1];
+            setup(me && me.previousElementSibling);
+            if (!window.mgxCdescHeroEditor) {
+              window.mgxCdescHeroEditor = true;
+              document.addEventListener('shopify:section:load', function (event) {
+                event.target.querySelectorAll('[data-mgx-cdesc]').forEach(setup);
+              });
+            }
+          })();
+        </script>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Collection Hero",
+    "class": "pm-scope",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_breadcrumbs",
+        "label": "Show breadcrumb",
+        "default": true
+      }, {
+        "type": "text",
+        "id": "breadcrumb_home_label",
+        "label": "Breadcrumb: home label",
+        "default": "Home"
+      }, {
+        "type": "text",
+        "id": "breadcrumb_label",
+        "label": "Breadcrumb: label for screen readers",
+        "default": "Breadcrumb"
+      }, {
+        "type": "checkbox",
+        "id": "show_rating_badge",
+        "label": "Show rating badge",
+        "default": false
+      }, {
+        "type": "text",
+        "id": "rating_text",
+        "label": "Rating badge text",
+        "default": "Loved by 10,000+ customers"
+      }, {
+        "type": "range",
+        "id": "description_sentences",
+        "label": "Description: sentences shown",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "default": 2,
+        "info": "The rest opens with the toggle"
+      }, {
+        "type": "text",
+        "id": "description_more_label",
+        "label": "Description: show more",
+        "default": "Read more"
+      }, {
+        "type": "text",
+        "id": "description_less_label",
+        "label": "Description: show less",
+        "default": "Read less"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection Hero"
+      }
+    ]
+  }
+{% endschema %}

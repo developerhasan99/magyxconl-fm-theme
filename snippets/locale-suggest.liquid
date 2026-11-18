@@ -1,0 +1,290 @@
+{%- comment -%}
+  Language / market suggestion banner. Never redirects: it only offers, the visitor decides.
+  - Browser languages (navigator.languages) + the visitor's country (Shopify /browsing_context_suggestions.json, IP based).
+  - A language is offered only when it is published on the shop and available in the target market.
+  - Belgium visitors without a clear French/Dutch browser language get an English / Francais / Nederlands chooser.
+  - The choice (switch, stay, dismiss) is remembered in localStorage and a cookie, so the banner never comes back.
+  - Texts are written in the SUGGESTED language (small dictionary below), not in the page language.
+  Rendered once from layout/theme.liquid. Scoped under .aar-ls.
+{%- endcomment -%}
+{%- unless request.design_mode -%}
+  {%- liquid
+    assign ls_published = shop.published_locales | map: 'iso_code'
+    assign ls_here = localization.available_languages | map: 'iso_code'
+  -%}
+  <style>
+    .aar-ls {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      z-index: 900;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      background: #ffffff;
+      color: #121212;
+      border: 1px solid #e3e3e3;
+      border-radius: 12px;
+      box-shadow: 0 8px 28px rgba(18, 18, 18, 0.18);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .aar-ls[hidden] {
+      display: none;
+    }
+    .aar-ls__text {
+      margin: 0 28px 10px 0;
+    }
+    .aar-ls__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .aar-ls__btn {
+      flex: 1 1 140px;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid #121212;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #121212;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .aar-ls__btn--primary {
+      border-color: #c8202f;
+      background: #c8202f;
+      color: #ffffff;
+    }
+    .aar-ls__btn[aria-current='true'] {
+      border-color: #c8202f;
+      box-shadow: inset 0 0 0 1px #c8202f;
+    }
+    .aar-ls__close {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      background: transparent;
+      color: #121212;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .aar-ls__btn:focus-visible,
+    .aar-ls__close:focus-visible {
+      outline: 2px solid #121212;
+      outline-offset: 2px;
+    }
+    .aar-ls__form {
+      display: none;
+    }
+  </style>
+
+  <div class="aar-ls" data-aar-ls hidden role="region" translate="no">
+    <button type="button" class="aar-ls__close" data-aar-ls-close>&times;</button>
+    <p class="aar-ls__text" data-aar-ls-text></p>
+    <div class="aar-ls__actions" data-aar-ls-actions></div>
+    {%- form 'localization', id: 'AarLocaleSuggestForm', class: 'aar-ls__form' -%}
+      <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+      <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+      <input type="hidden" name="return_to" value="{{ request.path }}">
+    {%- endform -%}
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-aar-ls]');
+      if (!root) return;
+
+      var CFG = {
+        country: {{ localization.country.iso_code | json }},
+        lang: {{ localization.language.iso_code | json }},
+        published: {{ ls_published | json }},
+        here: {{ ls_here | json }},
+        root: {{ routes.root_url | json }}
+      };
+      var KEY = 'aaroma_locale_suggest';
+
+      // The URL is the best source for "where am I now": /fr-be/... = French in Belgium.
+      var here = location.pathname.match(/^\/([a-z]{2})-([a-z]{2})(?=\/|$)/i);
+      if (here) { CFG.lang = here[1].toLowerCase(); CFG.country = here[2].toUpperCase(); }
+
+      // Markets and the languages each one can offer (shop-wide publishing is checked on top of this).
+      var MARKETS = {
+        BE: ['en', 'fr', 'nl'], NL: ['en', 'nl'], FR: ['fr'], CH: ['en', 'fr'],
+        DE: ['en', 'de'], LU: ['en', 'de'], EE: ['en'], LV: ['en'], LT: ['en']
+      };
+      // Languages already published in the other markets (add 'nl' once Dutch is live there too).
+      var OTHER_MARKETS_LIVE = ['fr', 'nl'];
+      var ENDONYM = { en: 'English', fr: 'Français', nl: 'Nederlands', de: 'Deutsch' };
+      var NAMES = {
+        en: { en: 'English', fr: 'French', nl: 'Dutch', de: 'German' },
+        fr: { en: 'anglais', fr: 'français', nl: 'néerlandais', de: 'allemand' },
+        nl: { en: 'Engels', fr: 'Frans', nl: 'Nederlands', de: 'Duits' },
+        de: { en: 'Englisch', fr: 'Französisch', nl: 'Niederländisch', de: 'Deutsch' }
+      };
+      var S = {
+        en: {
+          also: 'This site is also available in English.', go: 'Switch to English', stay: 'Stay in {lang}',
+          market: 'A version of the site is available for your country ({country}).', gom: 'Switch version', stayh: 'Stay here',
+          title: 'Choose your language', close: 'Close'
+        },
+        fr: {
+          also: 'Ce site est aussi disponible en français.', go: 'Passer au français', stay: 'Rester en {lang}',
+          market: 'Une version du site est disponible pour votre pays ({country}).', gom: 'Changer de version', stayh: 'Rester ici',
+          title: 'Choisissez votre langue', close: 'Fermer'
+        },
+        nl: {
+          also: 'Deze site is ook beschikbaar in het Nederlands.', go: 'Overschakelen naar Nederlands', stay: 'Blijf bij {lang}',
+          market: 'Er is een versie van de site voor jouw land ({country}).', gom: 'Versie wisselen', stayh: 'Hier blijven',
+          title: 'Kies je taal', close: 'Sluiten'
+        },
+        de: {
+          also: 'Diese Seite gibt es auch auf Deutsch.', go: 'Auf Deutsch wechseln', stay: 'Bei {lang} bleiben',
+          market: 'Es gibt eine Version der Seite für dein Land ({country}).', gom: 'Version wechseln', stayh: 'Hier bleiben',
+          title: 'Sprache wählen', close: 'Schließen'
+        }
+      };
+
+      function base(l) { return String(l || '').toLowerCase().split('-')[0]; }
+      function inList(l, arr) { return arr.indexOf(l) !== -1; }
+
+      // ---- remembered choice (localStorage + cookie, both optional)
+      function remembered() {
+        try { if (localStorage.getItem(KEY)) return true; } catch (e) {}
+        try { if (document.cookie.indexOf(KEY + '=') !== -1) return true; } catch (e) {}
+        return false;
+      }
+      function remember(kind) {
+        try { localStorage.setItem(KEY, kind + ':' + Date.now()); } catch (e) {}
+        try { document.cookie = KEY + '=' + kind + '; max-age=31536000; path=/; SameSite=Lax'; } catch (e) {}
+      }
+
+      if (remembered()) return;
+
+      var browser = (navigator.languages && navigator.languages.length ? Array.prototype.slice.call(navigator.languages) : [navigator.language])
+        .map(base).filter(Boolean);
+
+      // Languages we may offer in a market: known for the market, published on the shop,
+      // and (for the market the visitor is already in) really available here.
+      function offerable(country) {
+        return (MARKETS[country] || []).filter(function (l) {
+          if (country === CFG.country) return inList(l, CFG.here);
+          // Another market than the one we are on: Liquid only lists the languages of THIS market,
+          // so add the ones known to be live elsewhere (keep this list in step with Settings > Languages).
+          return inList(l, CFG.published) || inList(l, OTHER_MARKETS_LIVE);
+        });
+      }
+
+      function countryName(code, lang) {
+        try { return new Intl.DisplayNames([lang], { type: 'region' }).of(code) || code; } catch (e) { return code; }
+      }
+
+      function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text) n.textContent = text;
+        return n;
+      }
+
+      var form = root.querySelector('form');
+      function submitTo(lang, country) {
+        form.querySelector('[name=language_code]').value = lang;
+        form.querySelector('[name=country_code]').value = country;
+        form.submit();
+      }
+      function dismiss(kind) {
+        remember(kind);
+        root.hidden = true;
+      }
+
+      function show(textStr, closeLabel, buttons) {
+        root.querySelector('[data-aar-ls-text]').textContent = textStr;
+        var closeBtn = root.querySelector('[data-aar-ls-close]');
+        closeBtn.setAttribute('aria-label', closeLabel);
+        closeBtn.onclick = function () { dismiss('dismiss'); };
+        root.setAttribute('aria-label', textStr);
+        var box = root.querySelector('[data-aar-ls-actions]');
+        box.textContent = '';
+        buttons.forEach(function (b) { box.appendChild(b); });
+        root.hidden = false;
+      }
+
+      function decide(ipCountry) {
+        var country = MARKETS[ipCountry] ? ipCountry : CFG.country;
+        var opts = offerable(country);
+        if (!opts.length) return;
+
+        // Belgium: only a clear French or Dutch browser language skips the chooser.
+        if (country === 'BE' && ipCountry === 'BE') {
+          var first = browser[0];
+          if (!(first === 'fr' || first === 'nl') || !inList(first, opts)) {
+            if (opts.length < 2) return;
+            var ui = S[inList(base(CFG.lang), ['fr', 'nl']) ? base(CFG.lang) : 'en'];
+            var title = opts.map(function (l) { return S[l] ? S[l].title : ''; }).filter(Boolean).join(' · ');
+            var btns = opts.map(function (l) {
+              var b = el('button', 'aar-ls__btn', ENDONYM[l] || l);
+              b.type = 'button';
+              if (l === CFG.lang && country === CFG.country) b.setAttribute('aria-current', 'true');
+              b.onclick = function () {
+                remember('switch');
+                if (l === CFG.lang && country === CFG.country) { root.hidden = true; return; }
+                submitTo(l, country);
+              };
+              return b;
+            });
+            show(title, ui.close, btns);
+            return;
+          }
+          var wantBE = first;
+          return suggest(country, wantBE);
+        }
+
+        var want = 'en';
+        for (var i = 0; i < browser.length; i++) {
+          if (inList(browser[i], opts)) { want = browser[i]; break; }
+        }
+        if (!inList(want, opts)) want = opts[0];
+        suggest(country, want);
+      }
+
+      function suggest(country, lang) {
+        if (country === CFG.country && lang === CFG.lang) return;
+        var ui = S[lang];
+        if (!ui) return;
+        var sameMarket = country === CFG.country;
+        var textStr = sameMarket ? ui.also : ui.market.replace('{country}', countryName(country, lang));
+        var go = el('button', 'aar-ls__btn aar-ls__btn--primary', sameMarket ? ui.go : ui.gom);
+        go.type = 'button';
+        go.onclick = function () { remember('switch'); submitTo(lang, country); };
+        var stayLabel = sameMarket
+          ? ui.stay.replace('{lang}', (NAMES[lang] && NAMES[lang][CFG.lang]) || CFG.lang)
+          : ui.stayh;
+        var stay = el('button', 'aar-ls__btn', stayLabel);
+        stay.type = 'button';
+        stay.onclick = function () { dismiss('stay'); };
+        show(textStr, ui.close, [go, stay]);
+      }
+
+      // Visitor country from Shopify (IP based). If it fails we fall back to the market we are in.
+      var done = false;
+      function once(c) { if (done) return; done = true; decide(c); }
+      var timer = setTimeout(function () { once(null); }, 3000);
+      try {
+        fetch(CFG.root.replace(/\/$/, '') + '/browsing_context_suggestions.json?country%5Benabled%5D=true&language%5Benabled%5D=true', { credentials: 'same-origin' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) {
+            clearTimeout(timer);
+            var h = j && j.detected_values && j.detected_values.country && j.detected_values.country.handle;
+            once(h ? String(h).toUpperCase() : null);
+          })
+          .catch(function () { clearTimeout(timer); once(null); });
+      } catch (e) { clearTimeout(timer); once(null); }
+    })();
+  </script>
+{%- endunless -%}

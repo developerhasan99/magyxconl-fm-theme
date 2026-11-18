@@ -1,0 +1,126 @@
+/* pm-collection-reviews.css: review carousel on the collection landers (sections/pm-collection-reviews.liquid).
+   Port of tryscent.co sections/fmx-reviews.liquid layout "carousel" (fmx-s-massive-review.css + the carousel block):
+   heading row left / stars + rating line right across a 150rem container, cards 1.15 / 2.2 / 3 per view with gap
+   12 / 16 / 20, arrows centred under the row from 750px. Card = .pm-review (pm-sections.css). Root font-size is 10px. */
+.premium .pm-creviews {
+  box-sizing: border-box;
+}
+
+.premium .pm-creviews > .page-width {
+  max-width: 150rem;
+}
+
+.premium .pm-creviews__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin: 0 0 24px;
+}
+
+.premium .pm-creviews__heading {
+  margin: 0;
+}
+
+.premium .pm-creviews__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pm-ink);
+}
+
+.premium .pm-creviews__slider {
+  overflow: hidden;
+}
+
+.premium .pm-creviews__track {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.premium .pm-creviews__track::-webkit-scrollbar {
+  display: none;
+}
+
+.premium .pm-creviews__slide {
+  flex: 0 0 calc((100% - 1.8px) / 1.15);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  scroll-snap-align: start;
+  display: flex;
+}
+
+.premium .pm-creviews__slide .pm-review {
+  width: 100%;
+}
+
+.premium .pm-creviews__nav {
+  display: none;
+}
+
+@media (min-width: 750px) {
+  .premium .pm-creviews__track {
+    gap: 16px;
+  }
+
+  .premium .pm-creviews__slide {
+    flex-basis: calc((100% - 19.2px) / 2.2);
+  }
+
+  .premium .pm-creviews__nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .premium .pm-creviews__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--pm-radius-pill);
+    background: var(--pm-white);
+    color: var(--pm-ink);
+    box-shadow: var(--pm-shadow-float);
+    cursor: pointer;
+    transition: opacity var(--pm-dur) var(--pm-ease);
+  }
+
+  .premium .pm-creviews__arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .premium .pm-creviews__arrow--prev .pm-icon {
+    transform: scaleX(-1);
+  }
+}
+
+@media (min-width: 990px) {
+  .premium .pm-creviews__head {
+    margin-bottom: 40px;
+  }
+
+  .premium .pm-creviews__track {
+    gap: 20px;
+  }
+
+  .premium .pm-creviews__slide {
+    flex-basis: calc((100% - 40px) / 3);
+  }
+}

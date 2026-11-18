@@ -1,0 +1,180 @@
+{%- comment -%}
+  Homepage customer video row ("Loved by thousands"), the tryscent.co redesign row (magicperfume.co FM preview, 1:1).
+  Layout = tryscent.co Bundle & Save carousel (pm-s-bs-ugc-grid.css, classes pm-bsug); tiles = this theme's own
+  snippets/fuel05-ugc-tile.liquid + assets/fuel05-ugc.js (same tile as the collection grid videos), so play on tap,
+  mute handling and the product pill behave as elsewhere on the site. The script arms .fuel05-ugc[data-fuel05-row]
+  and starts Swiper on .fuel05-ugc__slider (Swiper is loaded on index + product in layout/theme.liquid).
+  Tiles 175px on phones (swipe), 220px from 750, 265px from 990 with round arrows.
+  Language (05.11.2026): each video has a Language setting; a page shows only the videos in
+  its own language (snippets/ugc-lang-match). No video for the language = no row at all.
+{%- endcomment -%}
+{%- liquid
+  assign ugc_visible = 0
+  for block in section.blocks
+    capture ugc_ok
+      render 'ugc-lang-match', lang: block.settings.language
+    endcapture
+    assign ugc_ok = ugc_ok | strip
+    if ugc_ok != '0'
+      assign ugc_visible = ugc_visible | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if ugc_visible > 0 -%}
+  {{ 'fuel05-ugc.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'fuel05-ugc.js' | asset_url }}" defer="defer"></script>
+  {%- style -%}
+    #ugc-{{ section.id }}.fuel05-ugc--home { background: #fff; }
+  {%- endstyle -%}
+  <div
+    id="ugc-{{ section.id }}"
+    class="fuel05-ugc fuel05-ugc--home"
+    data-fuel05-row
+    data-gap-mobile="10"
+    data-gap-desktop="32">
+    <div class="fuel05-ugc__inner">
+      <div class="fuel05-ugc__header">
+        <h2 class="fuel05-ugc__heading">{{ section.settings.heading }}</h2>
+        <div class="fuel05-ugc__nav">
+          <button class="fuel05-ugc__arrow fuel05-ugc__arrow--prev" type="button" aria-label="{{ 'aaroma.misc.prev_video' | t | escape }}">
+            <svg preserveAspectRatio="none" overflow="visible" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 4L17 12L9 20" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="fuel05-ugc__arrow fuel05-ugc__arrow--next" type="button" aria-label="{{ 'aaroma.misc.next_video' | t | escape }}">
+            <svg preserveAspectRatio="none" overflow="visible" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 4L17 12L9 20" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="fuel05-ugc__slider swiper">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {%- capture ugc_ok -%}{% render 'ugc-lang-match', lang: block.settings.language %}{%- endcapture -%}
+            {%- assign ugc_ok = ugc_ok | strip -%}
+            {%- if ugc_ok != '0' -%}
+              {%- assign ugc_editor_lang = '' -%}
+              {%- if ugc_ok == 'editor' -%}{%- assign ugc_editor_lang = block.settings.language | default: 'nl' -%}{%- endif -%}
+              {% render 'fuel05-ugc-tile',
+                video: block.settings.video,
+                video_url: block.settings.video_url,
+                poster: block.settings.poster,
+                poster_url: block.settings.poster_url,
+                product_item: block.settings.product,
+                shopify_attributes: block.shopify_attributes,
+                editor_lang: ugc_editor_lang
+              %}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- elsif request.design_mode -%}
+  <div class="page-width">Add video blocks to show the customer video row.</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Customer video row",
+  "tag": "section",
+  "class": "section premium pm-scope",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating line",
+      "info": "Leave empty to hide the stars line."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved by thousands"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "select",
+          "id": "language",
+          "label": "Language",
+          "options": [
+            { "value": "nl", "label": "Dutch" },
+            { "value": "fr", "label": "French" },
+            { "value": "en", "label": "English" },
+            { "value": "all", "label": "Every language" }
+          ],
+          "default": "nl",
+          "info": "The language spoken in the video. It only shows on pages in that language."
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Pick from Files. When empty, the video URL below is used."
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL (mp4)"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Poster image"
+        },
+        {
+          "type": "text",
+          "id": "poster_url",
+          "label": "Poster image URL",
+          "info": "Only used when no poster image is picked."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product pill",
+          "info": "Shown on the video from tablet width up."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer video row"
+    }
+  ]
+}
+{% endschema %}
