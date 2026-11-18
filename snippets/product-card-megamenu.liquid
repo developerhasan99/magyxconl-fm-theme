@@ -38,6 +38,7 @@
           alt: card_image_alt
       }}
     {%- endif -%}
+    {%- render 'card-promo-marquee', product: product -%}
   </div>
   <div class="pm-card__title">{{ product.title }}</div>
   {%- if product.metafields.reviews.rating.value != blank -%}

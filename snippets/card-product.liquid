@@ -123,6 +123,8 @@
         <span class="pm-card__quick-label">{{ 'premium.card.view_scent' | t }}</span>
         {%- render 'pm-icon', icon: 'arrow-right', size: 16 -%}
       </span>
+
+      {%- render 'card-promo-marquee', product: card_product -%}
     </div>
 
     <div class="pm-card__body">
