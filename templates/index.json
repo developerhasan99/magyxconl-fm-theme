@@ -9,6 +9,68 @@
  */
 {
   "sections": {
+    "black_friday_hero": {
+      "type": "black-friday-hero",
+      "blocks": {
+        "tier_1": {
+          "type": "tier",
+          "settings": {
+            "label": "Buy 2",
+            "value": "25%",
+            "badge": "",
+            "highlight": false
+          }
+        },
+        "tier_2": {
+          "type": "tier",
+          "settings": {
+            "label": "Buy 4",
+            "value": "30%",
+            "badge": "",
+            "highlight": false
+          }
+        },
+        "tier_3": {
+          "type": "tier",
+          "settings": {
+            "label": "Buy 6",
+            "value": "35%",
+            "badge": "",
+            "highlight": false
+          }
+        },
+        "tier_4": {
+          "type": "tier",
+          "settings": {
+            "label": "Buy 8+",
+            "value": "40%",
+            "badge": "",
+            "highlight": true
+          }
+        }
+      },
+      "block_order": [
+        "tier_1",
+        "tier_2",
+        "tier_3",
+        "tier_4"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/Magyx-BF-Red-01.webp",
+        "mobile_image": "shopify://shop_images/MAGYX_Perfume_Collection_Glow.webp",
+        "min_height": 600,
+        "accent_color": "#ff3b3b",
+        "background_color": "#070707",
+        "display_font": "anton_n4",
+        "eyebrow": "Only this week",
+        "title": "Black Friday",
+        "subtitle": "The more you buy, the more you save.",
+        "note": "<p>Add 2 perfumes to the cart and get <strong>25% off</strong>, up to <strong>40%</strong> when you buy 8 or more. The discount is applied automatically at checkout.</p>",
+        "button_text": "Shop Black Friday",
+        "button_link": "shopify://collections/bestsellers",
+        "shipping_text": "Free shipping over €50"
+      }
+    },
     "homepage_hero_XnJ8mD": {
       "type": "homepage-hero",
       "blocks": {
@@ -76,6 +138,7 @@
         "market_text_switz"
       ],
       "name": "Homepage Hero",
+      "disabled": true,
       "settings": {
         "background_color": "#fcfbf9",
         "fade_color": "#121212",
@@ -1316,6 +1379,7 @@
     }
   },
   "order": [
+    "black_friday_hero",
     "homepage_hero_XnJ8mD",
     "trust_icons_pm",
     "fuel06_finder",

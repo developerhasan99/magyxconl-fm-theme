@@ -747,6 +747,22 @@
   border-color: var(--pm-black);
 }
 
+/* Black Friday neon pulse border (same red as the homepage BF hero) */
+.fmx-scope .fmx-offer,
+.fmx-scope .fmx-offer:hover {
+  border: 1.5px solid #ff3b3b;
+  animation: fmx-offer-neon 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes fmx-offer-neon {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 59, 59, 0.3), 0 0 16px rgba(255, 59, 59, 0.12); }
+  50% { box-shadow: 0 0 12px rgba(255, 59, 59, 0.5), 0 0 26px rgba(255, 59, 59, 0.22); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fmx-scope .fmx-offer { animation: none; box-shadow: 0 0 14px rgba(255, 59, 59, 0.55); }
+}
+
 .fmx-scope .fmx-offer__media {
   display: flex;
   flex: none;
