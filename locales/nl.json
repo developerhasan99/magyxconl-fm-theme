@@ -2359,7 +2359,8 @@
         "page_title": "Betaling kon niet worden verwerkt",
         "title": "Betaling kon niet worden verwerkt",
         "payment_not_processed_title": "Uw betaling kon niet worden verwerkt",
-        "payment_not_processed_text": "Je bent nog niet belast. Keer terug naar je winkelwagen om je aankoop te voltooien."
+        "payment_not_processed_text": "Je bent nog niet belast. Keer terug naar je winkelwagen om je aankoop te voltooien.",
+        "return_to_cart_button_label": "Terug naar winkelwagen"
       },
       "payment_gateway": {
         "credit_card_label": "Kredietkaart",
