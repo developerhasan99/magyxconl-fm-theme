@@ -285,7 +285,7 @@
         "category_1": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/Magyx_Website_01.jpg",
+            "image": "shopify://shop_images/Magyx_for_him.png",
             "image_position": "center",
             "text": "For him",
             "descriptor": "Scents for him",
@@ -295,7 +295,7 @@
         "category_2": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/Magyx_Website_02.webp",
+            "image": "shopify://shop_images/magyx_for_her.png",
             "image_position": "center",
             "text": "For her",
             "descriptor": "Scents for her",
