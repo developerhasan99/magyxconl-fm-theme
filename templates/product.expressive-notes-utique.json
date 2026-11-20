@@ -144,7 +144,7 @@
           "settings": {
             "heading": "Is this an eau de toilette or body spray?",
             "icon": "perfume",
-            "content": "<p>Absolutely not. Every MagyX fragrance is a powerful Eau de Parfum with a concentration of 21% — one of the highest percentages on the market. Where most designer brands stop at 10–15%, we go a step further. What that means for you? A scent that lasts perfectly for 10 to 12 hours. It projects more strongly, lasts longer and you need fewer sprays.</p>",
+            "content": "<p>Absolutely not. Every MagyX fragrance is a powerful Elixir de Parfum with a concentration of 35% — one of the highest percentages on the market. Where most designer brands stop at 10–15%, we go a step further. What that means for you? A scent that lasts perfectly for 10 to 12 hours. It projects more strongly, lasts longer and you need fewer sprays.</p>",
             "page": ""
           }
         },
@@ -164,7 +164,7 @@
           "settings": {
             "heading": "Is the inspired fragrance different?",
             "icon": "perfume",
-            "content": "<p>No — our inspired fragrances are designed as an <strong>exact copy</strong> of the originals from famous luxury brands. We carefully recreate the same fragrance structure, using identical scent notes and raw materials wherever possible.</p><p>✔️ <strong>1:1 fragrance impression</strong> – The scent is virtually indistinguishable from the original, even for experienced perfume lovers.<br/><br/>✔️ <strong>Same longevity and projection</strong> – Thanks to the high concentration of perfume oils (19-21%), our fragrances last just as long as the originals.<br/><br/>✔️ <strong>Affordable price, no compromise</strong> – You get the exact same olfactory experience without paying for the logo, marketing, or designer packaging.</p><p>In short: Our perfumes are identical to luxury brands in scent, quality, and durability — the only difference is the price.</p>",
+            "content": "<p>No — our inspired fragrances are designed as an <strong>exact copy</strong> of the originals from famous luxury brands. We carefully recreate the same fragrance structure, using identical scent notes and raw materials wherever possible.</p><p>✔️ <strong>1:1 fragrance impression</strong> – The scent is virtually indistinguishable from the original, even for experienced perfume lovers.<br/><br/>✔️ <strong>Same longevity and projection</strong> – Thanks to the high concentration of perfume oils (35%), our fragrances last just as long as the originals.<br/><br/>✔️ <strong>Affordable price, no compromise</strong> – You get the exact same olfactory experience without paying for the logo, marketing, or designer packaging.</p><p>In short: Our perfumes are identical to luxury brands in scent, quality, and durability — the only difference is the price.</p>",
             "page": ""
           }
         },
@@ -235,14 +235,14 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "Is this perfumed water?",
-            "row_content": "<p>Our fragrances are much more than simple perfumed water. You get a high-quality Eau de Parfum (EdP) with 20% fragrance oils: long-lasting, with strong projection and depth.</p><p>Unlike light body sprays or scented waters, our compositions last up to 12 hours on your skin. So you enjoy an intense, refined scent experience for a fraction of the price of luxury brands.</p>"
+            "row_content": "<p>Our fragrances are much more than simple perfumed water. You get a high-quality Elixir de Parfum with 35% fragrance oils: long-lasting, with strong projection and depth.</p><p>Unlike light body sprays or scented waters, our compositions last up to 12 hours on your skin. So you enjoy an intense, refined scent experience for a fraction of the price of luxury brands.</p>"
           }
         },
         "collapsible_row_2": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "What does 20% fragrance oils mean?",
-            "row_content": "<p>The percentage tells you how much pure fragrance oil is in the product. With us, 20% fragrance oils means:</p><p>✔️ It is an Eau de Parfum (EdP), one of the most intense types of perfume for everyday wear.</p><p>✔️ The high share of fragrance oils makes it last: the scent stays noticeable on the skin for up to 12 hours.</p><p>✔️ Strong projection and depth: the scent unfolds in layers and keeps its full, lasting character.</p><p>For comparison: an Eau de Toilette usually contains 5–15% fragrance oils. With 20% you get an intense, long-lasting, high-quality scent experience at a fair price.</p>"
+            "heading": "What does 35% fragrance oils mean?",
+            "row_content": "<p>The percentage tells you how much pure fragrance oil is in the product. With us, 35% fragrance oils means:</p><p>✔️ It is an Elixir de Parfum, one of the most intense types of perfume for everyday wear.</p><p>✔️ The high share of fragrance oils makes it last: the scent stays noticeable on the skin for up to 12 hours.</p><p>✔️ Strong projection and depth: the scent unfolds in layers and keeps its full, lasting character.</p><p>For comparison: an Eau de Toilette usually contains 5–15% fragrance oils. With 35% you get an intense, long-lasting, high-quality scent experience at a fair price.</p>"
           }
         },
         "collapsible_row_3": {
@@ -256,7 +256,7 @@
           "type": "collapsible_row",
           "settings": {
             "heading": "How long does the scent last?",
-            "row_content": "<p>With 20% fragrance oils, the scent lasts up to 12 hours on the skin. Exactly how long depends on your skin type and how you apply it. It works best sprayed on your pulse points, on clean, moisturised skin.</p>"
+            "row_content": "<p>With 35% fragrance oils, the scent lasts up to 12 hours on the skin. Exactly how long depends on your skin type and how you apply it. It works best sprayed on your pulse points, on clean, moisturised skin.</p>"
           }
         },
         "collapsible_row_5": {
@@ -393,7 +393,7 @@
         "kicker": "MAGYX vs. the original",
         "title": "How MagyX stacks up",
         "ours_label": "MAGYX",
-        "ours_note": "20% concentration",
+        "ours_note": "35% concentration",
         "theirs_label": "Designer brands",
         "dupes_enable": true,
         "dupes_label": "Other dupes",
