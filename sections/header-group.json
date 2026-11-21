@@ -14,42 +14,6 @@
     "offer_timebar_PNTbqg": {
       "type": "offer-timebar",
       "blocks": {
-        "market_offer_belgium": {
-          "type": "market_offer",
-          "settings": {
-            "markets": "belgium",
-            "top_banner_text": "",
-            "prepend_text": "",
-            "append_text": "BUY 3 PAY FOR 2"
-          }
-        },
-        "market_offer_estonia": {
-          "type": "market_offer",
-          "settings": {
-            "markets": "estonia",
-            "top_banner_text": "",
-            "prepend_text": "",
-            "append_text": ""
-          }
-        },
-        "market_offer_france_switz": {
-          "type": "market_offer",
-          "settings": {
-            "markets": "france, switz",
-            "top_banner_text": "",
-            "prepend_text": "",
-            "append_text": "BUY 3, GET 1 FREE"
-          }
-        },
-        "market_offer_germany": {
-          "type": "market_offer",
-          "settings": {
-            "markets": "germany",
-            "top_banner_text": "",
-            "prepend_text": "",
-            "append_text": "BUY 3, GET 1 FREE"
-          }
-        },
         "payment_icon_qcMDiY": {
           "type": "payment_icon",
           "settings": {
@@ -205,10 +169,6 @@
         }
       },
       "block_order": [
-        "market_offer_belgium",
-        "market_offer_estonia",
-        "market_offer_france_switz",
-        "market_offer_germany",
         "payment_icon_qcMDiY",
         "payment_icon_VWgiqB",
         "payment_icon_i3Hr68",
