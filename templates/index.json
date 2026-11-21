@@ -137,8 +137,8 @@
         "market_text_germany",
         "market_text_switz"
       ],
-      "name": "Homepage Hero",
       "disabled": true,
+      "name": "Homepage Hero",
       "settings": {
         "background_color": "#fcfbf9",
         "fade_color": "#121212",
@@ -220,16 +220,25 @@
     "tabs_best": {
       "type": "home-tabs",
       "blocks": {
+        "tab_8iVqi6": {
+          "type": "tab",
+          "settings": {
+            "title": "Utique-collectie",
+            "collection": "black-utique",
+            "button_text": "View all"
+          }
+        },
         "tab_1": {
           "type": "tab",
           "settings": {
-            "title": "🔥 Bestsellers",
+            "title": "Bestsellers",
             "collection": "top-sellers",
             "button_text": "View all"
           }
         },
         "tab_2": {
           "type": "tab",
+          "disabled": true,
           "settings": {
             "title": "New scents",
             "collection": "heetste-zomergeuren-2026",
@@ -254,6 +263,7 @@
         }
       },
       "block_order": [
+        "tab_8iVqi6",
         "tab_1",
         "tab_2",
         "tab_3",
@@ -263,7 +273,7 @@
         "heading": "A scent for every side of you",
         "subheading": "Pick a category and discover the scents that suit you.",
         "background_color": "#f7f7f7",
-        "products_per_tab": 4,
+        "products_per_tab": 8,
         "padding_top": 28,
         "padding_bottom": 72
       }
