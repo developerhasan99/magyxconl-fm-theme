@@ -41,9 +41,15 @@
         {{- section.settings.heading | escape -}}
       </h2>
     {%- endif -%}
-    {%- if section.settings.subheading != blank -%}
-      <p class="home-ptabs__sub">{{ section.settings.subheading | escape }}</p>
-    {%- endif -%}
+    {%- comment -%} One line per tab: the tab's own description, or the section subheading when it is empty; assets/home-tabs.js shows the open tab's line {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {%- assign tab_desc = block.settings.description | strip | default: section.settings.subheading -%}
+      {%- if tab_desc != blank -%}
+        <p class="home-ptabs__sub" data-home-tab-desc="{{ block.id }}"{% unless forloop.first %} hidden{% endunless %}>
+          {{- tab_desc | escape | newline_to_br -}}
+        </p>
+      {%- endif -%}
+    {%- endfor -%}
 
     <home-product-tabs class="home-ptabs__tabs">
       <div
@@ -111,7 +117,8 @@
                     show_rating: true,
                     lazy_load: true,
                     skip_styles: skip_card_styles,
-                    section_id: card_section_id
+                    section_id: card_section_id,
+                    oil_badge: true
                   %}
                 </li>
                 {%- assign skip_card_styles = true -%}
@@ -221,6 +228,12 @@
           "type": "collection",
           "id": "collection",
           "label": "Collection"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description under heading",
+          "info": "Shown under the section heading while this tab is open. Empty = the section subheading."
         },
         {
           "type": "text",

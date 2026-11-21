@@ -89,6 +89,28 @@
     endif
 
     assign pm_insp = card_product.metafields.custom.inspiration.value
+
+    # oil_badge (homepage Product tabs only): "<n>% perfume oil" from custom.oil_concentration, label per storefront language
+    assign pm_oil = blank
+    if oil_badge
+      assign pm_oil = card_product.metafields.custom.oil_concentration.value
+    endif
+    case request.locale.iso_code
+      when 'nl'
+        assign pm_oil_label = 'parfumolie'
+      when 'fr'
+        assign pm_oil_label = 'huile de parfum'
+      when 'de'
+        assign pm_oil_label = 'Parfümöl'
+      when 'et'
+        assign pm_oil_label = 'parfüümiõli'
+      when 'lt'
+        assign pm_oil_label = 'kvepalų aliejaus'
+      when 'lv'
+        assign pm_oil_label = 'smaržu eļļas'
+      else
+        assign pm_oil_label = 'perfume oil'
+    endcase
   -%}
 
   <a href="{{ card_product.url }}" class="pm-card pm-card--product" id="CardLink-{{ section_id }}-{{ card_product.id }}" data-mgx-hay="{{ card_product.title | escape }} | {{ pm_insp.name | escape }}">
@@ -105,6 +127,8 @@
         >
       {%- endif -%}
 
+      {%- comment -%} With an oil badge both sit in one top row (pm-card-top): side by side when they fit, oil badge drops to the next line (right) when not {%- endcomment -%}
+      {%- if pm_oil != blank -%}<div class="pm-card-top">{%- endif -%}
       {%- if pm_badge_count > 0 -%}
         <div class="pm-card__badges">
           {%- if card_product.available == false -%}
@@ -116,6 +140,13 @@
           {%- if pm_is_best -%}
             <span class="pm-badge pm-badge--ink">{{ 'aaroma.common.bestseller' | t }}</span>
           {%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if pm_oil != blank -%}
+        <div class="pm-badge pm-oil-badge">
+          <div class="pm-oil-badge__num">{{ pm_oil }}%</div>
+          <div class="pm-oil-badge__label">{{ pm_oil_label }}</div>
+        </div>
         </div>
       {%- endif -%}
 

@@ -26,6 +26,14 @@
         const panel = document.getElementById(tab.getAttribute('aria-controls'));
         if (panel) panel.hidden = !active;
       });
+      // Per-tab description lines sit above the tab list, inside the same section
+      const section = this.closest('.home-ptabs');
+      const activeId = this.tabs[index].dataset.blockId;
+      if (section) {
+        section.querySelectorAll('[data-home-tab-desc]').forEach((desc) => {
+          desc.hidden = desc.dataset.homeTabDesc !== activeId;
+        });
+      }
       if (focus) this.tabs[index].focus();
     }
 
