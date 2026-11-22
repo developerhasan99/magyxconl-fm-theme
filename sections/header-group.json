@@ -311,6 +311,13 @@
     "header": {
       "type": "header",
       "blocks": {
+        "menu_item_giftguide": {
+          "type": "menu_item",
+          "settings": {
+            "label": "Gift guide",
+            "url": "shopify://pages/gift-guide"
+          }
+        },
         "sub_menu_items_im8CWQ": {
           "type": "sub_menu_items",
           "settings": {
@@ -355,6 +362,7 @@
         }
       },
       "block_order": [
+        "menu_item_giftguide",
         "sub_menu_items_im8CWQ",
         "sub_menu_items_M8nfJY",
         "menu_item_H4UXV8",

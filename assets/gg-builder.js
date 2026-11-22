@@ -357,7 +357,8 @@
       var rate = parseFloat(window.Shopify && window.Shopify.currency && window.Shopify.currency.rate) || 1;
       var out = [];
       (data.consolidatedCombinedDiscount || []).forEach(function (c) {
-        if (!c || c.isEnabled === false || c.discountFunctionType !== 'CONSOLIDATED_PROGRESS_BAR') return;
+        /* Kite sets up goal ladders as a progress bar or as a combined discount (magyxco.nl "Gift + Ship") */
+        if (!c || c.isEnabled === false || !/^CONSOLIDATED_(PROGRESS_BAR|COMBINED_DISCOUNT)$/.test(c.discountFunctionType || '')) return;
         ((c.segmentsData && c.segmentsData.segmentsList) || []).forEach(function (s) {
           var r = ((s.buyXRulesData && s.buyXRulesData.rulesList) || [])[0];
           if (!r || !/subtotal/i.test(r.ruleType || '')) return;
