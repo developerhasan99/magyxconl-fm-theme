@@ -1,0 +1,635 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "gg-hero",
+      "settings": {
+        "show_rating": true,
+        "image_desktop": "shopify://shop_images/geschenkguide-hero-desktop.webp",
+        "image_mobile": "shopify://shop_images/geschenkguide-hero-mobile.webp",
+        "button_1_link": "#for-her",
+        "button_2_link": "#build-your-own",
+        "text_color": "light",
+        "height_desktop": 572,
+        "height_mobile": 460,
+        "mobile_focus": "bottom",
+        "eyebrow": "The Gift Guide 2026",
+        "rating_text": "[rating]/5 from over [count] reviews",
+        "heading": "Scent gifts they will actually wear",
+        "text": "Gift sets for everyone on your list, from the safe bet to the person who has it all.",
+        "button_1_label": "See the gift sets",
+        "button_2_label": "Build your set and save 40%"
+      }
+    },
+    "trust": {
+      "type": "gg-trust-strip",
+      "settings": {
+        "speed": 40
+      },
+      "blocks": {
+        "t1": {
+          "type": "item",
+          "settings": {
+            "text": "20% perfume oil"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "text": "Every bottle boxed on its own, ready to give"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "text": "Lasts over 12 hours"
+          }
+        },
+        "t5": {
+          "type": "item",
+          "settings": {
+            "text": "Oils from Grasse"
+          }
+        },
+        "t6": {
+          "type": "item",
+          "settings": {
+            "text": "Free from phthalates and parabens"
+          }
+        },
+        "t7": {
+          "type": "item",
+          "settings": {
+            "text": "Vegan and cruelty-free"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t5",
+        "t6",
+        "t7"
+      ]
+    },
+    "recipients": {
+      "type": "gg-recipients",
+      "settings": {
+        "columns": "4",
+        "heading": "Who are you shopping for?",
+        "sub": "Every set holds three 50 ml bottles, each boxed on its own: one big gift or three small ones.",
+        "budget_label": "Gifts by type"
+      },
+      "blocks": {
+        "r_mom": {
+          "type": "recipient",
+          "settings": {
+            "image": "shopify://shop_images/geschenkguide-fur-mama.webp",
+            "link": "#for-her",
+            "title": "For Mom",
+            "meta": "Timeless classics · Floral · Warm",
+            "count": "1 set"
+          }
+        },
+        "r_dad": {
+          "type": "recipient",
+          "settings": {
+            "image": "shopify://shop_images/geschenkguide-fur-papa.webp",
+            "link": "#for-him",
+            "title": "For Dad",
+            "meta": "Fresh · Polished · Festive",
+            "count": "1 set"
+          }
+        },
+        "r_sister": {
+          "type": "recipient",
+          "settings": {
+            "image": "shopify://shop_images/geschenkguide-fur-schwester.webp",
+            "link": "#for-her",
+            "title": "For your sister",
+            "meta": "On trend · Fruity · Sweet",
+            "count": "1 set"
+          }
+        },
+        "r_brother": {
+          "type": "recipient",
+          "settings": {
+            "image": "shopify://shop_images/geschenkguide-fur-bruder.webp",
+            "link": "#for-him",
+            "title": "For your brother",
+            "meta": "Sporty · Fresh · Spicy",
+            "count": "1 set"
+          }
+        },
+        "r_girlfriend": {
+          "type": "recipient",
+          "settings": {
+            "image": "shopify://shop_images/geschenkguide-fur-freundin.webp",
+            "link": "#for-her",
+            "title": "For your girlfriend",
+            "meta": "Elegant · Playful · Sensual",
+            "count": "1 set"
+          }
+        },
+        "r_boyfriend": {
+          "type": "recipient",
+          "settings": {
+            "image": "shopify://shop_images/geschenkguide-fur-freund.webp",
+            "link": "#for-him",
+            "title": "For your boyfriend",
+            "meta": "Fresh · Sensual · Intense",
+            "count": "1 set"
+          }
+        },
+        "r_her": {
+          "type": "recipient",
+          "settings": {
+            "image": "shopify://shop_images/geschenkguide-fur-sie.webp",
+            "link": "#for-her",
+            "title": "For her",
+            "meta": "Scent wardrobe · Bestsellers · Floral",
+            "count": "3 sets"
+          }
+        },
+        "r_him": {
+          "type": "recipient",
+          "settings": {
+            "image": "shopify://shop_images/geschenkguide-fur-ihn.webp",
+            "link": "#for-him",
+            "title": "For him",
+            "meta": "Fresh · Woody · Intense",
+            "count": "3 sets"
+          }
+        },
+        "b_sets": {
+          "type": "budget",
+          "settings": {
+            "link": "#for-her",
+            "price": "Gift sets",
+            "text": "Three scents, ready to give"
+          }
+        },
+        "b_build": {
+          "type": "budget",
+          "settings": {
+            "link": "#build-your-own",
+            "price": "Build your own",
+            "text": "You pick the three scents"
+          }
+        },
+        "b_more": {
+          "type": "budget",
+          "disabled": true,
+          "settings": {
+            "link": "#more-gifts",
+            "price": "More gifts",
+            "text": "Single scents and big packs"
+          }
+        }
+      },
+      "block_order": [
+        "r_mom",
+        "r_dad",
+        "r_sister",
+        "r_brother",
+        "r_girlfriend",
+        "r_boyfriend",
+        "r_her",
+        "r_him",
+        "b_sets",
+        "b_build",
+        "b_more"
+      ]
+    },
+    "for_her": {
+      "type": "gg-gift-sets",
+      "settings": {
+        "anchor": "for-her",
+        "container": "wide",
+        "columns": "3",
+        "carousel": true,
+        "background": "none",
+        "padding_top": 20,
+        "padding_bottom": 36,
+        "show_swap": true,
+        "swap_max": 6,
+        "eyebrow": "Gift sets",
+        "heading": "For her",
+        "text": "A whole scent wardrobe, the scents everyone loves, or a bouquet of florals.",
+        "choose_label": "Choose your scents",
+        "badge_text": "Special offer",
+        "atc_label": "Add to cart",
+        "soldout_label": "Sold out",
+        "added_label": "Added",
+        "error_label": "Something went wrong. Please try again.",
+        "boxed_line": "Every bottle boxed on its own, ready to give",
+        "contents_heading": "What's inside",
+        "number_label": "No. [n]",
+        "inspired_word": "Inspired by",
+        "details_label": "All details",
+        "swap_label": "Swap a scent",
+        "prev_label": "Previous",
+        "next_label": "Next"
+      },
+      "blocks": {
+        "her_1": {
+          "type": "gift_set",
+          "settings": {
+            "product": "for-mom-3x-50ml-perfume-bottles"
+          }
+        },
+        "her_2": {
+          "type": "gift_set",
+          "settings": {
+            "product": "for-sister-3x-50ml-perfume-bottles"
+          }
+        },
+        "her_3": {
+          "type": "gift_set",
+          "settings": {
+            "product": "for-girlfriend-3x-50ml-perfume-bottles"
+          }
+        }
+      },
+      "block_order": [
+        "her_1",
+        "her_2",
+        "her_3"
+      ]
+    },
+    "reviews": {
+      "type": "gg-reviews",
+      "disabled": true,
+      "settings": {
+        "eyebrow": "Given and loved",
+        "heading": "What our customers say",
+        "rating_line": "Customer reviews · 4.7 out of 5 stars",
+        "stars_label": "[n] out of 5 stars"
+      },
+      "blocks": {
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "stars": 5,
+            "title": "“Smells super fresh and comes pretty close to Aventus.”",
+            "text": "I wasn't sure what to expect at first, but the scent really surprised me. It lasts well and the price is just so much better.",
+            "author": "Michael T.",
+            "source": "Verified buyer"
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "stars": 5,
+            "title": "“I'd never found a dupe that smells truly authentic.”",
+            "text": "This was my first order here and I'm genuinely impressed. From now on I'm not buying my perfume anywhere else.",
+            "author": "Sebastian Müller",
+            "source": "Verified buyer"
+          }
+        },
+        "q3": {
+          "type": "quote",
+          "settings": {
+            "stars": 5,
+            "title": "“The scents are really close to the originals.”",
+            "text": "All three scents I ordered smell really good and last a long time too.",
+            "author": "Clara P.",
+            "source": "Verified buyer"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ]
+    },
+    "for_him": {
+      "type": "gg-gift-sets",
+      "settings": {
+        "anchor": "for-him",
+        "container": "wide",
+        "columns": "3",
+        "carousel": true,
+        "background": "none",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_swap": true,
+        "swap_max": 6,
+        "eyebrow": "Gift sets",
+        "heading": "For him",
+        "text": "A nudge to try something new, or a safe bet.",
+        "choose_label": "Choose your scents",
+        "badge_text": "Special offer",
+        "atc_label": "Add to cart",
+        "soldout_label": "Sold out",
+        "added_label": "Added",
+        "error_label": "Something went wrong. Please try again.",
+        "boxed_line": "Every bottle boxed on its own, ready to give",
+        "contents_heading": "What's inside",
+        "number_label": "No. [n]",
+        "inspired_word": "Inspired by",
+        "details_label": "All details",
+        "swap_label": "Swap a scent",
+        "prev_label": "Previous",
+        "next_label": "Next"
+      },
+      "blocks": {
+        "him_1": {
+          "type": "gift_set",
+          "settings": {
+            "product": "for-dad-3x-50ml-perfume-bottles"
+          }
+        },
+        "him_2": {
+          "type": "gift_set",
+          "settings": {
+            "product": "for-brother-3x-50ml-perfume-bottles"
+          }
+        },
+        "him_3": {
+          "type": "gift_set",
+          "settings": {
+            "product": "for-boyfriend-3x-50ml-perfume-bottles"
+          }
+        },
+        "him_build": {
+          "type": "build_tile",
+          "settings": {
+            "link": "#build-your-own",
+            "eyebrow": "Build your own",
+            "title": "Know his scent? Pick three.",
+            "text": "Same price, same packaging. You pick the three scents.",
+            "button_label": "Build his set"
+          }
+        }
+      },
+      "block_order": [
+        "him_1",
+        "him_2",
+        "him_3",
+        "him_build"
+      ]
+    },
+    "builder": {
+      "type": "gg-bundle-builder",
+      "settings": {
+        "image": "shopify://shop_images/geschenkguide-fur-alle.webp",
+        "anchor": "build-your-own",
+        "discount_steps": "2:25,4:30,6:35,8:40",
+        "discount_collections": "all,bestseller-singles,black-utique",
+        "pool_collection": "bestseller-singles",
+        "pool_limit": 200,
+        "bottle_size": "50ml",
+        "pool_extra": "black-utique:100ml",
+        "eyebrow": "Build your own",
+        "heading": "Build your own set",
+        "text": "Add as many 50 ml scents to your cart as you like. Save 25% from 2 scents, 30% from 4, 35% from 6 and 40% from 8.",
+        "inspired_word": "Inspired by",
+        "number_label": "No. [n]",
+        "presets_label": "Add a ready-made gift set",
+        "presets_note": "Already discounted, added to your cart as a set of its own.",
+        "search_placeholder": "Search by brand, scent or No.",
+        "gender_label": "For whom",
+        "gender_all": "All",
+        "gender_unisex": "Unisex",
+        "gender_male": "Men",
+        "gender_female": "Women",
+        "family_label": "Scent family",
+        "count_label": "[n] scents",
+        "sort_label": "Bestsellers first",
+        "add_label": "Add",
+        "new_badge": "New",
+        "best_badge": "Bestseller",
+        "no_results": "No scent found.",
+        "show_more": "Show [n] more scents",
+        "set_title": "Your set",
+        "in_cart_label": "[n] scents in your cart",
+        "in_cart_one_label": "1 scent in your cart",
+        "step_label": "[n] scents",
+        "start_label": "Save [pct]% from [n] scents",
+        "to_one_label": "Add [n] more scent for [pct]% off",
+        "to_many_label": "Add [n] more scents for [pct]% off",
+        "top_label": "Top discount unlocked",
+        "save_label": "You save [amount]",
+        "checkout_label": "Checkout",
+        "added_label": "Added to your cart",
+        "goal_gift_label": "Mystery box",
+        "goal_ship_label": "Free shipping",
+        "to_gift_label": "[amount] more for a free mystery box",
+        "to_ship_label": "[amount] more for free shipping",
+        "goals_done_label": "All gifts unlocked",
+        "remove_label": "Remove",
+        "ins_title": "Shipping protection",
+        "ins_text": "Protects your order against loss and damage.",
+        "cta": "Go to cart",
+        "error": "Something went wrong. Please try again.",
+        "fine_print": ""
+      },
+      "blocks": {
+        "p_mom": {
+          "type": "preset",
+          "settings": {
+            "product": "for-mom-3x-50ml-perfume-bottles"
+          }
+        },
+        "p_sister": {
+          "type": "preset",
+          "settings": {
+            "product": "for-sister-3x-50ml-perfume-bottles"
+          }
+        },
+        "p_girlfriend": {
+          "type": "preset",
+          "settings": {
+            "product": "for-girlfriend-3x-50ml-perfume-bottles"
+          }
+        },
+        "p_dad": {
+          "type": "preset",
+          "settings": {
+            "product": "for-dad-3x-50ml-perfume-bottles"
+          }
+        },
+        "p_brother": {
+          "type": "preset",
+          "settings": {
+            "product": "for-brother-3x-50ml-perfume-bottles"
+          }
+        },
+        "p_boyfriend": {
+          "type": "preset",
+          "settings": {
+            "product": "for-boyfriend-3x-50ml-perfume-bottles"
+          }
+        }
+      },
+      "block_order": [
+        "p_mom",
+        "p_sister",
+        "p_girlfriend",
+        "p_dad",
+        "p_brother",
+        "p_boyfriend"
+      ]
+    },
+    "more_ways": {
+      "type": "gg-more-ways",
+      "disabled": true,
+      "settings": {
+        "anchor": "more-gifts",
+        "heading": "More gift ideas",
+        "sub": "One single scent, or lots of bottles for lots of people."
+      },
+      "blocks": {
+        "m1": {
+          "type": "card",
+          "settings": {
+            "link": "/collections/bestsellers",
+            "eyebrow": "Just one gift?",
+            "title": "A single scent",
+            "text": "Know which scent it should be? Pick any scent from our bestsellers.",
+            "button_label": "See the bestsellers"
+          }
+        },
+        "m2": {
+          "type": "card",
+          "settings": {
+            "eyebrow": "For lots of people at once",
+            "title": "10 × 50 ml",
+            "text": "Ten bottles in one order. For colleagues, family or everyone you want to treat.",
+            "button_label": "See the 10-pack"
+          }
+        },
+        "m3": {
+          "type": "card",
+          "disabled": true,
+          "settings": {
+            "eyebrow": "To try first",
+            "title": "Discovery set",
+            "text": "Several scents to test, so they find their favourite. Coming soon.",
+            "button_label": "See the discovery set"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3"
+      ]
+    },
+    "newsletter": {
+      "type": "gg-newsletter",
+      "disabled": true,
+      "settings": {
+        "eyebrow": "Still deciding?",
+        "heading": "Not ready yet? Get the deals first.",
+        "text": "Our Christmas deals are coming soon. Sign up and be the first to know when they go live.",
+        "chips_label": "You're shopping for",
+        "chip_labels": "Her,Him,Both,Me",
+        "placeholder": "Your email address",
+        "button_label": "Let me know",
+        "fine_print": "<p>No spam. Unsubscribe any time.</p>",
+        "success_text": "Thanks, you're in. We'll let you know as soon as the deals are live."
+      }
+    },
+    "good_to_know": {
+      "type": "gg-good-to-know",
+      "disabled": true,
+      "settings": {
+        "heading": "Good to know before you order"
+      },
+      "blocks": {
+        "g1": {
+          "type": "item",
+          "settings": {
+            "title": "Ready to give",
+            "text": "<p>Every bottle is boxed on its own. All that's left is the wrapping.</p>"
+          }
+        },
+        "g2": {
+          "type": "item",
+          "settings": {
+            "title": "Sending it straight to them?",
+            "text": "<p>Just enter their address as the shipping address at checkout.</p>"
+          }
+        },
+        "g3": {
+          "type": "item",
+          "settings": {
+            "title": "Not sure which scent?",
+            "text": "<p>Go for a set of three scents. That way they find their own favourite.</p>"
+          }
+        },
+        "g4": {
+          "type": "item",
+          "settings": {
+            "title": "Not a fit?",
+            "text": "<p>60-day money-back guarantee. If the scent isn't right, you have 60 days to return it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4"
+      ]
+    },
+    "closing": {
+      "type": "gg-closing",
+      "disabled": true,
+      "settings": {
+        "button_link": "#for-her",
+        "heading": "Gifts sorted, with time to breathe.",
+        "sub": "Pick a set for everyone on your list. Every bottle comes boxed on its own.",
+        "button_label": "See the gift sets",
+        "guarantee": "60-day money-back guarantee"
+      }
+    },
+    "judgeme_reviews": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      },
+      "blocks": {
+        "judgeme_all_reviews": {
+          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_page/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "max_width": 1200,
+            "review_source": "all",
+            "show_all_reviews_in_same_tab": true,
+            "show_first": "product",
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judgeme_all_reviews"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "recipients",
+    "for_her",
+    "reviews",
+    "for_him",
+    "builder",
+    "more_ways",
+    "newsletter",
+    "good_to_know",
+    "closing",
+    "judgeme_reviews"
+  ]
+}

@@ -1,0 +1,1127 @@
+/* gg-builder.css: "Selbst zusammenstellen" set builder (sections/gg-bundle-builder.liquid + assets/gg-builder.js).
+   Needs gg-base.css. px only, mobile-first (375 / 750 / 990 / 1200), no importance overrides.
+   Layout (pattern: mp-lp bundle LP picker): top row = product card (image | "Dein Set" box with slots, price, CTA),
+   below = filters (gender bar, scent families, search, gift sets) + scent grid with "show more".
+   Mobile: image, box, filters, grid stacked; from 990px the top row is two columns. */
+
+.gg-bb__notice {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border: 1px dashed var(--gg-sale);
+  border-radius: var(--gg-radius-btn);
+  background: var(--gg-white);
+  color: var(--gg-sale);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.gg-bb__card {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ---------- top row: image | set box ---------- */
+
+.gg-bb__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+.gg-bb__media {
+  min-width: 0;
+}
+
+.gg-bb__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--gg-radius-card);
+  background: var(--gg-surface);
+}
+
+.gg-bb__img--empty { min-height: 240px; }
+
+.gg-bb__sum {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--gg-ink);
+  border-radius: var(--gg-radius-card);
+  background: var(--gg-white);
+}
+
+.gg-bb__sum-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 10px;
+  margin: 0;
+}
+
+.gg-bb__sum-title {
+  font-family: var(--gg-font-heading);
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 800;
+}
+
+.gg-bb__of {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--gg-muted);
+}
+
+.gg-bb__status {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+/* Saving: what Shopify took off the counted bottles */
+.gg-bb__saving {
+  margin: -6px 0 0;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 800;
+  color: var(--gg-good);
+}
+
+.gg-bb__saving[hidden] { display: none; }
+
+/* Discount steps + Kite goals, the cart drawer bar look: thin line, round markers centred in equal columns,
+   label under each marker */
+.gg-bb__steps {
+  position: relative;
+}
+
+.gg-bb__steps-bar {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--gg-radius-pill);
+  background: var(--gg-line);
+  overflow: hidden;
+}
+
+.gg-bb__steps-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: inherit;
+  background: var(--gg-ink);
+  transition: width 0.35s ease;
+}
+
+.gg-bb__steps-list {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gg-bb__step-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  margin: 0;
+  padding: 0 2px;
+  text-align: center;
+  color: var(--gg-muted);
+}
+
+.gg-bb__step-mark::before {
+  content: "";
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 6px;
+  border: 2px solid var(--gg-line);
+  border-radius: 50%;
+  background: var(--gg-white);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.gg-bb__step-mark.is-reached::before {
+  border-color: var(--gg-ink);
+  background: var(--gg-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+
+.gg-bb__step-mark strong {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 800;
+}
+
+.gg-bb__step-mark span {
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.gg-bb__step-mark.is-reached { color: var(--gg-ink); }
+.gg-bb__step-mark.is-current strong { color: var(--gg-good); }
+
+.gg-bb__goals[hidden],
+.gg-bb__goal-status[hidden] { display: none; }
+
+.gg-bb__goals { margin-top: 4px; }
+
+/* Bottles in the cart: small tiles, × takes one out */
+.gg-bb__picked {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 8px;
+}
+
+.gg-bb__picked[hidden] { display: none; }
+
+.gg-bb__pick-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--gg-line);
+  border-radius: 8px;
+  background: var(--gg-surface);
+  overflow: hidden;
+}
+
+.gg-bb__pick-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gg-bb__pick-qty {
+  position: absolute;
+  left: 3px;
+  bottom: 3px;
+  padding: 1px 5px;
+  border-radius: var(--gg-radius-btn);
+  background: var(--gg-ink);
+  color: var(--gg-white);
+  font-size: 11px;
+  line-height: 15px;
+  font-weight: 800;
+}
+
+.gg-bb__pick-x {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 3px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.gg-bb__pick-x span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--gg-radius-pill);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--gg-ink);
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 700;
+}
+
+/* While a cart write is running: the box and cards stay usable, the box dims a little */
+.gg-bb__card.is-busy .gg-bb__sum { opacity: 0.85; }
+
+/* Sticky bar at the bottom of the screen while the builder is in view */
+.gg-bb__bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: 10px var(--gg-gutter) calc(10px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--gg-line);
+  background: var(--gg-white);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.gg-bb__bar[hidden] { display: none; }
+
+.gg-bb__bar-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: var(--gg-wide);
+  margin: 0 auto;
+}
+
+/* Sticky bar: the discount steps take the width, a cart icon opens the drawer */
+.gg-bb__bar-in { gap: 16px; }
+
+.gg-bb__bar-steps {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 640px;
+}
+
+.gg-bb__bar-steps .gg-bb__step-mark strong { font-size: 14px; line-height: 18px; }
+.gg-bb__bar-steps .gg-bb__step-mark span { font-size: 11px; line-height: 14px; }
+
+.gg-bb__bar-cart {
+  position: relative;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--gg-radius-btn);
+  background: var(--gg-ink);
+  color: var(--gg-white);
+  cursor: pointer;
+}
+
+.gg-bb__bar-cart .icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+}
+
+.gg-bb__bar-cart:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.gg-bb__bar-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--gg-good);
+  color: var(--gg-white);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 20px;
+  text-align: center;
+}
+
+.gg-bb__bar-badge[hidden] { display: none; }
+
+@media (min-width: 750px) {
+  .gg-bb__bar-in { justify-content: center; gap: 32px; }
+  .gg-bb__bar-steps { flex-basis: 640px; }
+}
+
+/* "Zum Warenkorb hinzugefügt": short green note after an addition */
+.gg-bb__added {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--gg-radius-btn);
+  background: #e9f5ee;
+  color: var(--gg-good);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.gg-bb__added::before {
+  content: "\2713";
+  font-weight: 800;
+}
+
+.gg-bb__added[hidden] { display: none; }
+
+/* Totals, cart drawer style */
+.gg-bb__totals {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.gg-bb__totals[hidden],
+.gg-bb__tot[hidden],
+.gg-bb__ins[hidden] { display: none; }
+
+.gg-bb__tot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.gg-bb__tot--total {
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 800;
+}
+
+.gg-bb__ins .gg-bb__ins-title { text-decoration: none; }
+
+/* Discount value: same colour as the drawer's .pm-cart-drawer__saving (assets/pm-cart-drawer.css, scoped to the drawer there) */
+.gg-bb__tot .pm-cart-drawer__saving { color: var(--pm-good, #146b32); }
+
+/* Same note above the sticky bar, for adds made far below the box */
+.gg-bb__bar-added {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  translate: -50% 0;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  border: 1px solid #c9e6d4;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.gg-bb__added.is-on { animation: gg-bb-added 0.25s ease; }
+
+@keyframes gg-bb-added {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-bb__added.is-on { animation: none; }
+}
+
+.gg-bb__err {
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gg-sale);
+}
+
+.gg-bb__err[hidden] { display: none; }
+
+/* Gift packaging switch: the whole row is the label */
+.gg-bb__wrap {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 10px 14px;
+  border: 1px solid var(--gg-line);
+  border-radius: var(--gg-radius-md);
+  background: var(--gg-surface-2);
+  cursor: pointer;
+  transition: border-color var(--gg-dur), background-color var(--gg-dur);
+}
+
+.gg-bb__wrap:has(.gg-bb__wrap-input:checked) {
+  border-color: var(--gg-ink);
+  background: var(--gg-white);
+}
+
+.gg-bb__wrap-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.gg-bb__wrap-switch {
+  position: relative;
+  width: 40px;
+  height: 24px;
+  border-radius: var(--gg-radius-pill);
+  background: #cfcfcf;
+  transition: background-color var(--gg-dur);
+}
+
+.gg-bb__wrap-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gg-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform var(--gg-dur);
+}
+
+.gg-bb__wrap-input:checked + .gg-bb__wrap-switch { background: var(--gg-good); }
+.gg-bb__wrap-input:checked + .gg-bb__wrap-switch::after { transform: translateX(16px); }
+
+.gg-bb__wrap-input:focus-visible + .gg-bb__wrap-switch {
+  outline: 2px solid var(--gg-ink);
+  outline-offset: 2px;
+}
+
+.gg-bb__wrap-txt {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* 13px on phones keeps "Als Geschenk verpacken" on one line next to the switch and the price */
+.gg-bb__wrap-title {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+  color: inherit;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.gg-bb__wrap-title:hover { text-decoration-thickness: 2px; }
+
+@media (min-width: 750px) {
+  .gg-bb__wrap-title {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.gg-bb__wrap-sub {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--gg-muted);
+}
+
+.gg-bb__wrap-price {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Payment icons + delivery / carriers / guarantee badges (snippets keep their own styles) */
+.gg-bb__trust {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gg-line);
+}
+
+/* The snippets give the icons 32px top margin and the badges 24px for the product pages; the box has its own spacing */
+.gg-bb__trust .fmx-pay-icons { margin: 0 auto; }
+.gg-bb__trust .fmx-shipping-badges { margin: 0; }
+
+.gg-bb__fine {
+  margin: -4px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--gg-muted);
+}
+
+/* ---------- below: filters + scent grid ---------- */
+
+.gg-bb__pick {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.gg-bb__filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.gg-bb__group[hidden] { display: none; }
+
+.gg-bb__label {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gg-muted);
+}
+
+.gg-bb__note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gg-muted);
+}
+
+/* Horizontal scroller (bleeds to the screen edge on phones) */
+.gg-bb__scroller {
+  display: flex;
+  gap: 8px;
+  margin: 0 calc(-1 * var(--gg-gutter));
+  padding: 0 var(--gg-gutter) 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gg-bb__scroller::-webkit-scrollbar { display: none; }
+
+.gg-bb__chip,
+.gg-bb__opt,
+.gg-bb__pill {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--gg-line);
+  background: var(--gg-white);
+  color: var(--gg-ink);
+  font-family: var(--gg-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--gg-dur), border-color var(--gg-dur), color var(--gg-dur);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.gg-bb__chip { border-radius: var(--gg-radius-pill); }
+
+.gg-bb__chip:hover,
+.gg-bb__pill:hover { border-color: var(--gg-ink); }
+
+/* Gift-set chip as add-on (6er / 9er): price shows, an added set turns dark with a check */
+.gg-bb__chip-ok,
+.gg-bb__chip-price { display: none; }
+
+.gg-bb__chip.is-addon .gg-bb__chip-price {
+  display: inline;
+  font-weight: 400;
+  color: var(--gg-muted);
+}
+
+.gg-bb__chip.is-added {
+  background: var(--gg-ink);
+  border-color: var(--gg-ink);
+  color: var(--gg-white);
+}
+
+.gg-bb__chip.is-added .gg-bb__chip-ok { display: inline; }
+.gg-bb__chip.is-added .gg-bb__chip-price { color: var(--gg-white); opacity: 0.75; }
+
+.gg-bb__note[hidden] { display: none; }
+
+/* Add-on lines in the box: "+ Für Mama  44 €  ×" */
+.gg-bb__addons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gg-bb__addons[hidden] { display: none; }
+
+.gg-bb__addon {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px 6px 14px;
+  border: 1px solid var(--gg-ink);
+  border-radius: var(--gg-radius-md);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.gg-bb__addon-title {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.gg-bb__addon-x {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--gg-muted);
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.gg-bb__addon-x:hover { color: var(--gg-ink); }
+
+.gg-bb__chip[disabled] {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Gender: one segmented bar (Alle | Unisex | Herren | Damen) */
+.gg-bb__scroller.gg-bb__opts {
+  gap: 4px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid var(--gg-ink);
+  border-radius: var(--gg-radius-pill);
+  background: var(--gg-white);
+}
+
+.gg-bb__opt {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-color: transparent;
+  border-radius: var(--gg-radius-pill);
+  background: transparent;
+}
+
+.gg-bb__opt:hover { background: var(--gg-surface); }
+
+.gg-bb__opt.is-active,
+.gg-bb__pill.is-active {
+  background: var(--gg-ink);
+  border-color: var(--gg-ink);
+  color: var(--gg-white);
+}
+
+.gg-bb__opt[hidden] { display: none; }
+
+.gg-bb__cnt {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+/* Scent families: square-ish boxes */
+.gg-bb__pill {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-color: var(--gg-ink);
+  border-radius: var(--gg-radius-btn);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.gg-bb__search {
+  position: relative;
+  max-width: 420px;
+}
+
+.gg-bb__search-ico {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  margin-top: -9px;
+  color: var(--gg-muted);
+  pointer-events: none;
+}
+
+.gg-bb__input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 12px 16px 12px 44px;
+  border: 1px solid var(--gg-ink);
+  border-radius: var(--gg-radius-pill);
+  background: var(--gg-white);
+  color: var(--gg-ink);
+  font-family: var(--gg-font-body);
+  font-size: 16px;
+  line-height: 22px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.gg-bb__input:focus {
+  outline: 2px solid var(--gg-ink);
+  outline-offset: 1px;
+}
+
+.gg-bb__main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.gg-bb__listhead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.gg-bb__count {
+  margin: 0;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.gg-bb__sort {
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gg-muted);
+}
+
+/* Scent cards: 2 / 3 / 4 per row */
+.gg-bb__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  outline: none;
+}
+
+.gg-bb__none {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 32px 0;
+  text-align: center;
+  color: var(--gg-muted);
+}
+
+.gg-bb__row {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 8px 8px 10px;
+  border: 1px solid var(--gg-line);
+  border-radius: var(--gg-radius-md);
+  background: var(--gg-white);
+  cursor: pointer;
+  transition: border-color var(--gg-dur);
+}
+
+.gg-bb__row:hover,
+.gg-bb__row.is-picked { border-color: var(--gg-ink); }
+
+.gg-bb__thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  background: var(--gg-surface);
+  overflow: hidden;
+}
+
+.gg-bb__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gg-bb__info {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: 0 2px;
+}
+
+.gg-bb__l1 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+}
+
+.gg-bb__num {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+/* Badges next to the number: Bestseller = sale red, Neu = the store's badge green (as on Bundle & Save) */
+.gg-bb__tag {
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: var(--gg-radius-btn);
+  color: var(--gg-white);
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gg-bb__tag--best { background: var(--gg-sale); }
+.gg-bb__tag--new { background: #22613a; }
+
+.gg-bb__insp {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gg-muted);
+  overflow-wrap: anywhere;
+}
+
+.gg-bb__act { display: flex; }
+
+.gg-bb__add {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--gg-ink);
+  border-radius: var(--gg-radius-pill);
+  background: var(--gg-white);
+  color: var(--gg-ink);
+  font-family: var(--gg-font-body);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color var(--gg-dur), color var(--gg-dur), opacity var(--gg-dur);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.gg-bb__add:hover {
+  background: var(--gg-ink);
+  color: var(--gg-white);
+}
+
+.gg-bb__add[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: var(--gg-white);
+  color: var(--gg-ink);
+}
+
+.gg-bb__step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid var(--gg-ink);
+  border-radius: var(--gg-radius-pill);
+  background: var(--gg-ink);
+  color: var(--gg-white);
+}
+
+.gg-bb__stepbtn {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: var(--gg-font-body);
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.gg-bb__stepbtn[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.gg-bb__qty {
+  min-width: 20px;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.gg-bb__more {
+  align-self: center;
+  min-height: 48px;
+  margin-top: 8px;
+  padding: 12px 28px;
+  border: 1px solid var(--gg-ink);
+  border-radius: var(--gg-radius-pill);
+  background: var(--gg-white);
+  color: var(--gg-ink);
+}
+
+.gg-bb__more:hover {
+  background: var(--gg-ink);
+  color: var(--gg-white);
+}
+
+.gg-bb__more[hidden] { display: none; }
+
+/* ---------- 750 ---------- */
+
+@media (min-width: 750px) {
+  .gg-bb__sum { padding: 20px; }
+  .gg-bb__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- 990: two-column product card on top ---------- */
+
+@media (min-width: 990px) {
+  .gg-bb__card { gap: 40px; }
+
+  .gg-bb__top {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .gg-bb__sum {
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .gg-bb__sum-title {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .gg-bb__scroller {
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .gg-bb__scroller.gg-bb__opts {
+    flex-wrap: nowrap;
+    padding: 4px;
+  }
+
+
+  .gg-bb__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* Gift packaging row on phones: smaller switch and gaps leave the title room next to the price */
+@media (max-width: 749px) {
+  .gg-bb__wrap {
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .gg-bb__wrap-switch {
+    width: 36px;
+    height: 22px;
+  }
+
+  .gg-bb__wrap-switch::after {
+    width: 16px;
+    height: 16px;
+  }
+
+  .gg-bb__wrap-input:checked + .gg-bb__wrap-switch::after { transform: translateX(14px); }
+
+  .gg-bb__wrap-price { font-size: 13px; }
+}
+
+@media (max-width: 389px) {
+  .gg-bb__wrap-title { font-size: 12px; }
+}
+
+.gg-bb__addon-prices { white-space: nowrap; }
+
+.gg-bb__addon-was {
+  font-size: 13px;
+  color: var(--gg-muted);
+}
+
+.gg-bb__chip-price s { opacity: 0.8; }
+
+/* Single price on a scent card */
+.gg-bb__price {
+  margin-top: auto;
+  padding-top: 2px;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+/* ---------- phones ---------- */
+@media (max-width: 749px) {
+  /* Heading on one line from 320px up */
+  .gg-bb .gg-head .gg-h2 { font-size: clamp(18px, 5.6vw, 24px); }
+
+  /* Gender bar: equal columns across the full width, all four options visible */
+  .gg-bb__scroller.gg-bb__opts {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 2px;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .gg-bb__opt {
+    gap: 4px;
+    min-width: 0;
+    padding: 8px 4px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .gg-bb__opt .gg-bb__cnt { font-size: 11px; }
+
+  /* Gift wrap row: tighter gaps so the title stays on one line next to the switch and the price */
+  .gg-bb__wrap {
+    gap: 8px;
+    padding: 10px;
+  }
+}
+
+/* 320px phones: no room for the price beside the title, it moves under it */
+@media (max-width: 339px) {
+  .gg-bb__wrap {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "sw txt" "sw price";
+    row-gap: 0;
+  }
+
+  .gg-bb__wrap-switch { grid-area: sw; }
+  .gg-bb__wrap-txt { grid-area: txt; }
+  .gg-bb__wrap-price { grid-area: price; }
+}

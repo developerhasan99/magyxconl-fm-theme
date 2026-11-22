@@ -1,0 +1,227 @@
+{{ 'gg-base.css' | asset_url | stylesheet_tag }}
+{{ 'gg-sections.css' | asset_url | stylesheet_tag }}
+<div class="gg gg-rec" id="gg-{{ section.id }}">
+  {%- if section.settings.anchor != blank -%}
+    <span class="gg-anchor" id="{{ section.settings.anchor | handleize }}">&#8203;</span>
+  {%- endif -%}
+  <div class="gg__wrap">
+    <div class="gg-head gg-head--center">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="gg-h2">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.sub != blank -%}
+        <p class="gg-sub">{{ section.settings.sub | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- assign has_rec = false -%}
+    {%- assign has_budget = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'recipient' -%}{%- assign has_rec = true -%}{%- endif -%}
+      {%- if block.type == 'budget' -%}{%- assign has_budget = true -%}{%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_rec -%}
+      <ul class="gg-rec__grid" style="--gg-rec-cols: {{ section.settings.columns | default: 4 }};">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'recipient' -%}
+            <li class="gg-rec__item" {{ block.shopify_attributes }}>
+              <a class="gg-rec__card" href="{{ block.settings.link | default: '#' }}">
+                <span class="gg-rec__media">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300, 450, 600, 800', sizes: '(min-width: 1360px) 260px, (min-width: 990px) 20vw, 50vw', class: 'gg-rec__img', alt: block.settings.title }}
+                  {%- else -%}
+                    {% render 'gg-placeholder', label: 'Recipient', size: '4:3' %}
+                  {%- endif -%}
+                </span>
+                <span class="gg-rec__body">
+                  <span class="gg-rec__title gg-h3">{{ block.settings.title | escape }}</span>
+                  {%- if block.settings.meta != blank -%}
+                    <span class="gg-rec__meta">{{ block.settings.meta | escape }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.count != blank -%}
+                    <span class="gg-rec__count">{{ block.settings.count | escape }} <span aria-hidden="true">&rarr;</span></span>
+                  {%- endif -%}
+                </span>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if has_budget -%}
+      <div class="gg-rec__budget">
+        {%- if section.settings.budget_label != blank -%}
+          <p class="gg-eyebrow gg-rec__budget-label">{{ section.settings.budget_label | escape }}</p>
+        {%- endif -%}
+        <ul class="gg-rec__chips">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'budget' -%}
+              <li class="gg-rec__chip-item" {{ block.shopify_attributes }}>
+                <a class="gg-rec__chip" href="{{ block.settings.link | default: '#' }}">
+                  <span class="gg-rec__chip-price">{{ block.settings.price | escape }}</span>
+                  {%- if block.settings.text != blank -%}
+                    <span class="gg-rec__chip-text">{{ block.settings.text | escape }}</span>
+                  {%- endif -%}
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "GG Recipients",
+  "tag": "section",
+  "class": "gg-section pm-scope",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor ID (optional)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Who are you shopping for?"
+    },
+    {
+      "type": "textarea",
+      "id": "sub",
+      "label": "Subtitle",
+      "default": "Every set holds three 50 ml bottles, each boxed on its own: one big gift or three small ones."
+    },
+    {
+      "type": "text",
+      "id": "budget_label",
+      "label": "Label of the chips",
+      "default": "Gifts by type"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Cards per row (desktop)",
+      "info": "Always 2 on phones. With 10 cards, 5 fills two rows.",
+      "options": [
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ],
+      "default": "4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "recipient",
+      "name": "Recipient",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (4:3)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "For her"
+        },
+        {
+          "type": "text",
+          "id": "meta",
+          "label": "Meta line",
+          "default": "Scent wardrobe · Bestsellers · Floral"
+        },
+        {
+          "type": "text",
+          "id": "count",
+          "label": "Count text",
+          "default": "3 sets"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Link (also #anchor)",
+          "default": "#for-her"
+        }
+      ]
+    },
+    {
+      "type": "budget",
+      "name": "Chip",
+      "settings": [
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Label",
+          "default": "Gift sets"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Sets of three scents"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Link (also #anchor)",
+          "default": "#for-her"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GG Recipients",
+      "blocks": [
+        {
+          "type": "recipient",
+          "settings": {
+            "title": "For her",
+            "meta": "Scent wardrobe · Bestsellers · Floral",
+            "count": "3 sets",
+            "link": "#for-her"
+          }
+        },
+        {
+          "type": "recipient",
+          "settings": {
+            "title": "For him",
+            "meta": "Fresh · Woody · Intense",
+            "count": "3 sets",
+            "link": "#for-him"
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "price": "Gift sets",
+            "text": "Three scents, ready to give",
+            "link": "#for-her"
+          }
+        },
+        {
+          "type": "budget",
+          "settings": {
+            "price": "Build your own",
+            "text": "You pick the scents",
+            "link": "#build-your-own"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
