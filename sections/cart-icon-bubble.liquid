@@ -1,7 +1,15 @@
 {% if cart == empty %}
-  {{ 'icon-cart.svg' | inline_asset_content }}
+  {%- render 'pm-icon'
+    , icon: 'bag'
+    , size: 24
+    , stroke: 1.5
+    , class: 'icon icon-cart' -%}
 {% else %}
-  {{ 'icon-cart.svg' | inline_asset_content }}
+  {%- render 'pm-icon'
+    , icon: 'bag'
+    , size: 24
+    , stroke: 1.5
+    , class: 'icon icon-cart' -%}
 {% endif %}
 
 <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
