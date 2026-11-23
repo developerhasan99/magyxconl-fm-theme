@@ -1,0 +1,56 @@
+{%- comment -%}
+  Bundle lines carry their component variant IDs in the _bundle_items property; the
+  magyx-cart-transform app expands them at checkout. If any of those variants has since been
+  deleted, Shopify rejects the expansion (component_merchandise_not_found) on every cart load and
+  raises a "cart transform function failed" alert. A bundle can't ship short (6x50ml needs all 6),
+  so the whole bundle line is removed and the customer rebuilds it.
+  A variant counts as gone only on a 404 from /variants/<id>.js; network errors keep the line.
+{%- endcomment -%}
+{%- liquid
+  assign has_bundle = false
+  for item in cart.items
+    if item.properties['_bundle_items'] != blank
+      assign has_bundle = true
+      break
+    endif
+  endfor
+-%}
+{%- if has_bundle -%}
+  <script>
+    (function () {
+      var lines = [
+        {%- for item in cart.items -%}
+          {%- if item.properties['_bundle_items'] != blank -%}
+            { "key": {{ item.key | json }}, "ids": {{ item.properties['_bundle_items'] | json }} },
+          {%- endif -%}
+        {%- endfor -%}
+      ].map(function (l) {
+        return { key: l.key, ids: String(l.ids).split(',').map(function (s) { return s.trim(); }).filter(Boolean) };
+      });
+      var flag = 'bundle-cart-guard:' + lines.map(function (l) { return l.key; }).join(',');
+      try { if (sessionStorage.getItem(flag)) return; sessionStorage.setItem(flag, '1'); } catch (e) {}
+
+      var root = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
+      var ids = [];
+      lines.forEach(function (l) { l.ids.forEach(function (id) { if (ids.indexOf(id) < 0) ids.push(id); }); });
+
+      Promise.all(ids.map(function (id) {
+        return fetch(root + 'variants/' + id + '.js', { headers: { Accept: 'application/json' } })
+          .then(function (r) { return r.status === 404 ? id : null; })
+          .catch(function () { return null; });
+      })).then(function (dead) {
+        dead = dead.filter(Boolean);
+        var updates = {};
+        lines.forEach(function (l) {
+          if (l.ids.some(function (id) { return dead.indexOf(id) >= 0; })) updates[l.key] = 0;
+        });
+        if (!Object.keys(updates).length) return;
+        return fetch(root + 'cart/update.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ updates: updates })
+        }).then(function (r) { if (r.ok) location.reload(); });
+      });
+    })();
+  </script>
+{%- endif -%}
