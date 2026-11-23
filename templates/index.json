@@ -225,6 +225,7 @@
           "settings": {
             "title": "Utique-collectie",
             "collection": "black-utique",
+            "description": "",
             "button_text": "View all"
           }
         },
@@ -233,6 +234,7 @@
           "settings": {
             "title": "Bestsellers",
             "collection": "top-sellers",
+            "description": "",
             "button_text": "View all"
           }
         },
@@ -242,6 +244,7 @@
           "settings": {
             "title": "New scents",
             "collection": "heetste-zomergeuren-2026",
+            "description": "",
             "button_text": "View all"
           }
         },
@@ -250,6 +253,7 @@
           "settings": {
             "title": "Women",
             "collection": "women",
+            "description": "",
             "button_text": "View all"
           }
         },
@@ -258,6 +262,7 @@
           "settings": {
             "title": "Men",
             "collection": "men",
+            "description": "",
             "button_text": "View all"
           }
         }
@@ -500,6 +505,7 @@
         "bundle_1",
         "bundle_2"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "banner_image": "shopify://shop_images/Magyx_Website_04.webp",
