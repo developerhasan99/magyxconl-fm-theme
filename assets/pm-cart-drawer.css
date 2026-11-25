@@ -53,15 +53,21 @@
   margin-bottom: 30px;
 }
 
-/* low phones: the whole panel scrolls (Dawn behaviour, kept at the new specificity) */
-@media screen and (max-height: 650px) {
-  .premium .cart-drawer cart-drawer-items {
-    overflow: visible;
-  }
+/* The whole panel scrolls (lines, gift wrap, totals, checkout as one); the header stays pinned on top */
+.premium .cart-drawer cart-drawer-items {
+  overflow: visible;
+}
 
-  .premium .cart-drawer .drawer__inner {
-    overflow: scroll;
-  }
+.premium .cart-drawer .drawer__inner {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.premium .cart-drawer .drawer__header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: rgb(var(--color-background));
 }
 
 /* 4. Line item: rounded image, grey variant line, small bordered stepper */
