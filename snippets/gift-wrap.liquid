@@ -1,0 +1,50 @@
+{%- comment -%}
+  Gift wrap add-on (one per order, quantity 0 or 1). Logic: assets/gift-wrap.js, styles: assets/gift-wrap.css
+  (both loaded once from snippets/cart-drawer.liquid).
+  {% render 'gift-wrap' %}            cart drawer footer; data-fix removes a lone wrap / caps it at 1 on render
+  {% render 'gift-wrap', pdp: true %} under a product page add-to-cart; with an empty cart the tick is remembered
+                                      and the wrap is added after the product (gift-wrap.js afterAdd)
+  The handle is also used in snippets/cart-count.liquid, snippets/cart-drawer.liquid and window.giftWrapHandle
+  (layout/theme*.liquid).
+{%- endcomment -%}
+{%- liquid
+  assign gw_product = all_products['gift-wrapping']
+  assign gw_variant = gw_product.selected_or_first_available_variant
+  assign gw_image = gw_variant.image | default: gw_product.featured_image
+  assign gw_qty = 0
+  if gw_variant
+    assign gw_qty = cart | item_count_for_variant: gw_variant.id
+  endif
+  assign gw_fix = ''
+  if gw_qty > 0 and cart.item_count == gw_qty
+    assign gw_fix = 0
+  elsif gw_qty > 1
+    assign gw_fix = 1
+  endif
+-%}
+{%- if gw_variant -%}
+  {%- capture gw_row -%}
+    <label class="gift-wrap__card">
+      <input type="checkbox" class="gift-wrap__input" aria-label="{{ 'gift_wrap.add_label' | t: title: gw_product.title }}"{% if gw_qty > 0 %} checked{% endif %}>
+      <span class="gift-wrap__box" aria-hidden="true">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" focusable="false"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      {%- if gw_image -%}
+        {{ gw_image | image_url: width: 120 | image_tag: class: 'gift-wrap__img', width: 48, height: 48, alt: '', loading: 'lazy' }}
+      {%- endif -%}
+      <span class="gift-wrap__text">
+        <span class="gift-wrap__title">{{ gw_product.title | escape }}</span>
+        {%- assign gw_price = gw_variant.price | money -%}
+        <span class="gift-wrap__price">{{ 'gift_wrap.add_for' | t: price: gw_price }}</span>
+      </span>
+    </label>
+  {%- endcapture -%}
+
+  {%- if pdp -%}
+    {%- if gw_variant.available -%}
+      <gift-wrap-pdp class="gift-wrap gift-wrap--pdp" data-variant="{{ gw_variant.id }}">{{ gw_row }}</gift-wrap-pdp>
+    {%- endif -%}
+  {%- elsif gw_variant.available or gw_qty > 0 -%}
+    <gift-wrap class="gift-wrap" data-variant="{{ gw_variant.id }}"{% if gw_fix != '' %} data-fix="{{ gw_fix }}"{% endif %}>{{ gw_row }}</gift-wrap>
+  {%- endif -%}
+{%- endif -%}

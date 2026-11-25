@@ -126,7 +126,7 @@
     <script type="application/json" data-tg-items>
       [
         {%- for item in cart.items -%}
-          {"quantity":{{ item.quantity }},"title":{{ item.title | json }},"variant_title":{{ item.variant.title | json }},"product_title":{{ item.product.title | json }},"properties":{"_free_product":{{ item.properties['_free_product'] | json }},"_bundle_items":{{ item.properties['_bundle_items'] | json }}}}
+          {"quantity":{{ item.quantity }},"handle":{{ item.product.handle | json }},"final_line_price":{{ item.final_line_price }},"title":{{ item.title | json }},"variant_title":{{ item.variant.title | json }},"product_title":{{ item.product.title | json }},"properties":{"_free_product":{{ item.properties['_free_product'] | json }},"_bundle_items":{{ item.properties['_bundle_items'] | json }}}}
           {%- unless forloop.last -%},{%- endunless -%}
         {%- endfor -%}
       ]

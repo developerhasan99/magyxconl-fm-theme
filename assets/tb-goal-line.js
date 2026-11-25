@@ -108,6 +108,7 @@
     var items = [];
     try { items = JSON.parse(root.querySelector('[data-tg-items]').textContent); } catch (e) { items = []; }
     var bottles = bottlesIn(items);
+    total -= window.giftWrapCents({ items: items }); // the gift wrap counts toward no goal
     var goals = null;
     var marks = [];
     var reachedSteps = null;
@@ -277,7 +278,7 @@
 
     function applyCart(cart, animate) {
       if (!cart || typeof cart.total_price !== 'number' || !cart.items) return;
-      total = cart.total_price;
+      total = cart.total_price - window.giftWrapCents(cart);
       bottles = bottlesIn(cart.items);
       render(animate);
     }

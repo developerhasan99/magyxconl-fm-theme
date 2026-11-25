@@ -21,6 +21,9 @@
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- comment -%} Gift wrap card (drawer + product pages). Kept outside .drawer__inner so section re-renders never re-insert it. {%- endcomment -%}
+{{ 'gift-wrap.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'gift-wrap.js' | asset_url }}" defer="defer"></script>
 
 <cart-drawer class="[visibility:hidden] drawer{% if cart == empty %} is-empty{% endif %}">
   <div id="CartDrawer" class="cart-drawer">
@@ -36,7 +39,7 @@
           {{ 'sections.cart.title' | t }}
           <span>
             <span class="drawer__heading-dot">•</span>
-            <span>{{ cart.item_count }}</span>
+            <span>{% render 'cart-count' %}</span>
           </span>
         </h2>
         <button
@@ -77,6 +80,8 @@
                   <table class="cart-items" role="table">
                     <tbody role="rowgroup">
                       {%- for item in cart.items -%}
+                        {%- comment -%} The gift wrap line is shown as the card in the footer (snippets/gift-wrap.liquid). {%- endcomment -%}
+                        {%- if item.product.handle == 'gift-wrapping' -%}{%- continue -%}{%- endif -%}
                         <tr
                           id="CartDrawer-Item-{{ item.index | plus: 1 }}"
                           class="cart-item"
@@ -421,6 +426,7 @@
               </cart-note>
             </details>
           {%- endif -%}
+          {% render 'gift-wrap' %}
           <!-- Start blocks -->
           <!-- Subtotals -->
           <div class="cart-drawer__footer" {{ block.shopify_attributes }}>

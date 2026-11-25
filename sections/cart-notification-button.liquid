@@ -1,1 +1,3 @@
-{{ 'general.cart.view' | t: count: cart.item_count }}
+{%- capture cart_count -%}{% render 'cart-count' %}{%- endcapture -%}
+{%- assign cart_count = cart_count | plus: 0 -%}
+{{ 'general.cart.view' | t: count: cart_count }}

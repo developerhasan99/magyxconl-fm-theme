@@ -8,6 +8,10 @@
  * ------------------------------------------------------------
  */
 {
+  "gift_wrap": {
+    "add_for": "Pridėti už +{{ price }}",
+    "add_label": "Pridėti {{ title }}"
+  },
   "general": {
     "password_page": {
       "login_form_heading": "Apsilankyti parduotuvėje naudojant slaptažodį:",

@@ -8,6 +8,10 @@
  * ------------------------------------------------------------
  */
 {
+  "gift_wrap": {
+    "add_for": "Ajouter pour +{{ price }}",
+    "add_label": "Ajouter {{ title }}"
+  },
   "aaroma": {
     "timer": {
       "ends_in": "Se termine dans",

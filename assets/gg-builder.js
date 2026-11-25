@@ -378,7 +378,7 @@
       if (!this.goals.length || !this.$.goals) return;
       var t = this.t;
       var c = this.cart || {};
-      var v = typeof c.items_subtotal_price === 'number' ? c.items_subtotal_price : (c.total_price || 0);
+      var v = (typeof c.items_subtotal_price === 'number' ? c.items_subtotal_price : (c.total_price || 0)) - window.giftWrapCents(c);
       this.$.goalsFill.style.width = trackPos(this.goals.map(function (g) { return g.amount; }), v) + '%';
       var marks = this.$.goalsList.children;
       var next = null;
@@ -424,6 +424,7 @@
       var p = it.properties || {};
       if (p._bundle_items || p._free_product) return false;
       if (this.cfg.wrap && String(it.variant_id) === String(this.cfg.wrap.variantId)) return false;
+      if (it.handle === window.giftWrapHandle) return false;
       if (this.qualify[String(it.product_id)] === true) return true;
       return !!(it.line_level_discount_allocations && it.line_level_discount_allocations.length);
     }
@@ -860,7 +861,9 @@
       if (this.$.bar) {
         this.$.barCta.disabled = !hasItems;
         var badge = this.$.barCta.querySelector('[data-bar-badge]');
-        var count = this.cart.item_count || 0;
+        var count = (this.cart.items || []).reduce(function (n, it) {
+          return n + (it.handle === window.giftWrapHandle ? 0 : it.quantity);
+        }, 0);
         if (badge) {
           badge.textContent = count > 99 ? '99+' : String(count);
           badge.hidden = !count;

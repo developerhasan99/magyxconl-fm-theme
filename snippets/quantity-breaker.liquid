@@ -300,6 +300,7 @@
       </button>
     {%- endform -%}
   </product-form>
+  {% render 'gift-wrap', pdp: true %}
 
   {% comment %} Bonus fragrance modal — teleported to <body> so it sits above the header and sticky bars {% endcomment %}
   <template x-teleport="body">

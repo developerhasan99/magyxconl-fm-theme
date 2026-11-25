@@ -1,0 +1,10 @@
+{%- comment -%} cart.item_count without the gift wrap line (snippets/gift-wrap.liquid). Usage: {% render 'cart-count' %} {%- endcomment -%}
+{%- liquid
+  assign count = cart.item_count
+  for item in cart.items
+    if item.product.handle == 'gift-wrapping'
+      assign count = count | minus: item.quantity
+    endif
+  endfor
+  echo count
+-%}

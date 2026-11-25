@@ -8,6 +8,10 @@
  * ------------------------------------------------------------
  */
 {
+  "gift_wrap": {
+    "add_for": "Pievienot par +{{ price }}",
+    "add_label": "Pievienot {{ title }}"
+  },
   "accessibility": {
     "skip_to_text": "Pāriet uz saturu",
     "close": "Aizvērt",

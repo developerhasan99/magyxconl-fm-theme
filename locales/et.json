@@ -8,6 +8,10 @@
  * ------------------------------------------------------------
  */
 {
+  "gift_wrap": {
+    "add_for": "Lisa +{{ price }} eest",
+    "add_label": "Lisa {{ title }}"
+  },
   "accessibility": {
     "skip_to_text": "Mine sisule",
     "close": "Sulge",

@@ -8,6 +8,10 @@
  * ------------------------------------------------------------
  */
 {
+  "gift_wrap": {
+    "add_for": "Hinzufügen für +{{ price }}",
+    "add_label": "{{ title }} hinzufügen"
+  },
   "general": {
     "password_page": {
       "login_form_heading": "Winkel mit Passwort betreten:",
