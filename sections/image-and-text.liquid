@@ -19,8 +19,20 @@
       {%- endif -%}
     }
   }
-{%- endstyle -%}
+    .section-{{ section.id }} .image-and-text-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
 
+  {% if section.settings.rounded_image %}
+    .section-{{ section.id }} .image-and-text-video video {
+      border-radius: 0.75rem;
+    }
+  {% endif %}
+{%- endstyle -%}
 {%- liquid
   assign fetch_priority = 'auto'
   if section.index == 1
@@ -34,15 +46,27 @@
       style="column-gap: {{ section.settings.columns_gap }}px; row-gap: {{ section.settings.rows_gap }}px; align-items: {{ section.settings.content_alignment }};"
       class="[display:grid] grid-cols-1 md:grid-cols-2"
     >
-      <div class="{% if section.settings.mobile_image_placement == 'under_heading' %} [display:none] md:block {% endif %}">
-        <img
-            class="w-full rounded-lg h-auto shadow {% if section.settings.rounded_image %} rounded-xl{% endif %}"
-            src="{{ section.settings.image |  image_url }}"
+         <div class="{% if section.settings.mobile_image_placement == 'under_heading' %} [display:none] md:block {% endif %}">
+        {% if section.settings.section_video != blank %}
+          <div class="image-and-text-video">
+            {{ section.settings.section_video | video_tag:
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              playsinline: true
+            }}
+          </div>
+        {% elsif section.settings.image != blank %}
+          <img
+            class="w-full rounded-lg h-auto shadow {% if section.settings.rounded_image %}rounded-xl{% endif %}"
+            src="{{ section.settings.image | image_url }}"
             alt="{{ section.settings.alt }}"
             height="{{ section.settings.image.height }}"
             width="{{ section.settings.image.width }}"
-            fetchpriority="{{  fetch_priority }}"
-        >
+            fetchpriority="{{ fetch_priority }}"
+          >
+        {% endif %}
       </div>
       <div style="gap: {{ section.settings.blocks_gap }}px;" class="{% if section.settings.image_placement == '1' %} md:-order-1 {% endif %} flex flex-col text-center md:text-left">
         {% for block in section.blocks %}
@@ -61,17 +85,29 @@
                         }
                     </style>
                     <{{ block.settings.heading_type }} class="block-{{ block.id }}-class" {{ block.shopify_attributes }}>{{ block.settings.content }}</{{ block.settings.heading_type }}>
-                    {% if section.settings.mobile_image_placement == 'under_heading' %}
-                        <div class="md:hidden">
-                            <img
-                            class="w-full rounded-lg h-auto shadow {% if section.settings.rounded_image %} rounded-xl{% endif %}"
-                            src="{{ section.settings.image |  image_url }}"
+                     {% if section.settings.mobile_image_placement == 'under_heading' %}
+                      <div class="md:hidden">
+                        {% if section.settings.section_video != blank %}
+                          <div class="image-and-text-video">
+                            {{ section.settings.section_video | video_tag:
+                              autoplay: true,
+                              loop: true,
+                              muted: true,
+                              controls: false,
+                              playsinline: true
+                            }}
+                          </div>
+                        {% elsif section.settings.image != blank %}
+                          <img
+                            class="w-full rounded-lg h-auto shadow {% if section.settings.rounded_image %}rounded-xl{% endif %}"
+                            src="{{ section.settings.image | image_url }}"
                             alt="{{ section.settings.alt }}"
                             height="{{ section.settings.image.height }}"
                             width="{{ section.settings.image.width }}"
-                            fetchpriority="{{  fetch_priority }}"
-                        >
-                        </div>
+                            fetchpriority="{{ fetch_priority }}"
+                          >
+                        {% endif %}
+                      </div>
                     {% endif %}
                 {% when 'text' %}
                     <div style="font-size: {{ block.settings.font_size }}px;" class="block-{{ block.id }}-class" {{ block.shopify_attributes }}>
@@ -147,6 +183,11 @@
         "type": "image_picker",
         "id": "image",
         "label": "Section Image",
+      },
+      {
+        "type": "video",
+        "id": "section_video",
+      "label": "Section Video"
       },
       {
       "type": "checkbox",
