@@ -3649,5 +3649,15 @@
         "done_button": "Continuer vos achats"
       }
     }
+  },
+  "mp_trust": {
+    "europe_title": "Fabriqué en Europe",
+    "europe_text": "Sans phtalates ni parabènes. Aucun perturbateur endocrinien.",
+    "conc_title": "Eau de parfum hautement concentrée",
+    "conc_text": "20 % d’huile de parfum de Grasse, en France, dans chaque parfum.",
+    "experts_title": "Conçu par des experts en parfumerie",
+    "experts_text": "Par les créateurs de marques connues. Plus de 70 parfums au choix.",
+    "trial_title": "60 jours pour l’essayer",
+    "trial_text": "Ce n’est pas le bon ? Renvoyez-le sous 60 jours."
   }
 }

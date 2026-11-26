@@ -4242,5 +4242,15 @@
         }
       }
     }
+  },
+  "mp_trust": {
+    "europe_title": "Gemaakt in Europa",
+    "europe_text": "Zonder ftalaten en parabenen. Geen hormoonverstorende stoffen.",
+    "conc_title": "Sterk geconcentreerde eau de parfum",
+    "conc_text": "20% parfumolie uit Grasse, Frankrijk, in elke geur.",
+    "experts_title": "Ontwikkeld door parfumexperts",
+    "experts_text": "Door de mensen achter bekende merken. Meer dan 70 geuren om uit te kiezen.",
+    "trial_title": "60 dagen proberen",
+    "trial_text": "Niet jouw geur? Stuur hem binnen 60 dagen terug."
   }
 }

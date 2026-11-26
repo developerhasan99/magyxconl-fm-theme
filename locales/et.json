@@ -3894,5 +3894,15 @@
       "announcement": "Teade",
       "announcement_bar": "Teavitusriba"
     }
+  },
+  "mp_trust": {
+    "europe_title": "Valmistatud Euroopas",
+    "europe_text": "Ilma ftalaatide ja parabeenideta. Hormoonsüsteemi häirivaid aineid ei sisalda.",
+    "conc_title": "Kõrge kontsentratsiooniga eau de parfum",
+    "conc_text": "Igas lõhnas 20% parfüümiõli Grasse'ist Prantsusmaalt.",
+    "experts_title": "Loodud parfüümiekspertide poolt",
+    "experts_text": "Tuntud brändide taga olevatelt inimestelt. Valikus üle 70 lõhna.",
+    "trial_title": "60 päeva proovimiseks",
+    "trial_text": "Pole sinu lõhn? Tagasta see 60 päeva jooksul."
   }
 }

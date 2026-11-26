@@ -572,5 +572,15 @@
       "expanded": "Išskleista dovanų kortelės gavėjo forma",
       "collapsed": "Suskleista dovanų kortelės gavėjo forma"
     }
+  },
+  "mp_trust": {
+    "europe_title": "Pagaminta Europoje",
+    "europe_text": "Be ftalatų ir parabenų. Jokių hormonų veiklą sutrikdančių medžiagų.",
+    "conc_title": "Didelės koncentracijos eau de parfum",
+    "conc_text": "Kiekviename kvape 20% kvepalų aliejaus iš Graso, Prancūzijos.",
+    "experts_title": "Sukurta kvepalų ekspertų",
+    "experts_text": "Žmonių, sukūrusių žinomus prekių ženklus. Daugiau nei 70 kvapų pasirinkimas.",
+    "trial_title": "60 dienų išbandymui",
+    "trial_text": "Ne jūsų kvapas? Grąžinkite per 60 dienų."
   }
 }

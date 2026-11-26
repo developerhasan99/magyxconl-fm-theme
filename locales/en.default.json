@@ -3056,5 +3056,15 @@
     "bundle": {
       "selected_count": "{{ count }} / {{ total }} selected"
     }
+  },
+  "mp_trust": {
+    "europe_title": "Made in Europe",
+    "europe_text": "No phthalates or parabens. No hormone-disrupting substances.",
+    "conc_title": "Highly concentrated eau de parfum",
+    "conc_text": "20% perfume oil from Grasse, France, in every scent.",
+    "experts_title": "Developed by perfume experts",
+    "experts_text": "By the people behind well-known brands. Over 70 scents to choose from.",
+    "trial_title": "60 days to try",
+    "trial_text": "Not your scent? Return it within 60 days."
   }
 }

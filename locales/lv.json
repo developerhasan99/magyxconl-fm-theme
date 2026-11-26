@@ -3934,5 +3934,15 @@
       "max_error": "Šim rakstam ir maksimālais daudzums {{ max }}.",
       "step_error": "Jūs varat šo preci pievienot tikai {{ step }} soļu intervālos"
     }
+  },
+  "mp_trust": {
+    "europe_title": "Ražots Eiropā",
+    "europe_text": "Bez ftalātiem un parabēniem. Bez hormonu darbību traucējošām vielām.",
+    "conc_title": "Augstas koncentrācijas eau de parfum",
+    "conc_text": "Katrā smaržā 20% smaržu eļļas no Grasas, Francijā.",
+    "experts_title": "Izstrādājuši smaržu eksperti",
+    "experts_text": "No cilvēkiem, kas radījuši zināmus zīmolus. Vairāk nekā 70 smaržas izvēlei.",
+    "trial_title": "60 dienas izmēģināšanai",
+    "trial_text": "Nav jūsu smarža? Atgrieziet to 60 dienu laikā."
   }
 }

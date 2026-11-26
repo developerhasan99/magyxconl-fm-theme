@@ -4380,5 +4380,15 @@
       },
       "privacy_link_text": "Datenschutz"
     }
+  },
+  "mp_trust": {
+    "europe_title": "Hergestellt in Europa",
+    "europe_text": "Ohne Phthalate und Parabene. Keine hormonstörenden Stoffe.",
+    "conc_title": "Hochkonzentriertes Eau de Parfum",
+    "conc_text": "20 % Parfumöl aus Grasse, Frankreich, in jedem Duft.",
+    "experts_title": "Von Parfumexperten entwickelt",
+    "experts_text": "Von den Leuten hinter bekannten Marken. Über 70 Düfte zur Auswahl.",
+    "trial_title": "60 Tage testen",
+    "trial_text": "Nicht dein Duft? Innerhalb von 60 Tagen zurückgeben."
   }
 }
