@@ -1,0 +1,234 @@
+/* ts-goal-combo.css: combined goals bar above a collection grid (snippets/ts-goal-combo.liquid,
+   assets/ts-goal-combo.js). Same look as the top bar's goal line (assets/tb-goal-line.css: track, red striped fill,
+   round markers that turn red when reached, next one pulses), on the page's own colours (theme --color-foreground /
+   --color-background). Marker centres sit at --x of the track minus one marker width (+ half), so the first and
+   last markers stay inside the track. The room is reserved before the script fills it, so nothing moves. */
+
+.ts-gc {
+  --gc-mark: 28px;
+  --gc-fg: rgb(var(--color-foreground, 18, 18, 18));
+  --gc-bg: rgb(var(--color-background, 255, 255, 255));
+  --gc-track: rgba(var(--color-foreground, 18, 18, 18), 0.1);
+  --gc-edge: rgba(var(--color-foreground, 18, 18, 18), 0.25);
+  --gc-muted: rgba(var(--color-foreground, 18, 18, 18), 0.65);
+  margin-bottom: 12px;
+  color: var(--gc-fg);
+  font-family: var(--font-body-family, Figtree, sans-serif);
+}
+
+/* Until the cart and the rewards are known the bar keeps its room, invisible. */
+.ts-gc:not(.is-ready) {
+  visibility: hidden;
+}
+
+.ts-gc__inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Two lines reserved on phones (a long sentence wraps), one from 750px. */
+.ts-gc__text {
+  display: block;
+  min-height: 40px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* The numbers stand out, as in the top bar line: the reward in bold red, the bottle count in bold. */
+.ts-gc__hot {
+  color: #e0201b;
+  font-weight: 800;
+}
+
+.ts-gc__num {
+  font-weight: 700;
+}
+
+.ts-gc.is-done .ts-gc__text {
+  color: #e0201b;
+  font-weight: 700;
+}
+
+.ts-gc__rail {
+  position: relative;
+  height: var(--gc-mark);
+}
+
+.ts-gc__track {
+  position: absolute;
+  top: calc(50% - 4px);
+  left: 0;
+  right: 0;
+  height: 8px;
+  border-radius: 8px;
+  background: var(--gc-track);
+}
+
+.ts-gc__fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 8px;
+  background-color: #e0201b;
+  background-image:
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.22) 0 6px, rgba(255, 255, 255, 0) 6px 12px),
+    linear-gradient(90deg, #b3261e 0%, #ff3b2f 100%);
+  background-size: 17px 17px, 100% 100%;
+  box-shadow: 0 0 10px rgba(255, 59, 47, 0.4);
+  animation: ts-gc-stripes 900ms linear infinite;
+  transition: width 700ms cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+
+.ts-gc__marks {
+  position: absolute;
+  inset: 0;
+}
+
+.ts-gc__mark {
+  position: absolute;
+  top: 0;
+  left: calc(var(--x, 1) * (100% - var(--gc-mark)) + var(--gc-mark) / 2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--gc-mark);
+  height: var(--gc-mark);
+  transform: translateX(-50%);
+  border: 2px solid var(--gc-edge);
+  border-radius: 50%;
+  background: var(--gc-bg);
+  color: var(--gc-muted);
+  transition: left 500ms ease, background-color 300ms ease, border-color 300ms ease, color 300ms ease;
+}
+
+.ts-gc__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts-gc__icon--pct {
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ts-gc__mark.is-next {
+  border-color: #e0201b;
+  color: #e0201b;
+  animation: ts-gc-pulse 1600ms ease-out infinite;
+}
+
+.ts-gc__mark.is-reached {
+  border-color: #e0201b;
+  background: #e0201b;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 59, 47, 0.45);
+}
+
+.ts-gc__mark.is-pop {
+  animation: ts-gc-pop 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Labels under the markers: reward + threshold, kept inside the bar's width at both ends. */
+.ts-gc__labels {
+  position: relative;
+  height: 46px;
+  margin-top: 6px;
+}
+
+.ts-gc__label {
+  position: absolute;
+  top: 0;
+  left: clamp(0px, calc(var(--x, 1) * (100% - var(--gc-mark)) + var(--gc-mark) / 2 - 38px), calc(100% - 76px));
+  display: flex;
+  flex-direction: column;
+  width: 76px;
+  text-align: center;
+  transition: left 500ms ease;
+}
+
+/* Phones: rail ~307px at 375 and markers 24% apart (~74px), so labels narrow to 60px to never touch. */
+@media screen and (max-width: 749px) {
+  .ts-gc__label {
+    left: clamp(0px, calc(var(--x, 1) * (100% - var(--gc-mark)) + var(--gc-mark) / 2 - 30px), calc(100% - 60px));
+    width: 60px;
+  }
+}
+
+.ts-gc__reward {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 13px;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.ts-gc__at {
+  margin-top: 2px;
+  color: var(--gc-muted);
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.ts-gc__label.is-reached .ts-gc__reward {
+  color: #e0201b;
+}
+
+@media screen and (min-width: 750px) {
+  .ts-gc {
+    --gc-mark: 30px;
+  }
+
+  .ts-gc__text {
+    min-height: 24px;
+    font-size: 15px;
+  }
+
+  .ts-gc__label {
+    left: clamp(0px, calc(var(--x, 1) * (100% - var(--gc-mark)) + var(--gc-mark) / 2 - 55px), calc(100% - 110px));
+    width: 110px;
+  }
+
+  .ts-gc__labels {
+    height: 34px;
+  }
+
+  .ts-gc__reward,
+  .ts-gc__at {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+@keyframes ts-gc-stripes {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 17px 0, 0 0; }
+}
+
+@keyframes ts-gc-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(224, 32, 27, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(224, 32, 27, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(224, 32, 27, 0); }
+}
+
+@keyframes ts-gc-pop {
+  0% { transform: translateX(-50%) scale(1); }
+  40% { transform: translateX(-50%) scale(1.35); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-gc__fill,
+  .ts-gc__mark,
+  .ts-gc__label,
+  .ts-gc__mark.is-next,
+  .ts-gc__mark.is-pop {
+    transition: none;
+    animation: none;
+  }
+}

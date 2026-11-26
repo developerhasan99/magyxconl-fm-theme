@@ -111,6 +111,9 @@
       else
         assign pm_oil_label = 'perfume oil'
     endcase
+    if oil_label != blank
+      assign pm_oil_label = oil_label
+    endif
   -%}
 
   <a href="{{ card_product.url }}" class="pm-card pm-card--product" id="CardLink-{{ section_id }}-{{ card_product.id }}" data-mgx-hay="{{ card_product.title | escape }} | {{ pm_insp.name | escape }}">

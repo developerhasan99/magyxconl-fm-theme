@@ -1,0 +1,58 @@
+/* Collection grids (main-collection-product-grid, setting show_oil_badge): copy of assets/home-tabs.css oil badge rules */
+/* Oil concentration badge (card-product oil_badge). One top row over the image: the card's badge stack left, oil
+   badge right; when both don't fit the oil badge wraps to the next line, still right-aligned. Phones and tablets:
+   "20%" over a small label; from 990px (4 across) one line. */
+.pm-card .pm-card-top {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  left: 8px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.pm-card .pm-card-top .pm-card__badges {
+  position: static;
+}
+
+.pm-card .pm-oil-badge {
+  margin-left: auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 4px 6px;
+  border-color: var(--pm-line, #e5e5e5);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.pm-card .pm-oil-badge__num {
+  font-size: 13px;
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.pm-card .pm-oil-badge__label {
+  font-size: 9px;
+  line-height: 1.1;
+}
+
+@media screen and (min-width: 990px) {
+  .pm-card .pm-oil-badge {
+    flex-direction: row;
+    gap: 4px;
+    padding: 5px 7px;
+    letter-spacing: 0.125em;
+    text-transform: uppercase;
+  }
+
+  .pm-card .pm-oil-badge__num,
+  .pm-card .pm-oil-badge__label {
+    font-size: inherit;
+    line-height: inherit;
+  }
+}

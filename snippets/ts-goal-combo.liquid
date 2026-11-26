@@ -1,0 +1,65 @@
+{% comment %}
+  Combined goals bar above a collection grid (sections/main-collection-product-grid.liquid, setting "Show combined
+  goals bar"). Display only: it adds no discount, no gift and no cart property.
+
+  One track, two reward sources, ordered by when they unlock:
+  - bottle discount steps from the top bar's goal line (snippets/tb-goal-line.liquid): read at runtime from the
+    data-steps attribute the top bar renders, so the steps are set in one place only (the top bar section). No goal
+    line on the page (market off) = no bottle steps.
+  - Kite gift / free shipping goals (cart value), read from window.gfg.settings like snippets/ts-cart-goals.liquid.
+  Kite amounts sit on the bottle scale at the cart's price per bottle (cart value / bottles); empty cart = unit_price.
+  Logic in assets/ts-goal-combo.js, look in assets/ts-goal-combo.css.
+
+  Texts: the text settings (English source, translated per language through the theme's native translations).
+
+  Accepts:
+  - st: {Object} section.settings of the grid section (required)
+  - unit_price: {Number} price of one bottle in cents, used to place Kite goals while the cart is empty (optional)
+{% endcomment %}
+{{ 'ts-goal-combo.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ts-goal-combo.js' | asset_url }}" defer="defer"></script>
+
+<div
+  class="ts-gc page-width"
+  data-ts-gc
+  data-market="{{ localization.market.handle | escape }}"
+  data-money="{{ 0 | money_without_trailing_zeros | escape }}"
+  data-unit-price="{{ unit_price | default: '' | escape }}">
+  <div class="ts-gc__inner">
+    <div class="ts-gc__text" data-gc-text aria-live="polite"></div>
+    <div class="ts-gc__rail" aria-hidden="true">
+      <div class="ts-gc__track"><span class="ts-gc__fill" data-gc-fill></span></div>
+      <div class="ts-gc__marks" data-gc-marks></div>
+    </div>
+    <div class="ts-gc__labels" data-gc-labels aria-hidden="true"></div>
+  </div>
+
+  <script type="application/json" data-gc-cart>
+    {"total_price":{{ cart.total_price | json }},"items":[
+      {%- for item in cart.items -%}
+        {"quantity":{{ item.quantity }},"title":{{ item.title | json }},"variant_title":{{ item.variant.title | json }},"product_title":{{ item.product.title | json }},"properties":{"_free_product":{{ item.properties['_free_product'] | json }},"_bundle_items":{{ item.properties['_bundle_items'] | json }}}}
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]}
+  </script>
+  <script type="application/json" data-gc-i18n>
+    {
+      "sv": [
+        {{ st.combo_msg_bottles | json }},
+        {{ st.combo_msg_gift | json }},
+        {{ st.combo_msg_ship | json }},
+        {{ st.combo_msg_done | json }},
+        {{ st.combo_label_pct | json }},
+        {{ st.combo_label_gift | json }},
+        {{ st.combo_label_ship | json }},
+        {{ st.combo_word_one | json }},
+        {{ st.combo_word_many | json }}
+      ]
+    }
+  </script>
+
+  <div class="ts-gc__src" hidden>
+    <span data-icon="gift">{%- render 'pm-icon', icon: 'gift', size: 14, stroke: 2 -%}</span>
+    <span data-icon="ship">{%- render 'pm-icon', icon: 'truck', size: 14, stroke: 2 -%}</span>
+  </div>
+</div>

@@ -23,6 +23,7 @@
 {%- endif -%}
 
 <script src="{{ 'collection-grid-loader.js' | asset_url }}" defer="defer"></script>
+{%- if section.settings.show_oil_badge -%}{{ 'pm-oil-badge.css' | asset_url | stylesheet_tag }}{%- endif -%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -93,6 +94,21 @@
           </div>
         </form>
       </facet-filters-form>
+    {%- endif -%}
+
+    {%- comment -%} Setting "Show combined goals bar": top bar bottle steps + Kite goals on one track (snippets/ts-goal-combo.liquid); unit_price = cheapest product on this page, places Kite markers while the cart is empty {%- endcomment -%}
+    {%- if section.settings.combo_goals -%}
+      {%- liquid
+        assign gc_unit = 0
+        for gc_p in collection.products
+          if gc_p.price > 0
+            if gc_unit == 0 or gc_p.price < gc_unit
+              assign gc_unit = gc_p.price
+            endif
+          endif
+        endfor
+      -%}
+      {% render 'ts-goal-combo', st: section.settings, unit_price: gc_unit %}
     {%- endif -%}
 
     {%- if section.settings.enable_search and section.settings.filter_type == 'vertical' -%}
@@ -300,6 +316,8 @@
                     , skip_styles: skip_card_product_styles
                     , quick_add: section.settings.quick_add
                     , section_id: section.id
+                    , oil_badge: section.settings.show_oil_badge
+                    , oil_label: 'EDP'
                   %}
                 </li>
                 {%- assign skip_card_product_styles = true -%}
@@ -508,6 +526,24 @@
         "type": "header",
         "content": "Search"
       }, {
+        "type": "checkbox",
+        "id": "show_oil_badge",
+        "default": false,
+        "label": "Show % perfume oil badge on cards",
+        "info": "Shows \"<n>% EDP\" top right on each card, from the product metafield custom.oil_concentration. Products without the value show no badge."
+      },
+      { "type": "header", "content": "Combined goals bar" },
+      { "type": "checkbox", "id": "combo_goals", "default": false, "label": "Show combined goals bar", "info": "Display only, above the products. One track with the top bar's bottle discount steps (top bar > Goal line > Discount steps) and the Kite gift / free shipping goals. Hidden when neither exists for the market." },
+      { "type": "text", "id": "combo_msg_bottles", "default": "Add [count] more for [reward]", "label": "Message before a discount step", "info": "[count] = bottles left, [reward] = discount label, [pct] = percent only." },
+      { "type": "text", "id": "combo_msg_gift", "default": "Spend [amount] more for a free gift", "label": "Message before a gift goal", "info": "[amount] = amount left, [reward] = gift label." },
+      { "type": "text", "id": "combo_msg_ship", "default": "Spend [amount] more for free shipping", "label": "Message before the shipping goal", "info": "[amount] = amount left, [reward] = shipping label." },
+      { "type": "text", "id": "combo_msg_done", "default": "Congrats! You unlocked every reward", "label": "Message when every reward is reached" },
+      { "type": "text", "id": "combo_label_pct", "default": "[pct] off", "label": "Label of a discount step", "info": "[pct] = the step's percent from the top bar." },
+      { "type": "text", "id": "combo_label_gift", "default": "Free gift", "label": "Label of a gift goal" },
+      { "type": "text", "id": "combo_label_ship", "default": "Free shipping", "label": "Label of the shipping goal" },
+      { "type": "text", "id": "combo_word_one", "default": "bottle", "label": "Word for 1 bottle" },
+      { "type": "text", "id": "combo_word_many", "default": "bottles", "label": "Word for several bottles" },
+      {
         "type": "checkbox",
         "id": "enable_search",
         "default": true,
