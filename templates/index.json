@@ -283,6 +283,79 @@
         "padding_bottom": 72
       }
     },
+    "tabs_family": {
+      "type": "home-product-tabs",
+      "blocks": {
+        "family_1": {
+          "type": "tab",
+          "settings": {
+            "title": "Amber",
+            "collection": "all",
+            "filter": "Amber"
+          }
+        },
+        "family_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Woody",
+            "collection": "all",
+            "filter": "Woody"
+          }
+        },
+        "family_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Floral",
+            "collection": "all",
+            "filter": "Floral"
+          }
+        },
+        "family_4": {
+          "type": "tab",
+          "settings": {
+            "title": "Spicy",
+            "collection": "all",
+            "filter": "Spicy"
+          }
+        },
+        "family_5": {
+          "type": "tab",
+          "settings": {
+            "title": "Citrus",
+            "collection": "all",
+            "filter": "Citrus"
+          }
+        },
+        "family_6": {
+          "type": "tab",
+          "settings": {
+            "title": "Fruity",
+            "collection": "all",
+            "filter": "Fruity"
+          }
+        }
+      },
+      "block_order": [
+        "family_1",
+        "family_2",
+        "family_3",
+        "family_4",
+        "family_5",
+        "family_6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading": "Choose your scent family",
+        "subheading": "Pick a scent family and discover the perfumes that suit you.",
+        "products_per_tab": 12,
+        "cards_desktop": "6",
+        "cards_mobile": "2.2",
+        "button_text": "View all",
+        "button_link": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "custom_liquid_6qnTBf": {
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
@@ -402,79 +475,6 @@
         "title": "Choose your category",
         "padding_top": 72,
         "padding_bottom": 72
-      }
-    },
-    "tabs_family": {
-      "type": "home-product-tabs",
-      "blocks": {
-        "family_1": {
-          "type": "tab",
-          "settings": {
-            "title": "Amber",
-            "collection": "all",
-            "filter": "Amber"
-          }
-        },
-        "family_2": {
-          "type": "tab",
-          "settings": {
-            "title": "Woody",
-            "collection": "all",
-            "filter": "Woody"
-          }
-        },
-        "family_3": {
-          "type": "tab",
-          "settings": {
-            "title": "Floral",
-            "collection": "all",
-            "filter": "Floral"
-          }
-        },
-        "family_4": {
-          "type": "tab",
-          "settings": {
-            "title": "Spicy",
-            "collection": "all",
-            "filter": "Spicy"
-          }
-        },
-        "family_5": {
-          "type": "tab",
-          "settings": {
-            "title": "Citrus",
-            "collection": "all",
-            "filter": "Citrus"
-          }
-        },
-        "family_6": {
-          "type": "tab",
-          "settings": {
-            "title": "Fruity",
-            "collection": "all",
-            "filter": "Fruity"
-          }
-        }
-      },
-      "block_order": [
-        "family_1",
-        "family_2",
-        "family_3",
-        "family_4",
-        "family_5",
-        "family_6"
-      ],
-      "settings": {
-        "color_scheme": "scheme-1",
-        "heading": "Choose your scent family",
-        "subheading": "Pick a scent family and discover the perfumes that suit you.",
-        "products_per_tab": 12,
-        "cards_desktop": "6",
-        "cards_mobile": "2.2",
-        "button_text": "View all",
-        "button_link": "",
-        "padding_top": 80,
-        "padding_bottom": 80
       }
     },
     "bundle_feed": {
@@ -1401,10 +1401,10 @@
     "trust_icons_pm",
     "fuel06_finder",
     "tabs_best",
+    "tabs_family",
     "custom_liquid_6qnTBf",
     "ugc_home_row",
     "home_category_pm",
-    "tabs_family",
     "bundle_feed",
     "image_and_text",
     "makes_different_pm",
