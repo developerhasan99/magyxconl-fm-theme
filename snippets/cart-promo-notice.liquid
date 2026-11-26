@@ -1,41 +1,17 @@
-{%- comment -%} Cart drawer notice: today-only free UTIQUE sample. Remove the render in cart-drawer.liquid to take it down. {%- endcomment -%}
+{%- comment -%} Cart drawer notice: free UTIQUE sample with every order. Remove the render in cart-drawer.liquid to take it down. {%- endcomment -%}
 {%- case request.locale.iso_code -%}
-  {%- when 'pl' -%}
-    {%- assign tpn_title = 'Tylko dziś: darmowa próbka UTIQUE!' -%}
-    {%- assign tpn_body = 'Każde zamówienie złożone dziś otrzymuje <strong>darmową</strong> próbkę UTIQUE.' -%}
-  {%- when 'cs' -%}
-    {%- assign tpn_title = 'Pouze dnes: vzorek UTIQUE zdarma!' -%}
-    {%- assign tpn_body = 'Každá objednávka vytvořená dnes dostane vzorek UTIQUE <strong>zdarma</strong>.' -%}
-  {%- when 'de' -%}
-    {%- assign tpn_title = 'Nur heute: Gratis-Probe von UTIQUE!' -%}
-    {%- assign tpn_body = 'Jede Bestellung, die du heute aufgibst, bekommt eine <strong>kostenlose</strong> UTIQUE-Probe.' -%}
-  {%- when 'nl' -%}
-    {%- assign tpn_title = 'Alleen vandaag: gratis UTIQUE-proefje!' -%}
-    {%- assign tpn_body = 'Elke bestelling die je vandaag plaatst, krijgt een <strong>gratis</strong> UTIQUE-proefje.' -%}
-  {%- when 'fr' -%}
-    {%- assign tpn_title = 'Aujourd’hui seulement&nbsp;: un échantillon UTIQUE offert&nbsp;!' -%}
-    {%- assign tpn_body = 'Chaque commande passée aujourd’hui reçoit un échantillon UTIQUE <strong>offert</strong>.' -%}
-  {%- when 'it' -%}
-    {%- assign tpn_title = 'Solo oggi: campioncino UTIQUE in omaggio!' -%}
-    {%- assign tpn_body = 'Ogni ordine effettuato oggi riceve un campioncino UTIQUE <strong>in omaggio</strong>.' -%}
-  {%- when 'es' -%}
-    {%- assign tpn_title = 'Solo hoy: ¡muestra de UTIQUE gratis!' -%}
-    {%- assign tpn_body = 'Cada pedido realizado hoy recibe una muestra de UTIQUE <strong>gratis</strong>.' -%}
-  {%- when 'pt-PT', 'pt' -%}
-    {%- assign tpn_title = 'Só hoje: amostra UTIQUE grátis!' -%}
-    {%- assign tpn_body = 'Cada encomenda feita hoje recebe uma amostra UTIQUE <strong>grátis</strong>.' -%}
-  {%- when 'sv' -%}
-    {%- assign tpn_title = 'Bara idag: gratis UTIQUE-prov!' -%}
-    {%- assign tpn_body = 'Varje beställning som läggs idag får ett <strong>gratis</strong> UTIQUE-prov.' -%}
-  {%- when 'da' -%}
-    {%- assign tpn_title = 'Kun i dag: gratis UTIQUE-prøve!' -%}
-    {%- assign tpn_body = 'Alle ordrer afgivet i dag får en <strong>gratis</strong> UTIQUE-prøve.' -%}
-  {%- when 'fi' -%}
-    {%- assign tpn_title = 'Vain tänään: ilmainen UTIQUE-näyte!' -%}
-    {%- assign tpn_body = 'Jokainen tänään tehty tilaus saa <strong>ilmaisen</strong> UTIQUE-näytteen.' -%}
-  {%- else -%}
-    {%- assign tpn_title = 'Only today: free UTIQUE sample!' -%}
-    {%- assign tpn_body = 'Every order placed today gets a <strong>free</strong> UTIQUE sample.' -%}
+  {%- when 'pl' -%}{%- assign tpn_title = 'Darmowa próbka UTIQUE do każdego zamówienia' -%}
+  {%- when 'cs' -%}{%- assign tpn_title = 'Vzorek UTIQUE zdarma ke každé objednávce' -%}
+  {%- when 'de' -%}{%- assign tpn_title = 'Gratis UTIQUE-Probe zu jeder Bestellung' -%}
+  {%- when 'nl' -%}{%- assign tpn_title = 'Gratis UTIQUE-proefje bij elke bestelling' -%}
+  {%- when 'fr' -%}{%- assign tpn_title = 'Échantillon UTIQUE offert avec chaque commande' -%}
+  {%- when 'it' -%}{%- assign tpn_title = 'Campioncino UTIQUE in omaggio con ogni ordine' -%}
+  {%- when 'es' -%}{%- assign tpn_title = 'Muestra de UTIQUE gratis con cada pedido' -%}
+  {%- when 'pt-PT', 'pt' -%}{%- assign tpn_title = 'Amostra UTIQUE grátis em cada encomenda' -%}
+  {%- when 'sv' -%}{%- assign tpn_title = 'Gratis UTIQUE-prov med varje beställning' -%}
+  {%- when 'da' -%}{%- assign tpn_title = 'Gratis UTIQUE-prøve med hver ordre' -%}
+  {%- when 'fi' -%}{%- assign tpn_title = 'Ilmainen UTIQUE-näyte jokaisen tilauksen mukana' -%}
+  {%- else -%}{%- assign tpn_title = 'Free UTIQUE sample with every order' -%}
 {%- endcase -%}
 <div class="ts-promo-notice" role="note">
   <svg class="ts-promo-notice__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
@@ -43,14 +19,10 @@
     <rect x="9.1" y="5" width="1.8" height="6.5" rx="0.9" fill="currentColor"/>
     <circle cx="10" cy="14.4" r="1.1" fill="currentColor"/>
   </svg>
-  <div class="ts-promo-notice__text">
-    <p class="ts-promo-notice__title">{{ tpn_title }}</p>
-    <p class="ts-promo-notice__body">{{ tpn_body }}</p>
-  </div>
+  <p class="ts-promo-notice__title">{{ tpn_title }}</p>
 </div>
 <style>
-  .ts-promo-notice { display: flex; gap: 12px; align-items: flex-start; margin: 12px 0; padding: 12px 14px; border: 1px dashed #e0484f; border-radius: 6px; background: #fff3f3; color: #1f1f1f; text-align: left; }
-  .ts-promo-notice .ts-promo-notice__icon { flex: 0 0 20px; margin-top: 1px; color: #e0484f; }
-  .ts-promo-notice .ts-promo-notice__title { margin: 0 0 2px; font-size: 14px; line-height: 1.3; font-weight: 700; text-transform: uppercase; letter-spacing: 0; color: #e0484f; }
-  .ts-promo-notice .ts-promo-notice__body { margin: 0; font-size: 14px; line-height: 1.4; }
+  .ts-promo-notice { display: flex; gap: 12px; align-items: center; margin: 12px 0; padding: 12px 14px; border: 1px dashed #e0484f; border-radius: 6px; background: #fff3f3; text-align: left; }
+  .ts-promo-notice .ts-promo-notice__icon { flex: 0 0 20px; color: #e0484f; }
+  .ts-promo-notice .ts-promo-notice__title { margin: 0; font-size: 14px; line-height: 1.3; font-weight: 700; text-transform: uppercase; letter-spacing: 0; color: #e0484f; }
 </style>
