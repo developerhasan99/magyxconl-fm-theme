@@ -1,17 +1,17 @@
 {%- comment -%} Cart drawer notice: free UTIQUE sample with every order. Remove the render in cart-drawer.liquid to take it down. {%- endcomment -%}
 {%- case request.locale.iso_code -%}
-  {%- when 'pl' -%}{%- assign tpn_title = 'Darmowa próbka UTIQUE do każdego zamówienia' -%}
-  {%- when 'cs' -%}{%- assign tpn_title = 'Vzorek UTIQUE zdarma ke každé objednávce' -%}
-  {%- when 'de' -%}{%- assign tpn_title = 'Gratis UTIQUE-Probe zu jeder Bestellung' -%}
-  {%- when 'nl' -%}{%- assign tpn_title = 'Gratis UTIQUE-proefje bij elke bestelling' -%}
-  {%- when 'fr' -%}{%- assign tpn_title = 'Échantillon UTIQUE offert avec chaque commande' -%}
-  {%- when 'it' -%}{%- assign tpn_title = 'Campioncino UTIQUE in omaggio con ogni ordine' -%}
-  {%- when 'es' -%}{%- assign tpn_title = 'Muestra de UTIQUE gratis con cada pedido' -%}
-  {%- when 'pt-PT', 'pt' -%}{%- assign tpn_title = 'Amostra UTIQUE grátis em cada encomenda' -%}
-  {%- when 'sv' -%}{%- assign tpn_title = 'Gratis UTIQUE-prov med varje beställning' -%}
-  {%- when 'da' -%}{%- assign tpn_title = 'Gratis UTIQUE-prøve med hver ordre' -%}
-  {%- when 'fi' -%}{%- assign tpn_title = 'Ilmainen UTIQUE-näyte jokaisen tilauksen mukana' -%}
-  {%- else -%}{%- assign tpn_title = 'Free UTIQUE sample with every order' -%}
+  {%- when 'pl' -%}{%- assign tpn_title = 'Darmowa próbka UTIQUE do każdego zamówienia, tylko dziś' -%}
+  {%- when 'cs' -%}{%- assign tpn_title = 'Vzorek UTIQUE zdarma ke každé objednávce, pouze dnes' -%}
+  {%- when 'de' -%}{%- assign tpn_title = 'Gratis UTIQUE-Probe zu jeder Bestellung, nur heute' -%}
+  {%- when 'nl' -%}{%- assign tpn_title = 'Gratis UTIQUE-proefje bij elke bestelling, alleen vandaag' -%}
+  {%- when 'fr' -%}{%- assign tpn_title = 'Échantillon UTIQUE offert avec chaque commande, aujourd’hui seulement' -%}
+  {%- when 'it' -%}{%- assign tpn_title = 'Campioncino UTIQUE in omaggio con ogni ordine, solo oggi' -%}
+  {%- when 'es' -%}{%- assign tpn_title = 'Muestra de UTIQUE gratis con cada pedido, solo hoy' -%}
+  {%- when 'pt-PT', 'pt' -%}{%- assign tpn_title = 'Amostra UTIQUE grátis em cada encomenda, só hoje' -%}
+  {%- when 'sv' -%}{%- assign tpn_title = 'Gratis UTIQUE-prov med varje beställning, bara idag' -%}
+  {%- when 'da' -%}{%- assign tpn_title = 'Gratis UTIQUE-prøve med hver ordre, kun i dag' -%}
+  {%- when 'fi' -%}{%- assign tpn_title = 'Ilmainen UTIQUE-näyte jokaisen tilauksen mukana, vain tänään' -%}
+  {%- else -%}{%- assign tpn_title = 'Free UTIQUE sample with every order, today only' -%}
 {%- endcase -%}
 <div class="ts-promo-notice" role="note">
   <svg class="ts-promo-notice__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
