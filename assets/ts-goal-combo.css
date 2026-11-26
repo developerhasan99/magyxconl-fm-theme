@@ -152,11 +152,56 @@
   transition: left 500ms ease;
 }
 
-/* Phones: rail ~307px at 375 and markers 24% apart (~74px), so labels narrow to 60px to never touch. */
+/* Phones: one compact row. Each % marker carries its own value (25%), gift and shipping keep their icon,
+   and the label under a marker is just the threshold (2 Fl. / 50 €), so 7 rewards fit without a second row.
+   Markers sit at least 1/7 of the rail apart (~45px at 375), the labels are 38px wide. */
+.ts-gc__short,
+.ts-gc__pct-val {
+  display: none;
+}
+
 @media screen and (max-width: 749px) {
+  .ts-gc {
+    --gc-mark: 30px;
+  }
+
+  .ts-gc__labels {
+    height: 16px;
+    margin-top: 4px;
+  }
+
   .ts-gc__label {
-    left: clamp(0px, calc(var(--x, 1) * (100% - var(--gc-mark)) + var(--gc-mark) / 2 - 30px), calc(100% - 60px));
-    width: 60px;
+    left: clamp(0px, calc(var(--x, 1) * (100% - var(--gc-mark)) + var(--gc-mark) / 2 - 19px), calc(100% - 38px));
+    width: 38px;
+  }
+
+  .ts-gc__reward,
+  .ts-gc__at,
+  .ts-gc__pct-sign {
+    display: none;
+  }
+
+  .ts-gc__short {
+    display: block;
+    color: var(--gc-muted);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 14px;
+    white-space: nowrap;
+  }
+
+  .ts-gc__label.is-reached .ts-gc__short {
+    color: #e0201b;
+  }
+
+  .ts-gc__pct-val {
+    display: inline;
+    font-size: 10px;
+    letter-spacing: -0.02em;
+  }
+
+  .ts-gc__text {
+    margin-bottom: 10px;
   }
 }
 
@@ -196,6 +241,15 @@
 
   .ts-gc__labels {
     height: 34px;
+  }
+
+  /* More than 4 rewards (JS adds .is-staggered): every second label by position drops to a second row */
+  .ts-gc__labels.is-staggered {
+    height: 90px;
+  }
+
+  .ts-gc__label.is-low {
+    top: 40px;
   }
 
   .ts-gc__reward,

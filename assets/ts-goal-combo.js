@@ -50,6 +50,9 @@
 
   /* rewards: [{ kind: 'pct', n, pct } | { kind: 'gift' | 'ship', amount (cents) }]
      Returns { markers: [{ ...reward, pos, x (0..1), reached }], fill (0..1), next (marker or null), done }. */
+  // Bottle abbreviation under a discount step on phones, by page language
+  var SHORT_BOTTLE = ({ nl: 'fl.', fr: 'fl.', de: 'Fl.' })[(document.documentElement.lang || '').slice(0, 2).toLowerCase()] || 'btl.';
+
   function computeTrack(rewards, bottles, cents, unitPrice) {
     bottles = Math.max(0, Number(bottles) || 0);
     cents = Math.max(0, Number(cents) || 0);
@@ -235,7 +238,14 @@
       var span = document.createElement('span');
       span.className = 'ts-gc__icon';
       if (kind === 'pct') {
-        span.textContent = '%';
+        // '%' on wide screens; phones show the step's own value (25%) in the marker instead of a label line
+        var sign = document.createElement('span');
+        sign.className = 'ts-gc__pct-sign';
+        sign.textContent = '%';
+        var val = document.createElement('span');
+        val.className = 'ts-gc__pct-val';
+        span.appendChild(sign);
+        span.appendChild(val);
         span.classList.add('ts-gc__icon--pct');
         return span;
       }
@@ -263,14 +273,20 @@
           node.reward.className = 'ts-gc__reward';
           node.at = document.createElement('span');
           node.at.className = 'ts-gc__at';
+          node.short = document.createElement('span');
+          node.short.className = 'ts-gc__short';
           node.label.appendChild(node.reward);
           node.label.appendChild(node.at);
+          node.label.appendChild(node.short);
           marksEl.appendChild(node.mark);
           labelsEl.appendChild(node.label);
           nodes[key] = node;
         }
         node.reward.textContent = rewardLabel(m);
         node.at.textContent = m.kind === 'pct' ? bottleWord(m.n) : money(m.amount);
+        node.short.textContent = m.kind === 'pct' ? m.n + ' ' + SHORT_BOTTLE : money(m.amount);
+        var val = node.mark.querySelector('.ts-gc__pct-val');
+        if (val) val.textContent = Math.round(m.pct) + '%';
         node.mark.style.setProperty('--x', String(m.x));
         node.label.style.setProperty('--x', String(m.x));
         var was = node.mark.classList.contains('is-reached');
@@ -288,6 +304,15 @@
         nodes[key].mark.remove();
         nodes[key].label.remove();
         delete nodes[key];
+      });
+
+      // More than 4 rewards: labels alternate between two rows by position, so neighbours never touch.
+      var byX = track.markers.slice().sort(function (a, b) { return a.x - b.x; });
+      var stagger = byX.length > 4;
+      labelsEl.classList.toggle('is-staggered', stagger);
+      byX.forEach(function (m, i) {
+        var n = nodes[m.kind + ':' + (m.kind === 'pct' ? m.n : m.amount)];
+        if (n) n.label.classList.toggle('is-low', stagger && i % 2 === 1);
       });
 
       var f = track.fill;
