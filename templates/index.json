@@ -371,7 +371,6 @@
       "blocks": {
         "video_1": {
           "type": "video",
-          "disabled": true,
           "settings": {
             "language": "nl",
             "video": "shopify://files/videos/aaroma_co_JoeM_SmelLikeArma_ddb6a55c.mov",
@@ -382,7 +381,6 @@
         },
         "video_2": {
           "type": "video",
-          "disabled": true,
           "settings": {
             "language": "nl",
             "video": "shopify://files/videos/aaroma_co_DalmaJ_SmelLikeAnge_a186e21c.mov",
@@ -393,7 +391,6 @@
         },
         "video_3": {
           "type": "video",
-          "disabled": true,
           "settings": {
             "language": "nl",
             "video": "shopify://files/videos/aaroma_co_EsmeeB_SmelLikeArma_dda7fc6e.mp4",
@@ -404,7 +401,6 @@
         },
         "video_4": {
           "type": "video",
-          "disabled": true,
           "settings": {
             "language": "nl",
             "video": "shopify://files/videos/aaroma_co_KristelW_SmelLikePist_ad4377e6.mov",
