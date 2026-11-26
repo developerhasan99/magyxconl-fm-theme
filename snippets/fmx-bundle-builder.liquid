@@ -177,7 +177,6 @@
   </button>
   <p x-data x-show="$store.bundleBuilder.cartError" x-text="$store.bundleBuilder.cartError"
      role="alert" aria-live="assertive" class="!mt-2 !mb-0 text-sm text-center text-red-600"></p>
-  {% render 'gift-wrap', pdp: true %}
 </div>
 
 <div class="fmx-trust">
@@ -364,10 +363,8 @@
           {% unless product.tags contains 'fixed_bundle' %}
             this.selectedProducts = [];
           {% endunless %}
-          // Custom add: no product-form event, so add a ticked gift wrap here (assets/gift-wrap.js).
-          const giftWrap = document.querySelector('gift-wrap-pdp');
           if (openCheckout) {
-            return Promise.resolve(giftWrap && giftWrap.afterAdd()).then(() => { window.location.href = '/checkout'; });
+            window.location.href = '/checkout';
           } else if (!cart) {
             window.location.href = '/cart';
           } else {
@@ -376,7 +373,6 @@
               data.sections = sections;
               cart.classList.remove('is-empty');
               cart.renderContents(data);
-              if (giftWrap) giftWrap.afterAdd();
             });
           }
         })

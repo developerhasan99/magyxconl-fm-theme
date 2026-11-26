@@ -1,6 +1,5 @@
 /* Gift wrap card (snippets/gift-wrap.liquid). Brand colour = the theme's primary button ink (--fmx-cta #121212). */
 .gift-wrap { display: block; margin: 0 0 12px; }
-.gift-wrap--pdp { margin: 16px 0 0; }
 .gift-wrap__card { position: relative; display: flex; align-items: center; gap: 12px; margin: 0; padding: 10px 12px;
   border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; cursor: pointer; user-select: none;
   -webkit-tap-highlight-color: transparent; transition: border-color .15s, background-color .15s, opacity .15s; }

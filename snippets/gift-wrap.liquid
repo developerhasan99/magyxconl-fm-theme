@@ -2,8 +2,6 @@
   Gift wrap add-on (one per order, quantity 0 or 1). Logic: assets/gift-wrap.js, styles: assets/gift-wrap.css
   (both loaded once from snippets/cart-drawer.liquid).
   {% render 'gift-wrap' %}            cart drawer footer; data-fix removes a lone wrap / caps it at 1 on render
-  {% render 'gift-wrap', pdp: true %} under a product page add-to-cart; with an empty cart the tick is remembered
-                                      and the wrap is added after the product (gift-wrap.js afterAdd)
   The handle is also used in snippets/cart-count.liquid, snippets/cart-drawer.liquid and window.giftWrapHandle
   (layout/theme*.liquid).
 {%- endcomment -%}
@@ -40,11 +38,7 @@
     </label>
   {%- endcapture -%}
 
-  {%- if pdp -%}
-    {%- if gw_variant.available -%}
-      <gift-wrap-pdp class="gift-wrap gift-wrap--pdp" data-variant="{{ gw_variant.id }}">{{ gw_row }}</gift-wrap-pdp>
-    {%- endif -%}
-  {%- elsif gw_variant.available or gw_qty > 0 -%}
+  {%- if gw_variant.available or gw_qty > 0 -%}
     <gift-wrap class="gift-wrap" data-variant="{{ gw_variant.id }}"{% if gw_fix != '' %} data-fix="{{ gw_fix }}"{% endif %}>{{ gw_row }}</gift-wrap>
   {%- endif -%}
 {%- endif -%}
